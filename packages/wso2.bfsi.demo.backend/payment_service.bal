@@ -514,7 +514,7 @@ public class PaymentService {
     # + path - Path of the request
     # + domesticPaymentId - Domestic payment Id
     # + return - Domestic payment details or error
-    private isolated function getPaymentsDetails(string path, string domesticPaymentId) returns model:PaymentDetailsResponse|error {
+    public isolated function getPaymentsDetails(string path, string domesticPaymentId) returns model:PaymentDetailsResponse|error {
         
         if domesticPaymentId == "" {
 

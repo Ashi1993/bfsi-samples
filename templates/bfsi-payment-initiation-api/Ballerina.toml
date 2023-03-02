@@ -1,0 +1,14 @@
+[build-options]
+  observabilityIncluded = true
+
+[package]
+  template = true
+  org = "wso2bfsi"
+  authors = ["WSO2 BFSI"]
+  keywords = ["Kind/Sample", "Type/RestApi", "Category/Service", "Internal/http", "Cost/Free", "Vertical/bfsi"]
+  name = "bfsi_payment_initiation_api"
+  displayName = "BFSI Payment Initiation API"
+  description = "A template to generate Open Banking Payment Initiation REST service"
+  icon = "icon.png"
+  version = "1.0.0"
+  distribution = "2201.3.1"

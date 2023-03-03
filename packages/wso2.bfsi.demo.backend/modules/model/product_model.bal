@@ -10,7 +10,7 @@
 // associated services.
 
 # Product details associated with the Account.
-public type Product record {
+public type Product record {|
     # The name of the Product used for marketing purposes from a customer perspective. I.e. what the customer would recognise.
     string ProductName?;
     # The unique ID that has been internally assigned by the financial institution to each of the current account banking products they market to their retail and/or small to medium enterprise (SME) customers.
@@ -25,10 +25,10 @@ public type Product record {
     string MarketingStateId?;
     # Other product type details associated with the account.
     OtherproductType OtherProductType?;
-};
+|};
 
 # Other product type details associated with the account.
-public type OtherproductType record {
+public type OtherproductType record {|
     # Long name associated with the product
     string Name;
     # Description of the Product associated with the account
@@ -37,10 +37,10 @@ public type OtherproductType record {
     ProductDetails ProductDetails?;
     # Details about the interest that may be payable to the Account holders
     CreditInterest CreditInterest?;
-};
+|};
 
 # Description of the product details.
-public type ProductDetails record {
+public type ProductDetails record {|
     # Holds product segments
     string[] Segment?;
     # The length/duration of the fee free period
@@ -53,26 +53,26 @@ public type ProductDetails record {
     string[] Notes?;
     # Holds other segment details
     OtherSegment OtherSegment?;
-};
+|};
 
 # Holds other segment details.
-public type OtherSegment record {
+public type OtherSegment record {|
     # The four letter Mnemonic used within an XML file to identify a code
     string Code?;
     # Long name associated with the code
     string Name;
     # Description to describe the purpose of the code
     string Description;
-};
+|};
 
 # Details about the interest that may be payable to the Account holders.
-public type CreditInterest record {
+public type CreditInterest record {|
     # The group of tiers or bands for which credit interest can be applied.
     TierBandSet[] TierBandSet;
-};
+|};
 
 # The group of tiers or bands for which credit interest can be applied.
-public type TierBandSet record {
+public type TierBandSet record {|
     # The methodology of how credit interest is paid/applied. It can be:-
     # 1. Banded
     # Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.
@@ -93,20 +93,20 @@ public type TierBandSet record {
     OtherCodeType OtherDestination?;
     # Describes optional tier bands list
     Tierband[] TierBand;
-};
+|};
 
 # Describes destinations or calculation methods.
-public type OtherCodeType record {
+public type OtherCodeType record {|
     # The four letter Mnemonic used within an XML file to identify a code
     string Code?;
     # Long name associated with the code
     string Name;
     # Description to describe the purpose of the code
     string Description;
-};
+|};
 
 # Tier Band Details.
-public type Tierband record {
+public type Tierband record {|
     # Unique and unambiguous identification of a  Tier Band for the Product.
     string Identification?;
     # Minimum deposit value for which the credit interest tier applies.
@@ -136,4 +136,15 @@ public type Tierband record {
     OtherCodeType OtherApplicationFrequency?;
     # Other calculation frequency which is not available in the standard code set.
     OtherCodeType OtherCalculationFrequency?;
-};
+|};
+
+
+#Represent an products response record with hateoas data.
+public type ProductsResponse record {|
+    # Response data
+    Product|Product[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

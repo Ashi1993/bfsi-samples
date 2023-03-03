@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Provides further details on an entry in the report.
-public type Transaction record {
+public type Transaction record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # Unique identifier for the transaction within an servicing institution. This identifier is both unique and immutable.
@@ -69,10 +69,10 @@ public type Transaction record {
     CardInstrument CardInstrument?;
     # Additional information that can not be captured in the structured fields and/or any other specific block.
     Object SupplementaryData?;
-};
+|};
 
 # Set of elements used to provide details on the currency exchange.
-public type CurrencyExchange record {
+public type CurrencyExchange record {|
     # Currency from which an amount is to be converted in a currency conversion.
     string SourceCurrency;
     # Currency into which an amount is to be converted in a currency conversion.
@@ -90,34 +90,34 @@ public type CurrencyExchange record {
     string QuotationDate?;
     # Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party.
     Amount InstructedAmount?;
-};
+|};
 
 # Set of elements used to fully identify the type of underlying transaction resulting in an entry.
-public type BankTransactionCode record {
+public type BankTransactionCode record {|
     # Specifies the family within a domain.
     string Code;
     # Specifies the sub-product family within a specific family.
     string SubCode;
-};
+|};
 
 # Set of elements to fully identify a proprietary bank transaction code.
-public type ProprietaryBankTransactionCode record {
+public type ProprietaryBankTransactionCode record {|
     # Proprietary bank transaction code to identify the underlying transaction.
     string Code;
     # Identification of the issuer of the proprietary bank transaction code.
     string Issuer?;
-};
+|};
 
 # Details of the merchant involved in the transaction.
-public type MerchantDetails record {
+public type MerchantDetails record {|
     # Name by which the merchant is known.
     string MerchantName?;
     # Category code conform to ISO 18245, related to the type of services or goods the merchant provides for the transaction.
     string MerchantCategoryCode?;
-};
+|};
 
 # Financial institution servicing an account for the creditor.
-public type TransactionCreditorAgent record {
+public type TransactionCreditorAgent record {|
     # Name of the identification scheme, in a coded form as published in an external list.
     string SchemeName?;
     # Unique and unambiguous identification of a financial institution or a branch of a financial institution.
@@ -126,10 +126,10 @@ public type TransactionCreditorAgent record {
     string Name?;
     # Information that locates and identifies a specific address, as defined by postal services.
     PostalAddress PostalAddress?;
-};
+|};
 
 # Set of elements to describe the card instrument used in the transaction.
-public type CardInstrument record {
+public type CardInstrument record {|
     # Name of the card scheme.
     string CardSchemeName;
     # The card authorisation type.
@@ -138,4 +138,14 @@ public type CardInstrument record {
     string Name?;
     # Identification assigned by an institution to identify the card instrument used in the transaction. This identification is known by the account owner, and may be masked.
     string Identification?;
-};
+|};
+
+#Represent an transactions response record with hateoas data.
+public type TransactionsResponse record {|
+    # Response data
+    Transaction|Transaction[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

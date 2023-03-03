@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Set of elements used to define the party details.
-public type Party record {
+public type Party record {|
     # A unique and immutable identifier used to identify the party resource. This identifier has no meaning to the account owner.
     readonly string PartyId;
     # Number assigned by an agent to identify its customer.
@@ -39,24 +39,24 @@ public type Party record {
     PartyRelationship Relationships?;
     # Postal address of a party.
     Address[] Address?;
-};
+|};
 
 # The Party's relationships with other resources.
-public type PartyRelationship record {
+public type PartyRelationship record {|
     # Relationship to the Account resource.
     PartyRelationshipAccount Account?;
-};
+|};
 
 # The Party's relationships with other resources.
-public type PartyRelationshipAccount record {
+public type PartyRelationshipAccount record {|
     # Absolute URI to the related resource.
     string Related;
     # Unique identification as assigned by the bank to uniquely identify the related resource.
     string Id;
-};
+|};
 
 # Postal address of a party.
-public type Address record {
+public type Address record {|
     # Identifies the nature of the postal address.
     string AddressType?;
     # Name of the address line
@@ -73,4 +73,14 @@ public type Address record {
     string CountrySubDivision?;
     # Nation with its own government, occupying a particular territory.
     string Country;
-};
+|};
+
+#Represent an parties response record with hateoas data.
+public type PartiesResponse record {|
+    # Response data
+    Party|Party[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

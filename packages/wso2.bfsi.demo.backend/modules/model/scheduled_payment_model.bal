@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Set of elements used to define the scheduled payment details.
-public type ScheduledPayment record {
+public type ScheduledPayment record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # A unique and immutable identifier used to identify the scheduled payment resource. This identifier has no meaning to the account owner.
@@ -37,4 +37,14 @@ public type ScheduledPayment record {
     CreditorAgent CreditorAgent?;
     # Provides the details to identify the beneficiary account.
     CreditorAccount CreditorAccount?;
-};
+|};
+
+#Represent an scheduled payments response record with hateoas data.
+public type ScheduledPaymentsResponse record {|
+    # Response data
+    ScheduledPayment|ScheduledPayment[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

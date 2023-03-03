@@ -10,9 +10,10 @@
 // associated services.
 
 import ballerina/constraint;
+import wso2.bfsi.demo.backend.util;
 
 # The Initiation payload is sent by the initiating party to the bank. It is used to request movement of funds from the debtor account to a creditor for a single international payment.
-public type InternationalPaymentInitiation record {
+public type InternationalPaymentInitiation record {|
     # Unique identification as assigned by an instructing party for an instructed party to unambiguously identify the instruction.
     # Usage: the  instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.
     @constraint:String {maxLength: 35, minLength: 1}
@@ -58,10 +59,10 @@ public type InternationalPaymentInitiation record {
     RemittanceInformation RemittanceInformation?;
     # Additional information that can not be captured in the structured fields and/or any other specific block.
     Object SupplementaryData?;
-};
+|};
 
 # Further detailed information on the exchange rate that has been used in the payment transaction.
-public type ExchangeRateInformation record {
+public type ExchangeRateInformation record {|
     # Currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
     string UnitCurrency;
     # The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
@@ -75,13 +76,81 @@ public type ExchangeRateInformation record {
     # All date-time fields in responses must include the timezone. An example is below:
     # 2017-04-05T10:43:07+00:00
     string ExpirationDateTime?;
-};
+|};
 
 # Party to which an amount of money is due.
-public type Creditor record {
+public type Creditor record {|
     # Name by which a party is known and which is usually used to identify that party.
     @constraint:String {maxLength: 350, minLength: 1}
     string Name?;
     # Information that locates and identifies a specific address, as defined by postal services.
     PostalAddress PostalAddress?;
-};
+|};
+
+#Represents an international payment request payload.
+public type InternationalPaymentRequest record {|
+    #Represents the data of an international payment request.
+    InternationalPaymentData Data;
+    # The Risk section is sent by the initiating party to the bank.
+    # It is used to specify additional details for risk scoring for Payments.
+    Risk Risk;
+|};
+
+#Represents the data of an international payment request.
+public type InternationalPaymentData record {|
+    # OB: Unique identification as assigned by the bank to uniquely identify the consent resource.
+    @constraint:String {maxLength: 128, minLength: 1}
+    string ConsentId;
+    # The Initiation payload is sent by the initiating party to the bank. It is used to request movement of funds from the debtor account to a creditor for a single international payment.
+    InternationalPaymentInitiation Initiation;
+|};
+
+#Represents an international payment response payload.
+public type InternationalPaymentResponse record {|
+    # Data object International Payment Response
+    InternationalPaymentResponseData Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};
+
+#Represents the data of an international payment response.
+public type InternationalPaymentResponseData record {|
+    # OB: Unique identification as assigned by the bank to uniquely identify the international payment resource.
+    @constraint:String {maxLength: 40, minLength: 1}
+    string InternationalPaymentId;
+    # OB: Unique identification as assigned by the bank to uniquely identify the consent resource.
+    @constraint:String {maxLength: 128, minLength: 1}
+    string ConsentId;
+    # Date and time at which the message was created.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string CreationDateTime = util:getPastDateTime();
+    # Specifies the status of the payment information group.
+    string Status;
+    # Date and time at which the resource status was updated.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string StatusUpdateDateTime = util:getPastDateTime();
+    # Expected execution date and time for the payment resource.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string ExpectedExecutionDateTime?;
+    # Expected settlement date and time for the payment resource.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string ExpectedSettlementDateTime?;
+    # Unambiguous identification of the refund account to which a refund will be made as a result of the transaction.
+    DataRefund Refund?;
+    # Set of elements used to provide details of a charge for the payment initiation.
+    DataCharges[] Charges?;
+    # Further detailed information on the exchange rate that has been used in the payment transaction.
+    ExchangeRateInformation ExchangeRateInformation?;
+    # The Initiation payload is sent by the initiating party to the bank. It is used to request movement of funds from the debtor account to a creditor for a single international payment.
+    InternationalPaymentInitiation Initiation;
+    # The multiple authorisation flow response from the bank.
+    MultiAuthorisation MultiAuthorisation?;
+    # ^ Only incuded in the response if `Data. ReadRefundAccount` is set to `Yes` in the consent.
+    CreditorAccount Debtor?;
+|};

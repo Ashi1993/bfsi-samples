@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Set of elements used to define the account details.
-public type Account record {
+public type Account record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # Specifies the status of account resource in code form.
@@ -45,14 +45,14 @@ public type Account record {
     string SwitchStatus?;
     # Provides the details to identify an account.
     CreditorAccount[] Account?;
-};
+|};
 
-#Represent a generic response record with hateoas.
-public type HateoasResponse record {
+#Represent an accounts response record with hateoas data.
+public type AccountsResponse record {|
     # Response data
-    anydata Data;
+    Account|Account[] Data;
     # Links relevant to the payload
     Links Links?;
     # Meta Data relevant to the payload
     Meta Meta?;
-};
+|};

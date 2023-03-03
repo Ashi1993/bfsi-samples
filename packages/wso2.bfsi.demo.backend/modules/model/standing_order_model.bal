@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Set of elements used to define the standing order details.
-public type StandingOrder record {
+public type StandingOrder record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # A unique and immutable identifier used to identify the standing order resource. This identifier has no meaning to the account owner.
@@ -89,4 +89,14 @@ public type StandingOrder record {
     CreditorAccount CreditorAccount?;
     # Additional information that can not be captured in the structured fields and/or any other specific block.
     Object SupplementaryData?;
-};
+|};
+
+#Represent an standing orders response record with hateoas data.
+public type StandingOrdersResponse record {|
+    # Response data
+    StandingOrder|StandingOrder[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

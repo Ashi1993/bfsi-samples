@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Account to or from which a cash entry is made.
-public type DirectDebit record {
+public type DirectDebit record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # A unique and immutable identifier used to identify the direct debit resource. This identifier has no meaning to the account owner.
@@ -31,4 +31,14 @@ public type DirectDebit record {
     string Frequency?;
     # The amount of the most recent direct debit collection.
     Amount PreviousPaymentAmount?;
-};
+|};
+
+#Represent an directDebits response record with hateoas data.
+public type DirectDebitsResponse record {|
+    # Response data
+    DirectDebit|DirectDebit[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

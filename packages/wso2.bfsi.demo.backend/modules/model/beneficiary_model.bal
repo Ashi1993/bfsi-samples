@@ -10,7 +10,7 @@
 // associated services.
 
 # Set of elements used to define the beneficiary details.
-public type Beneficiary record {
+public type Beneficiary record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # A unique and immutable identifier used to identify the beneficiary resource. This identifier has no meaning to the account owner.
@@ -23,4 +23,14 @@ public type Beneficiary record {
     string Reference?;
     # Provides the details to identify the beneficiary account.
     CreditorAccount CreditorAccount?;
-};
+|};
+
+#Represent an beneficiaries response record with hateoas data.
+public type BeneficiariesResponse record {|
+    # Response data
+    Beneficiary|Beneficiary[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Set of elements used to define the offer details.
-public type Offer record {
+public type Offer record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # A unique and immutable identifier used to identify the offer resource. This identifier has no meaning to the account owner.
@@ -41,4 +41,14 @@ public type Offer record {
     Amount Amount?;
     # Fee associated with the offer type.
     Amount Fee?;
-};
+|};
+
+#Represent an offers response record with hateoas data.
+public type OffersResponse record {|
+    # Response data
+    Offer|Offer[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

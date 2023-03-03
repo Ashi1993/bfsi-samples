@@ -14,21 +14,29 @@ import ballerina/random;
 import ballerina/time;
 import ballerina/uuid;
 
+# Method to generate the current date and time.
+# 
 # + return - current date and time.
 public isolated function getDateTime() returns string {
     return time:utcToString(time:utcNow());
 }
 
+# Method to generate a future date and time.
+# 
 # + return - future date and time.
 public isolated function getFutureDateTime() returns string {    
     return time:utcToString(time:utcAddSeconds(time:utcNow(), generateRandomSeconds()));
 }
 
+# Method to generate a past date and time.
+# 
 # + return - past date and time.
 public isolated function getPastDateTime() returns string {
     return time:utcToString(time:utcAddSeconds(time:utcNow(), generateRandomSeconds(true)));
 }
 
+# Method to generate a random time in seconds.
+# 
 # + isNegative - if true, return a negative random time in seconds.
 # + return - a random time in seconds.
 isolated function generateRandomSeconds(boolean isNegative=false) returns time:Seconds {
@@ -43,25 +51,25 @@ isolated function generateRandomSeconds(boolean isNegative=false) returns time:S
     return isNegative ? <time:Seconds>(randomSeconds * -1) : <time:Seconds>randomSeconds;
 }
 
+# Method to generate a random amount.
+# 
 # + return - a random amount.
 public isolated function getRandomAmount() returns string {
     return (random:createDecimal() * 1000).toFixedString(2);
 }
 
+# Method to generate a random UUID.
+# 
 # + return - a random UUID.
 public isolated function getRandomId() returns string {
     return uuid:createType4AsString();
 }
 
-public type ErrorModel record {
-    string ErrorCode;
-};
-
 # Get Domestic Payment Initiation payload.
 # 
 # + return - a domestic payment initiation payload.
 public isolated function getDomesticPaymentInitiation() returns json {
-    map<json> DOMESTIC_PAYMENT_INITIATION = { 
+    return { 
         "InstructionIdentification": "ACME412",
         "EndToEndIdentification": "FRESCO.21302.GFX.20", 
         "InstructedAmount": { 
@@ -79,15 +87,13 @@ public isolated function getDomesticPaymentInitiation() returns json {
             "Unstructured": "Internal ops code 5120101"  
         }  
     };
-
-    return DOMESTIC_PAYMENT_INITIATION;
 }
 
 # Get Domestic scheduled Payment Initiation payload.
 # 
 # + return - a domestic scheduled payment initiation payload.
 public isolated function getDomesticScheduledPaymentInitiation() returns json {
-    map<json> DOMESTIC_SCHEDULED_PAYMENT_INITIATION = {
+    return {
         "InstructionIdentification": "89f0a53a91ee47f6a383536f851d6b5a",
         "RequestedExecutionDateTime": "2018-08-06T00:00:00+00:00",
         "InstructedAmount": {
@@ -109,15 +115,13 @@ public isolated function getDomesticScheduledPaymentInitiation() returns json {
             "Unstructured": "Internal ops code 5120103"
         }
     };
-
-    return DOMESTIC_SCHEDULED_PAYMENT_INITIATION;
 }
 
 # Get Domestic standing order Payment Initiation payload.
 # 
 # + return - a domestic standing order payment initiation payload.
 public isolated function getDomesticStandingOrderPaymentInitiation() returns json {
-    map<json> DOMESTIC_STANDING_ORDER_INITIATION = {
+    return {
         "Frequency": "EvryDay",
         "Reference": "Pocket money for Damien",
         "FirstPaymentDateTime": "2023-06-06T06:06:06+00:00",
@@ -145,30 +149,26 @@ public isolated function getDomesticStandingOrderPaymentInitiation() returns jso
             "Name": "Bob Clements"
         }
     };
-
-    return DOMESTIC_STANDING_ORDER_INITIATION;
 }
 
 # Get a file payment initiation payload.
 # 
 # + return - a file payment initiation payload.
 public isolated function getFilePaymentInitiation() returns json {
-    map<json> FILE_PAYMENT_INITIATION = {
+    return {
         "FileType": "UK.OBIE.pain.001.001.08",
         "FileHash": "m5ah/h1UjLvJYMxqAoZmj9dKdjZnsGNm+yMkJp/KuqQ",
         "FileReference": "GB2OK238",
         "NumberOfTransactions": "100",
         "ControlSum": 3459.30
     };
-
-    return FILE_PAYMENT_INITIATION;
 }
 
 # Get a International payment initiation payload.
 # 
 # + return - an international payment initiation payload.
 public isolated function getInternationalPaymentInitiation() returns json {
-    map<json> INTERNATIONAL_PAYMENT_INITIATION = {
+    return {
         "InstructionIdentification": "ACME412",
         "EndToEndIdentification": "FRESCO.21302.GFX.20",
         "InstructionPriority": "Normal",
@@ -192,15 +192,13 @@ public isolated function getInternationalPaymentInitiation() returns json {
             "RateType": "Actual"
         }
     };
-
-    return INTERNATIONAL_PAYMENT_INITIATION;
 }
 
 # Get the international scheduled payment initiation payload.
 # 
 # + return - an international scheduled payment initiation payload.
-public isolated function getInternatioanlScheduledPaymentInitiation() returns json {
-    map<json> INTERNATIONAL_SCHEDULED_INITIATION = {
+public isolated function getInternationalScheduledPaymentInitiation() returns json {
+    return {
         "InstructionIdentification": "ACME412",
         "EndToEndIdentification": "FRESCO.21302.GFX.20",
         "RequestedExecutionDateTime": "2023-06-06T06:06:06+00:00",
@@ -224,15 +222,13 @@ public isolated function getInternatioanlScheduledPaymentInitiation() returns js
             "RateType": "Actual"
         }
     };
-
-    return INTERNATIONAL_SCHEDULED_INITIATION;
 }
 
 # Get the international standing order payment initiation payload.
 # 
 # + return - an international standing order payment initiation payload.
-public isolated function getInternatioanlStandingOrderPaymentInitiation() returns json {
-    map<json> INTERNATIONAL_STANDING_ORDER_INITIATION = {
+public isolated function getInternationalStandingOrderPaymentInitiation() returns json {
+    return {
         "Frequency": "EvryWorkgDay",
         "FirstPaymentDateTime": "2023-06-06T06:06:06+00:00",
         "FinalPaymentDateTime": "2025-06-06T06:06:06+00:00",
@@ -252,6 +248,4 @@ public isolated function getInternatioanlStandingOrderPaymentInitiation() return
         },
         "CurrencyOfTransfer":"EUR"
     };
-
-    return INTERNATIONAL_STANDING_ORDER_INITIATION;
 }

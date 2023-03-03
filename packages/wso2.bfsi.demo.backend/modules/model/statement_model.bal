@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Provides further details on a statement resource.
-public type Statement record {
+public type Statement record {|
     # A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
     readonly string AccountId;
     # Unique identifier for the statement resource within an servicing institution. This identifier is both unique and immutable.
@@ -49,18 +49,18 @@ public type Statement record {
     StatementRate[] StatementRate?;
     #Describes statement value list
     StatementValue[] StatementValue?;
-};
+|};
 
 # Set of elements used to provide details of a benefit or reward amount for the statement resource.
-public type StatementBenefit record {
+public type StatementBenefit record {|
     # Benefit type, in a coded form.
     string Type;
     # Amount of money associated with the statement benefit type.
     Amount Amount;
-};
+|};
 
 # Set of elements used to provide details of a fee for the statement resource.
-public type StatementDetails record {
+public type StatementDetails record {|
     # Description that may be available for the statement fee.
     string Description?;
     # Indicates whether the amount is a credit or a debit. 
@@ -76,10 +76,10 @@ public type StatementDetails record {
     string Frequency?;
     # Amount of money associated with the statement fee type.
     Amount Amount;
-};
+|};
 
 # Set of elements used to provide details of a generic amount for the statement resource.
-public type BalanceAmount record {
+public type BalanceAmount record {|
     # Indicates whether the amount is a credit or a debit. 
     # Usage: A zero amount is considered to be a credit amount.
     string CreditDebitIndicator;
@@ -87,30 +87,40 @@ public type BalanceAmount record {
     string Type;
     # Amount of money associated with the amount type.
     Amount Amount;
-};
+|};
 
 # Set of elements used to provide details of a generic date time for the statement resource.
-public type StatementDateTime record {
+public type StatementDateTime record {|
     # Date and time associated with the date time type.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
     # All date-time fields in responses must include the timezone. An example is below:
     # 2017-04-05T10:43:07+00:00
     string DateTime = util:getDateTime();
     # Date time type, in a coded form.
     string Type;
-};
+|};
 
 # Set of elements used to provide details of a generic rate related to the statement resource.
-public type StatementRate record {
+public type StatementRate record {|
     # Rate associated with the statement rate type.
     string Rate;
     # Statement rate type, in a coded form.
     string Type;
-};
+|};
 
 # Set of elements used to provide details of a generic number value related to the statement resource.
-public type StatementValue record {
+public type StatementValue record {|
     # Value associated with the statement value type.
     string Value;
     # Statement value type, in a coded form.
     string Type;
-};
+|};
+
+#Represent an statement response record with hateoas data.
+public type StatementsResponse record {|
+    # Response data
+    Statement|Statement[] Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};

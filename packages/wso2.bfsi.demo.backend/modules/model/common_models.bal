@@ -12,7 +12,7 @@
 import wso2.bfsi.demo.backend.util;
 
 # Links relevant to the payload.
-public type Links record {
+public type Links record {|
     # Self Link relevant to the payload
     string Self;
     # First Link relevant to the payload
@@ -23,10 +23,10 @@ public type Links record {
     string Next?;
     # Last Link relevant to the payload
     string Last?;
-};
+|};
 
 # Meta Data relevant to the payload.
-public type Meta record {
+public type Meta record {|
     # Count of Metadata
     int TotalPages?;
     # All dates in the JSON payloads are represented in ISO 8601 date-time format. 
@@ -37,10 +37,10 @@ public type Meta record {
     # All date-time fields in responses must include the timezone. An example is below:
     # 2017-04-05T10:43:07+00:00
     string LastAvailableDateTime?;
-};
+|};
 
 # Provides the details to identify the beneficiary account.
-public type CreditorAccount record {
+public type CreditorAccount record {|
     # Name of the identification scheme, in a coded form as published in an external list.
     string SchemeName;
     # Beneficiary account identification.
@@ -51,10 +51,10 @@ public type CreditorAccount record {
     # This is secondary identification of the account, as assigned by the account servicing institution. 
     # This can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination).
     string SecondaryIdentification?;
-};
+|};
 
 # Provides the details to identify the beneficiary account.
-public type DebtorAccount record {
+public type DebtorAccount record {|
     # Name of the identification scheme, in a coded form as published in an external list.
     string SchemeName;
     # Beneficiary account identification.
@@ -65,19 +65,19 @@ public type DebtorAccount record {
     # This is secondary identification of the account, as assigned by the account servicing institution. 
     # This can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination).
     string SecondaryIdentification?;
-};
+|};
 
 # Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
 # This is the servicer of the beneficiary account.
-public type CreditorAgent record {
+public type CreditorAgent record {|
     # Name of the identification scheme, in a coded form as published in an external list.
     string SchemeName;
     # Unique and unambiguous identification of the servicing institution.
     string Identification;
-};
+|};
 
 # Information that locates and identifies a specific address, as defined by postal services.
-public type PostalAddress record {
+public type PostalAddress record {|
     # Identifies the nature of the postal address.
     string AddressType?;
     # Identification of a division of a large organisation or building.
@@ -98,8 +98,8 @@ public type PostalAddress record {
     string Country?;
     #Describes address line list
     string[] AddressLine?;
-};
+|};
 
 # Represent an empty object.
-public type Object record {
-};
+public type Object record {|
+|};

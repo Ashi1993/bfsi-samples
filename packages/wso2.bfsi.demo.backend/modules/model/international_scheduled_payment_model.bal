@@ -10,9 +10,10 @@
 // associated services.
 
 import ballerina/constraint;
+import wso2.bfsi.demo.backend.util;
 
 # The Initiation payload is sent by the initiating party to the bank. It is used to request movement of funds from the debtor account to a creditor for a single scheduled international payment.
-public type InternationalScheduledPaymentInitiation record {
+public type InternationalScheduledPaymentInitiation record {|
     # Unique identification as assigned by an instructing party for an instructed party to unambiguously identify the instruction.
     # Usage: the  instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.
     @constraint:String {maxLength: 35, minLength: 1}
@@ -63,4 +64,72 @@ public type InternationalScheduledPaymentInitiation record {
     RemittanceInformation RemittanceInformation?;
     # Additional information that can not be captured in the structured fields and/or any other specific block.
     Object SupplementaryData?;
-};
+|};
+
+#Represents an international scheduled payment request payload.
+public type InternationalScheduledPaymentRequest record {|
+    #Represents the data of an international scheduled payment request.
+    InternationalScheduledPaymentData Data;
+    # The Risk section is sent by the initiating party to the bank.
+    # It is used to specify additional details for risk scoring for Payments.
+    Risk Risk;
+|};
+
+#Represents the data of an international scheduled payment request.
+public type InternationalScheduledPaymentData record {|
+    # OB: Unique identification as assigned by the bank to uniquely identify the consent resource.
+    @constraint:String {maxLength: 128, minLength: 1}
+    string ConsentId;
+    # The Initiation payload is sent by the initiating party to the bank. It is used to request movement of funds from the debtor account to a creditor for a single scheduled international payment.
+    InternationalScheduledPaymentInitiation Initiation;
+|};
+
+#Represents an international scheduled payment response payload.
+public type InternationalScheduledPaymentResponse record {|
+    # Data object International Scheduled Payment Response
+    InternationalScheduledResponseData Data;
+    # Links relevant to the payload
+    Links Links?;
+    # Meta Data relevant to the payload
+    Meta Meta?;
+|};
+
+#Represents the data of an international scheduled payment response.
+public type InternationalScheduledResponseData record {|
+    # OB: Unique identification as assigned by the bank to uniquely identify the international scheduled payment resource.
+    @constraint:String {maxLength: 40, minLength: 1}
+    string InternationalScheduledPaymentId;
+    # OB: Unique identification as assigned by the bank to uniquely identify the consent resource.
+    @constraint:String {maxLength: 128, minLength: 1}
+    string ConsentId;
+    # Date and time at which the message was created.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string CreationDateTime = util:getPastDateTime();
+    # Specifies the status of the payment order resource.
+    string Status;
+    # Date and time at which the resource status was updated.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string StatusUpdateDateTime = util:getPastDateTime();
+    # Expected execution date and time for the payment resource.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string ExpectedExecutionDateTime?;
+    # Expected settlement date and time for the payment resource.All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+    # All date-time fields in responses must include the timezone. An example is below:
+    # 2017-04-05T10:43:07+00:00
+    string ExpectedSettlementDateTime?;
+    #
+    DataRefund Refund?;
+    #
+    DataCharges[] Charges?;
+    # Further detailed information on the exchange rate that has been used in the payment transaction.
+    ExchangeRateInformation ExchangeRateInformation?;
+    # The Initiation payload is sent by the initiating party to the bank. It is used to request movement of funds from the debtor account to a creditor for a single scheduled international payment.
+    InternationalScheduledPaymentInitiation Initiation;
+    # The multiple authorisation flow response from the bank.
+    MultiAuthorisation MultiAuthorisation?;
+    # ^ Only incuded in the response if `Data. ReadRefundAccount` is set to `Yes` in the consent.
+    CreditorAccount Debtor?;
+|};

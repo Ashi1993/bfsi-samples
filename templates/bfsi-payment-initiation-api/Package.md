@@ -98,6 +98,5 @@ When the different Open Banking endpoints of the service is invoked, the service
     Sample URL to retrieve payment by payment ID:
 
     ```
-    curl GET 'https://<host>:<port>/domestic-payments/P001' \
-        --header 'Authorization: Basic YWRtaW5Ad3NvMi5jb206d3NvMjEyMw=='
+    curl GET 'https://<host>:<port>/domestic-payments/P001' 
     ```

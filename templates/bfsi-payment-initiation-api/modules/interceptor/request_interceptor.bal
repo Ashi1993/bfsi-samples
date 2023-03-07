@@ -19,11 +19,11 @@ public service class RequestInterceptor {
 
     // This will return a validation error if you do not send valid header values. 
     // Then, the execution will jump to the nearest `RequestErrorInterceptor`.
-    isolated resource function 'default [string... path](http:RequestContext ctx, @http:Header string? 'x\-fapi\-auth\-date, 
-            @http:Header string? 'x\-fapi\-customer\-ip\-address, @http:Header string? 'x\-fapi\-interaction\-id) 
+    isolated resource function 'default [string... path](http:RequestContext ctx, @http:Header string? 'x\-fapi\-auth\-date,
+            @http:Header string? 'x\-fapi\-customer\-ip\-address, @http:Header string? 'x\-fapi\-interaction\-id)
             returns anydata|http:NextService|error {
-        
-        validator:HeaderValidator headerValidator = new();
+
+        validator:HeaderValidator headerValidator = new ();
         ()|error? headerValidatorResult = headerValidator
             .add(new validator:UUIDValidator('x\-fapi\-interaction\-id))
             .add(new validator:IpAddressValidator('x\-fapi\-customer\-ip\-address))
@@ -33,7 +33,7 @@ public service class RequestInterceptor {
         if (headerValidatorResult is error) {
             return error(headerValidatorResult.message(), ErrorCode = "UK.OBIE.HEADER.INVALID");
         }
-        
+
         return ctx.next();
     }
 }

@@ -16,8 +16,8 @@ import wso2bfsi/wso2.bfsi.demo.backend.model;
 public class DebtorAccountValidator {
     *IPayloadValidator;
 
-    #Initiate the Debtor Account Validator
-    # 
+    # Initiate the Debtor Account Validator
+    #
     # + payload - Payload
     # + path - Path
     public isolated function init(anydata payload, string path) {
@@ -26,7 +26,7 @@ public class DebtorAccountValidator {
     }
 
     # Validates the Debtor Account
-    # 
+    #
     # + return - Returns error if validation fails
     isolated function validate() returns ()|model:InvalidPayloadError {
         log:printInfo("Executing DebtorAccountValidator");
@@ -39,7 +39,7 @@ public class DebtorAccountValidator {
             return error("Path is missing", ErrorCode = "UK.OBIE.Resource.InvalidFormat");
         }
         do {
-	        model:DebtorAccount|error|() debtorAccount = check extractDebtorAccount(self.payload, self.path);
+            model:DebtorAccount|error|() debtorAccount = check extractDebtorAccount(self.payload, self.path);
 
             if (debtorAccount is ()) {
                 return ();
@@ -51,7 +51,7 @@ public class DebtorAccountValidator {
             if (debtorAccount.SchemeName == "") {
                 return error("Debtor Account SchemeName is missing", ErrorCode = "UK.OBIE.Field.Missing");
             } else {
-                if (debtorAccount.SchemeName != "UK.OBIE.IBAN" && 
+                if (debtorAccount.SchemeName != "UK.OBIE.IBAN" &&
                 debtorAccount.SchemeName != "UK.OBIE.SortCodeAccountNumber") {
                     return error("Debtor Account SchemeName is invalid", ErrorCode = "UK.OBIE.Field.Invalid");
                 }
@@ -65,7 +65,7 @@ public class DebtorAccountValidator {
                 }
             }
         } on fail var e {
-        	return error(e.message(), ErrorCode = "UK.OBIE.Field.Invalid");
+            return error(e.message(), ErrorCode = "UK.OBIE.Field.Invalid");
         }
         return ();
     }

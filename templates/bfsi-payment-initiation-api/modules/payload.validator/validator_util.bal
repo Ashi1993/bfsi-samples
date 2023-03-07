@@ -105,9 +105,9 @@ isolated function extractDebtorAccount(anydata payload, string path) returns mod
         }
         model:DebtorAccount debtorAccount = check initiation.DebtorAccount.cloneWithType(model:DebtorAccount);
         return debtorAccount;
-        
+
     } else {
-        return error("Invalid path", ErrorCode ="UK.OBIE.Field.Invalid");
+        return error("Invalid path", ErrorCode = "UK.OBIE.Field.Invalid");
     }
 }
 
@@ -115,7 +115,7 @@ isolated function extractDomesticPaymentInitiation(anydata payload) returns mode
     model:DomesticPaymentRequest request = check payload.cloneWithType(model:DomesticPaymentRequest);
     model:DomesticPaymentRequestData data = check request.Data.cloneWithType(model:DomesticPaymentRequestData);
     model:DomesticPaymentInitiation initiation = check data.Initiation.cloneWithType(model:DomesticPaymentInitiation);
-    
+
     return initiation;
 }
 
@@ -123,7 +123,7 @@ isolated function extractDomesticScheduledPaymentInitiation(anydata payload) ret
     model:DomesticScheduledPaymentRequest request = check payload.cloneWithType(model:DomesticScheduledPaymentRequest);
     model:DomesticScheduledPaymentData data = check request.Data.cloneWithType(model:DomesticScheduledPaymentData);
     model:DomesticScheduledPaymentInitiation initiation = check data.Initiation.cloneWithType(model:DomesticScheduledPaymentInitiation);
-        
+
     return initiation;
 }
 
@@ -131,7 +131,7 @@ isolated function extractDomesticStandingOrderInitiation(anydata payload) return
     model:DomesticStandingOrderRequest request = check payload.cloneWithType(model:DomesticStandingOrderRequest);
     model:DomesticStandingOrderData data = check request.Data.cloneWithType(model:DomesticStandingOrderData);
     model:DomesticStandingOrderInitiation initiation = check data.Initiation.cloneWithType(model:DomesticStandingOrderInitiation);
-        
+
     return initiation;
 }
 
@@ -139,7 +139,7 @@ isolated function extractInternationalPaymentInitiation(anydata payload) returns
     model:InternationalPaymentRequest request = check payload.cloneWithType(model:InternationalPaymentRequest);
     model:InternationalPaymentData data = check request.Data.cloneWithType(model:InternationalPaymentData);
     model:InternationalPaymentInitiation initiation = check data.Initiation.cloneWithType(model:InternationalPaymentInitiation);
-        
+
     return initiation;
 }
 
@@ -147,7 +147,7 @@ isolated function extractInternationalScheduledPaymentInitiation(anydata payload
     model:InternationalScheduledPaymentRequest request = check payload.cloneWithType(model:InternationalScheduledPaymentRequest);
     model:InternationalScheduledPaymentData data = check request.Data.cloneWithType(model:InternationalScheduledPaymentData);
     model:InternationalScheduledPaymentInitiation initiation = check data.Initiation.cloneWithType(model:InternationalScheduledPaymentInitiation);
-        
+
     return initiation;
 }
 
@@ -162,6 +162,6 @@ isolated function extractFilePaymentInitiation(anydata payload) returns model:Fi
     model:FilePaymentRequest request = check payload.cloneWithType(model:FilePaymentRequest);
     model:FilePaymentData data = check request.Data.cloneWithType(model:FilePaymentData);
     model:FilePaymentInitiation initiation = check data.Initiation.cloneWithType(model:FilePaymentInitiation);
-    
+
     return initiation;
 }

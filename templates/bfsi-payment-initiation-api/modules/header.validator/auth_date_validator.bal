@@ -8,7 +8,7 @@
 // this license, please see the license as well as any agreement you’ve
 // entered into with WSO2 governing the purchase of this software and any
 // associated services.
- 
+
 import ballerina/time;
 import wso2bfsi/wso2.bfsi.demo.backend.model;
 
@@ -24,23 +24,23 @@ public class AuthDateVallidator {
     }
 
     # Validates the auth date header value
-    #  
+    #
     # + return - Returns an error if the header value is invalid
     isolated function validate() returns ()|error? {
         if (self.header == "") {
             // This header is optional. hence, return true
             return ();
         }
-        
+
         time:Utc utc1 = time:utcNow();
         time:Utc utc2;
         do {
-	        utc2 = check time:utcFromString(self.header);
+            utc2 = check time:utcFromString(self.header);
         } on fail var e {
-        	return error(e.message());
+            return error(e.message());
         }
         time:Seconds seconds = time:utcDiffSeconds(utc1, utc2);
-        
+
         if seconds > <time:Seconds>0 {
             return ();
         } else {

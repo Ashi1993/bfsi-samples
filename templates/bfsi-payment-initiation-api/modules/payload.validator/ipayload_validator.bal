@@ -15,6 +15,6 @@ import wso2bfsi/wso2.bfsi.demo.backend.model;
 public type IPayloadValidator object {
     anydata payload;
     string path;
-    
+
     isolated function validate() returns ()|model:InvalidPayloadError;
 };

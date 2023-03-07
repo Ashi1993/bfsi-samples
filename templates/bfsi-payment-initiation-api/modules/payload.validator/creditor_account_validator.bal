@@ -17,7 +17,7 @@ public class CreditorAccountValidator {
     *IPayloadValidator;
 
     # Initializes the Creditor Account Validator
-    # 
+    #
     # + payload - Payload
     # + path - Path
     public isolated function init(anydata payload, string path) {
@@ -26,7 +26,7 @@ public class CreditorAccountValidator {
     }
 
     # Validates the Creditor Account
-    # 
+    #
     # + return - Returns an error if validation fails
     isolated function validate() returns ()|model:InvalidPayloadError {
         log:printInfo("Executing CreditorAccountValidator");
@@ -41,7 +41,7 @@ public class CreditorAccountValidator {
             return ();
         }
         do {
-	        model:CreditorAccount|error creditorAccount = check extractCreditorAccount(self.payload, self.path);
+            model:CreditorAccount|error creditorAccount = check extractCreditorAccount(self.payload, self.path);
 
             if (creditorAccount is error) {
                 return error("Creditor Account is missing", ErrorCode = "UK.OBIE.Field.Missing");
@@ -50,7 +50,7 @@ public class CreditorAccountValidator {
             if (creditorAccount.SchemeName == "") {
                 return error("Creditor Account SchemeName is missing", ErrorCode = "UK.OBIE.Field.Missing");
             } else {
-                if (creditorAccount.SchemeName != "UK.OBIE.IBAN" && 
+                if (creditorAccount.SchemeName != "UK.OBIE.IBAN" &&
                                     creditorAccount.SchemeName != "UK.OBIE.SortCodeAccountNumber") {
                     return error("Creditor Account SchemeName is invalid", ErrorCode = "UK.OBIE.Field.Invalid");
                 }
@@ -64,7 +64,7 @@ public class CreditorAccountValidator {
                 }
             }
         } on fail var e {
-        	return error(e.message(), ErrorCode = "UK.OBIE.Field.Invalid");
+            return error(e.message(), ErrorCode = "UK.OBIE.Field.Invalid");
         }
         return ();
     }

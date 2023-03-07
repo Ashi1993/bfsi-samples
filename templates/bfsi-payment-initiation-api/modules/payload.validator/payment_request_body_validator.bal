@@ -17,7 +17,7 @@ public class PaymentRequestBodyValidator {
     *IPayloadValidator;
 
     # Initiates the PaymentRequestBodyValidator
-    # 
+    #
     # + payload - Payload to be validated
     # + path - Path to be validated
     public isolated function init(anydata payload, string path) {
@@ -26,7 +26,7 @@ public class PaymentRequestBodyValidator {
     }
 
     # Validates the payload
-    # 
+    #
     # + return - Returns error if validation fails
     isolated function validate() returns ()|model:InvalidPayloadError {
         log:printInfo("Executing PaymentRequestBodyValidator");
@@ -36,10 +36,10 @@ public class PaymentRequestBodyValidator {
         }
         if self.payload is json {
             json payload = <json>self.payload;
-             if (payload.Data == "" || payload.Data == null) {
+            if (payload.Data == "" || payload.Data == null) {
                 return error("Request Payload is not in correct JSON format", ErrorCode = "UK.OBIE.Resource.InvalidFormat");
-            } 
-            
+            }
+
             if (payload.Data is json) {
                 if (payload.Data.Initiation is json) {
                     return ();
@@ -47,9 +47,9 @@ public class PaymentRequestBodyValidator {
                     return error("Request Payload is not in correct JSON format", ErrorCode = "UK.OBIE.Resource.InvalidFormat");
                 }
             } else {
-                return  error("Request Payload is not in correct JSON format", ErrorCode = "UK.OBIE.Resource.InvalidFormat");
+                return error("Request Payload is not in correct JSON format", ErrorCode = "UK.OBIE.Resource.InvalidFormat");
             }
         }
-    
+
     }
 }

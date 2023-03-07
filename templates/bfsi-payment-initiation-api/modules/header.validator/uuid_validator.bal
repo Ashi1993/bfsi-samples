@@ -18,14 +18,14 @@ public class UUIDValidator {
     private final string uuid = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
 
     # Initializes the UUID validator
-    # 
+    #
     # + header - The UUID to be validated
     public isolated function init(string? header) {
         self.header = header ?: "";
     }
 
     # Validates the UUID
-    # 
+    #
     # + return - Returns an error if the UUID is invalid
     isolated function validate() returns ()|error? {
         if (self.header == "") {

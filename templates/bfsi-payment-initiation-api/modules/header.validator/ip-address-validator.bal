@@ -24,17 +24,17 @@ public class IpAddressValidator {
     }
 
     # Validates the IP address
-    # 
+    #
     # + return - Returns an error if the IP address is invalid
     isolated function validate() returns ()|error? {
         if (self.header == "") {
             // This header is optional. hence, return true
             return ();
         }
-        
+
         boolean isIpv4 = regex:matches(self.header, self.ipv4);
         boolean isIpv6 = regex:matches(self.header, self.ipv6);
-        
+
         if isIpv4 || isIpv6 {
             return ();
         } else {

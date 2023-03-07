@@ -28,7 +28,7 @@ public service class RequestErrorInterceptor {
         // the error type. Furthermore, you can also call `ctx.next()` if you want to continue the 
         // request flow after fixing the error.
         log:printError("Invalid Request: ", err);
-        
+
         return {
             mediaType: "application/org+json",
             body: {Message: err.message(), ErrorCode: "UK.OBIE.HEADER.INVALID"}

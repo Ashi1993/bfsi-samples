@@ -1,2 +1,0 @@
-# Module Overview
-This ballerina package contains simulated Open Banking resource endpoints. When the different Open Banking endpoints of the package is invoked, the package will respond with a corresponding JSON response.

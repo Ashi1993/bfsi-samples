@@ -1,8 +1,0 @@
-[package]
-org = "wso2bfsi"
-name = "wso2.bfsi.demo.backend"
-version = "1.0.0"
-distribution = "2201.3.1"
-export = ["wso2.bfsi.demo.backend", "wso2.bfsi.demo.backend.model", "wso2.bfsi.demo.backend.util"]
-include = ["resources"]
-icon = "icon.png"

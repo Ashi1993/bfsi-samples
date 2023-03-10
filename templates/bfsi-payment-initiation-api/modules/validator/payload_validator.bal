@@ -48,7 +48,7 @@ public isolated class PayloadValidator {
     #
     # + creditorAccount - Creditor Account to be validated
     # + return - Returns an error if validation fails
-    public isolated function validateCreditorAccount(model:CreditorAccount creditorAccount) 
+    public isolated function validateCreditorAccount(model:CreditorAccount creditorAccount)
                             returns model:InvalidPayloadError? {
         log:printInfo("Executing CreditorAccountValidator");
 
@@ -71,10 +71,10 @@ public isolated class PayloadValidator {
     #
     # + debtorAccount - Debtor Account to be validated
     # + return - Returns error if validation fails
-    public isolated function validateDebtorAccount(model:DebtorAccount debtorAccount) 
+    public isolated function validateDebtorAccount(model:DebtorAccount debtorAccount)
                             returns model:InvalidPayloadError? {
         log:printInfo("Executing DebtorAccountValidator");
-        
+
         string schemeName = debtorAccount.SchemeName;
         if schemeName == "" {
             return error("Debtor Account SchemeName is missing", ErrorCode = util:CODE_FIELD_MISSING);

@@ -22,7 +22,7 @@ public isolated function getDateTime() returns string {
 }
 
 # + return - future date and time.
-public isolated function getFutureDateTime() returns string {    
+public isolated function getFutureDateTime() returns string {
     return time:utcToString(time:utcAddSeconds(time:utcNow(), generateRandomSeconds()));
 }
 
@@ -33,13 +33,13 @@ public isolated function getPastDateTime() returns string {
 
 # + isNegative - if true, return a negative random time in seconds.
 # + return - a random time in seconds.
-isolated function generateRandomSeconds(boolean isNegative=false) returns time:Seconds {
+isolated function generateRandomSeconds(boolean isNegative = false) returns time:Seconds {
     int randomSeconds;
     do {
-	    randomSeconds = check random:createIntInRange(86400, 864000);
+        randomSeconds = check random:createIntInRange(86400, 864000);
     } on fail var e {
         log:printDebug("failed to generate a random integer. Caused by, ", e);
-    	randomSeconds = 86400;
+        randomSeconds = 86400;
     }
 
     return isNegative ? <time:Seconds>(randomSeconds * -1) : <time:Seconds>randomSeconds;
@@ -56,29 +56,29 @@ public isolated function getRandomId() returns string {
 }
 
 # Get Domestic Payment Initiation payload.
-# 
+#
 # + return - a domestic payment initiation payload.
-public isolated function getDomesticPaymentInitiation() returns json => { 
+public isolated function getDomesticPaymentInitiation() returns json => {
     "InstructionIdentification": "ACME412",
-    "EndToEndIdentification": "FRESCO.21302.GFX.20", 
-    "InstructedAmount": { 
-        "Amount": "165.88", 
-        "Currency": "GBP" 
-    }, 
-    "CreditorAccount": {  
-        "SchemeName": "UK.OBIE.SortCodeAccountNumber",  
-        "Identification": "08080021325698",  
-        "Name": "ACME Inc",  
+    "EndToEndIdentification": "FRESCO.21302.GFX.20",
+    "InstructedAmount": {
+        "Amount": "165.88",
+        "Currency": "GBP"
+    },
+    "CreditorAccount": {
+        "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+        "Identification": "08080021325698",
+        "Name": "ACME Inc",
         "SecondaryIdentification": "0002"
-    },  
-    "RemittanceInformation": {   
-        "Reference": "FRESCO-101",  
-        "Unstructured": "Internal ops code 5120101"  
-    }  
+    },
+    "RemittanceInformation": {
+        "Reference": "FRESCO-101",
+        "Unstructured": "Internal ops code 5120101"
+    }
 };
 
 # Get Domestic scheduled Payment Initiation payload.
-# 
+#
 # + return - a domestic scheduled payment initiation payload.
 public isolated function getDomesticScheduledPaymentInitiation() returns json => {
     "InstructionIdentification": "89f0a53a91ee47f6a383536f851d6b5a",
@@ -104,7 +104,7 @@ public isolated function getDomesticScheduledPaymentInitiation() returns json =>
 };
 
 # Get Domestic standing order Payment Initiation payload.
-# 
+#
 # + return - a domestic standing order payment initiation payload.
 public isolated function getDomesticStandingOrderPaymentInitiation() returns json => {
     "Frequency": "EvryDay",
@@ -136,7 +136,7 @@ public isolated function getDomesticStandingOrderPaymentInitiation() returns jso
 };
 
 # Get a file payment initiation payload.
-# 
+#
 # + return - a file payment initiation payload.
 public isolated function getFilePaymentInitiation() returns json => {
     "FileType": "UK.OBIE.pain.001.001.08",
@@ -147,7 +147,7 @@ public isolated function getFilePaymentInitiation() returns json => {
 };
 
 # Get a International payment initiation payload.
-# 
+#
 # + return - an international payment initiation payload.
 public isolated function getInternationalPaymentInitiation() returns json => {
     "InstructionIdentification": "ACME412",
@@ -175,7 +175,7 @@ public isolated function getInternationalPaymentInitiation() returns json => {
 };
 
 # Get the international scheduled payment initiation payload.
-# 
+#
 # + return - an international scheduled payment initiation payload.
 public isolated function getInternatioanlScheduledPaymentInitiation() returns json => {
     "InstructionIdentification": "ACME412",
@@ -185,7 +185,7 @@ public isolated function getInternatioanlScheduledPaymentInitiation() returns js
         "Amount": "165.88",
         "Currency": "USD"
     },
-    "CurrencyOfTransfer":"USD",
+    "CurrencyOfTransfer": "USD",
     "CreditorAccount": {
         "SchemeName": "UK.OBIE.SortCodeAccountNumber",
         "Identification": "08080021325698",
@@ -203,7 +203,7 @@ public isolated function getInternatioanlScheduledPaymentInitiation() returns js
 };
 
 # Get the international standing order payment initiation payload.
-# 
+#
 # + return - an international standing order payment initiation payload.
 public isolated function getInternatioanlStandingOrderPaymentInitiation() returns json => {
     "Frequency": "EvryWorkgDay",
@@ -223,11 +223,11 @@ public isolated function getInternatioanlStandingOrderPaymentInitiation() return
         "Amount": "20",
         "Currency": "EUR"
     },
-    "CurrencyOfTransfer":"EUR"
+    "CurrencyOfTransfer": "EUR"
 };
 
 # Exract creditor account from the payload.
-# 
+#
 # + payload - the payload
 # + path - the path
 # + return - the creditor account
@@ -269,7 +269,7 @@ public isolated function extractCreditorAccount(anydata payload, string path) re
 }
 
 # Exract debtor account from the payload.
-# 
+#
 # + payload - the payload
 # + path - the path
 # + return - the creditor account
@@ -330,74 +330,74 @@ public isolated function extractDebtorAccount(anydata payload, string path) retu
         }
         model:DebtorAccount debtorAccount = check initiation.DebtorAccount.cloneWithType();
         return debtorAccount;
-        
+
     } else {
-        return error("Invalid path", ErrorCode ="UK.OBIE.Field.Invalid");
+        return error("Invalid path", ErrorCode = "UK.OBIE.Field.Invalid");
     }
 }
 
 # Exract Domestic Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the Domestic Payment Initiation
 public isolated function extractDomesticPaymentInitiation(anydata payload) returns model:DomesticPaymentInitiation|error {
     model:DomesticPaymentRequest request = check payload.cloneWithType();
     model:DomesticPaymentRequestData data = check request.Data.cloneWithType();
     model:DomesticPaymentInitiation initiation = check data.Initiation.cloneWithType();
-    
+
     return initiation;
 }
 
 # Exract Domestic Scheduled Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the Domestic Scheduled Payment Initiation
 public isolated function extractDomesticScheduledPaymentInitiation(anydata payload) returns model:DomesticScheduledPaymentInitiation|error {
     model:DomesticScheduledPaymentRequest request = check payload.cloneWithType();
     model:DomesticScheduledPaymentData data = check request.Data.cloneWithType();
     model:DomesticScheduledPaymentInitiation initiation = check data.Initiation.cloneWithType();
-        
+
     return initiation;
 }
 
 # Exract Domestic Standing Order Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the Domestic Standing Order Payment Initiation
 public isolated function extractDomesticStandingOrderInitiation(anydata payload) returns model:DomesticStandingOrderInitiation|error {
     model:DomesticStandingOrderRequest request = check payload.cloneWithType();
     model:DomesticStandingOrderData data = check request.Data.cloneWithType();
     model:DomesticStandingOrderInitiation initiation = check data.Initiation.cloneWithType();
-        
+
     return initiation;
 }
 
 # Exract International Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the International Payment Initiation
 public isolated function extractInternationalPaymentInitiation(anydata payload) returns model:InternationalPaymentInitiation|error {
     model:InternationalPaymentRequest request = check payload.cloneWithType();
     model:InternationalPaymentData data = check request.Data.cloneWithType();
     model:InternationalPaymentInitiation initiation = check data.Initiation.cloneWithType();
-        
+
     return initiation;
 }
 
 # Exract International Scheduled Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the International Scheduled Payment Initiation
 public isolated function extractInternationalScheduledPaymentInitiation(anydata payload) returns model:InternationalScheduledPaymentInitiation|error {
     model:InternationalScheduledPaymentRequest request = check payload.cloneWithType();
     model:InternationalScheduledPaymentData data = check request.Data.cloneWithType();
     model:InternationalScheduledPaymentInitiation initiation = check data.Initiation.cloneWithType();
-        
+
     return initiation;
 }
 
 # Exract International Standing Order Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the International Standing Order Payment Initiation
 public isolated function extractInternationalStandingOrderInitiation(anydata payload) returns model:InternationalStandingOrderInitiation|error {
@@ -408,14 +408,14 @@ public isolated function extractInternationalStandingOrderInitiation(anydata pay
 }
 
 # Exract File Payment Initiation from the payload.
-# 
+#
 # + payload - the payload
 # + return - the File Payment Initiation
 public isolated function extractFilePaymentInitiation(anydata payload) returns model:FilePaymentInitiation|error {
     model:FilePaymentRequest request = check payload.cloneWithType();
     model:FilePaymentData data = check request.Data.cloneWithType();
     model:FilePaymentInitiation initiation = check data.Initiation.cloneWithType();
-    
+
     return initiation;
 }
 

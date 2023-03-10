@@ -16,7 +16,7 @@ import bfsi_payment_initiation_api.validator;
 public isolated service class RequestInterceptor {
     *http:RequestInterceptor;
 
-    private final validator:HeaderValidator validator = new();
+    private final validator:HeaderValidator validator = new ();
 
     // This will return a validation error if you do not send valid header values. 
     // Then, the execution will jump to the nearest `RequestErrorInterceptor`.
@@ -24,9 +24,9 @@ public isolated service class RequestInterceptor {
             @http:Header string? 'x\-fapi\-customer\-ip\-address, @http:Header string? 'x\-fapi\-interaction\-id)
             returns anydata|http:NextService|error {
 
-        check self.validator.validateUUID('x\-fapi\-interaction\-id?:"");
-        check self.validator.validateIpAddress('x\-fapi\-customer\-ip\-address?:"");
-        check self.validator.validateAuthHeader('x\-fapi\-auth\-date?:"");
+        check self.validator.validateUUID('x\-fapi\-interaction\-id ?: "");
+        check self.validator.validateIpAddress('x\-fapi\-customer\-ip\-address ?: "");
+        check self.validator.validateAuthHeader('x\-fapi\-auth\-date ?: "");
 
         return ctx.next();
     }

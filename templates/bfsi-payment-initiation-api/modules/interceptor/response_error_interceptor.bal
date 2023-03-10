@@ -61,7 +61,7 @@ public isolated service class ResponseErrorInterceptor {
         return {
             mediaType: "application/org+json",
             body: {
-                Message: err.message(), 
+                Message: err.message(),
                 ErrorCode: util:CODE_FIELD_INVALID
             }
         };

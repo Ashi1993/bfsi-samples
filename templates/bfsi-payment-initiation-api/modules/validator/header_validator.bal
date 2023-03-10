@@ -40,7 +40,7 @@ public isolated class HeaderValidator {
             return error("Invalid Date found in the header");
         }
     }
-        
+
     public isolated function validateIpAddress(string ipAddress) returns error? {
         if (ipAddress == "") {
             // This header is optional. hence, return true

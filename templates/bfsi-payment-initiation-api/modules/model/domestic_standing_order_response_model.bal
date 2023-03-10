@@ -22,7 +22,7 @@ public type DomesticStandingOrderResponse record {
     Meta Meta?;
 };
 
-#Represents the data inside the payload of the domestic standing order response.
+# Represents the data inside the payload of the domestic standing order response.
 public type DomesticStandingOrderResponseData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the domestic standing order resource.
     @constraint:String {maxLength: 40, minLength: 1}

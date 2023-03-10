@@ -11,16 +11,16 @@
 
 import ballerina/constraint;
 
-#Represents a domestic pament intitiation request payload.
+# Represents a domestic pament intitiation request payload.
 public type DomesticPaymentRequest record {
-    #Represents data of the domestic pament intitiation request
+    # Represents data of the domestic pament intitiation request
     DomesticPaymentRequestData Data;
     # The Risk section is sent by the initiating party to the bank.
     # It is used to specify additional details for risk scoring for Payments.
     Risk Risk;
 };
 
-#Represents data of the domestic pament intitiation request.
+# Represents data of the domestic pament intitiation request.
 public type DomesticPaymentRequestData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the consent resource.
     @constraint:String {maxLength: 128, minLength: 1}

@@ -104,6 +104,6 @@ public type PostalAddress record {
     string CountrySubDivision?;
     # Nation with its own government.
     string Country?;
-    #Describes address line list
+    # Describes address line list
     string[] AddressLine?;
 };

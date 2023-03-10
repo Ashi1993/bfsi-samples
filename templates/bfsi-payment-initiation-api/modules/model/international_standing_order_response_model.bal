@@ -12,7 +12,7 @@
 import ballerina/constraint;
 import wso2.bfsi.demo.backend.util;
 
-#Represents an international standing order response payload.
+# Represents an international standing order response payload.
 public type InternationalStandingOrderResponse record {
     # Data object International Standing Order Response
     InternationalStandingOrderResponseData Data;
@@ -22,7 +22,7 @@ public type InternationalStandingOrderResponse record {
     Meta Meta?;
 };
 
-#Represents the data of an international standing order response.
+# Represents the data of an international standing order response.
 public type InternationalStandingOrderResponseData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the international standing order resource.
     @constraint:String {maxLength: 40, minLength: 1}

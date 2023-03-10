@@ -22,7 +22,7 @@ public type FilePaymentResponse record {
     Meta Meta?;
 };
 
-#Represents data of the file payment response.
+# Represents data of the file payment response.
 public type FilePaymentsResponseData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the file payment resource.
     @constraint:String {maxLength: 40, minLength: 1}

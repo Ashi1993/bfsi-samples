@@ -12,7 +12,7 @@
 import ballerina/constraint;
 import wso2.bfsi.demo.backend.util;
 
-#Represents an international payment response payload.
+# Represents an international payment response payload.
 public type InternationalPaymentResponse record {
     # Data object International Payment Response
     InternationalPaymentResponseData Data;
@@ -22,7 +22,7 @@ public type InternationalPaymentResponse record {
     Meta Meta?;
 };
 
-#Represents the data of an international payment response.
+# Represents the data of an international payment response.
 public type InternationalPaymentResponseData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the international payment resource.
     @constraint:String {maxLength: 40, minLength: 1}

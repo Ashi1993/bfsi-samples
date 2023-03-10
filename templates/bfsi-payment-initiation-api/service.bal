@@ -30,8 +30,8 @@ listener http:Listener interceptorListener = new (9090, config);
 
 service / on interceptorListener {
 
-    private final 'client:PaymentClient paymentClient = new();
-    private final validator:PayloadValidator validator = new();
+    private final 'client:PaymentClient paymentClient = new ();
+    private final validator:PayloadValidator validator = new ();
 
     # Create a domestic payment
     #
@@ -80,7 +80,7 @@ service / on interceptorListener {
         returns model:PaymentDetailsResponse|error {
 
         log:printInfo("Retriveing Domestic Payment Details for payment ID: " + domesticPaymentId);
-        model:PaymentDetailsResponse|error response = 
+        model:PaymentDetailsResponse|error response =
                             self.paymentClient->/payments\-details/domestic\-payments/[domesticPaymentId];
 
         return response;
@@ -120,9 +120,9 @@ service / on interceptorListener {
         returns model:DomesticScheduledPaymentResponse|error {
 
         log:printInfo("Retriveing Domestic Scheduled Payment for payment ID: " + domesticScheduledPaymentId);
-        model:DomesticScheduledPaymentResponse|error response = 
+        model:DomesticScheduledPaymentResponse|error response =
                             self.paymentClient->/domestic\-scheduled\-payments/[domesticScheduledPaymentId];
-        
+
         return response;
     }
 
@@ -326,7 +326,6 @@ service / on interceptorListener {
         model:InternationalScheduledPaymentResponse|error response =
                         self.paymentClient->/international\-scheduled\-payments.post(payload);
 
-    
         return response;
     }
 
@@ -358,7 +357,7 @@ service / on interceptorListener {
         log:printInfo("Retriveing International Scheduled Payment Details for payment ID: " + internationalScheduledPaymentId);
         model:PaymentDetailsResponse|error response =
                         self.paymentClient->/payments\-details/international\-scheduled\-payments/[internationalScheduledPaymentId];
-    
+
         return response;
     }
 
@@ -427,7 +426,7 @@ service / on interceptorListener {
 
         log:printInfo("Validate the payload");
         check self.validator.validatePayload(payload);
-        
+
         model:CreditorAccount|error creditorAccount = util:extractCreditorAccount(payload, path);
         if creditorAccount is error {
             return error("Creditor Account is missing", ErrorCode = util:CODE_FIELD_MISSING);

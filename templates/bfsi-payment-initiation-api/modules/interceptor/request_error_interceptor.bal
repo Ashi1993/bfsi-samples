@@ -32,7 +32,7 @@ public isolated service class RequestErrorInterceptor {
         return {
             mediaType: "application/org+json",
             body: {
-                Message: err.message(), 
+                Message: err.message(),
                 ErrorCode: util:CODE_HEADER_INVALID
             }
         };

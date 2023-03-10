@@ -12,7 +12,7 @@
 import ballerina/constraint;
 import wso2.bfsi.demo.backend.util;
 
-#Represents the payload of the domestic payment response.
+# Represents the payload of the domestic payment response.
 public type DomesticPaymentResponse record {
     # Data object Domestic Payment Response
     DomesticPaymentResponseData Data;
@@ -22,7 +22,7 @@ public type DomesticPaymentResponse record {
     Meta Meta?;
 };
 
-#Represents the data inside the payload of the domestic payment response.
+# Represents the data inside the payload of the domestic payment response.
 public type DomesticPaymentResponseData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the domestic payment resource.
     @constraint:String {maxLength: 40, minLength: 1}

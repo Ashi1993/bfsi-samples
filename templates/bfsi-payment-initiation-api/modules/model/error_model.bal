@@ -23,7 +23,9 @@ type Error distinct error<ErrorDetail>;
 
 # An error object to represent an invalid resource id.
 public type InvalidResourceIdError distinct Error;
+
 # An error object to represent an invalid payload.
 public type InvalidPayloadError distinct Error;
+
 # An error object to represent a payload parse error.
 public type PayloadParseError distinct Error;

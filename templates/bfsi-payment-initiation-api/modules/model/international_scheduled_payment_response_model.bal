@@ -12,7 +12,7 @@
 import ballerina/constraint;
 import wso2.bfsi.demo.backend.util;
 
-#Represents an international scheduled payment response payload.
+# Represents an international scheduled payment response payload.
 public type InternationalScheduledPaymentResponse record {
     # Data object International Scheduled Payment Response
     InternationalScheduledResponseData Data;
@@ -22,7 +22,7 @@ public type InternationalScheduledPaymentResponse record {
     Meta Meta?;
 };
 
-#Represents the data of an international scheduled payment response.
+# Represents the data of an international scheduled payment response.
 public type InternationalScheduledResponseData record {
     # OB: Unique identification as assigned by the bank to uniquely identify the international scheduled payment resource.
     @constraint:String {maxLength: 40, minLength: 1}

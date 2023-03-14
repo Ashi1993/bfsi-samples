@@ -131,7 +131,7 @@ public isolated function getPastDateTime() returns string {
 isolated function generateRandomSeconds(boolean isNegative = false) returns time:Seconds {
     int randomSeconds;
     do {
-        randomSeconds = check random:createIntInRange(86400, 864000);
+        randomSeconds = checkpanic random:createIntInRange(86400, 864000);
     } on fail var e {
         log:printDebug("failed to generate a random integer. Caused by, ", e);
         randomSeconds = 86400;

@@ -23,53 +23,52 @@ When the different Open Banking endpoints of the service is invoked, the service
     Example to Initiate a payment:
 
     ```
-    curl POST 'https://<host>:<port>/domestic-payments' \
-        --header 'x-idempotency-key: 1234' \
-        --header 'x-jws-signature: zetxrycugihojpkjhgfd' \
-        --header 'Content-Type: application/json' \
-        --data '{
-            "Data": {
-                "ConsentId": "58923",
-                "Initiation": {
-                "InstructionIdentification": "ACME412",
-                "EndToEndIdentification": "FRESCO.21302.GFX.20",
-                "InstructedAmount": {
-                    "Amount": "165.88",
-                    "Currency": "GBP"
-                },
-                "CreditorAccount": {
-                    "SchemeName": "UK.OBIE.SortCodeAccountNumber",
-                    "Identification": "08080021325698567890",
-                    "Name": "ACME Inc",
-                    "SecondaryIdentification": "0002"
-                },
-                "RemittanceInformation": {
-                    "Reference": "FRESCO-101",
-                    "Unstructured": "Internal ops code 5120101"
-                }
-                }
+    curl --location 'http://<host>:<port>/domestic-payments' \
+    --header 'x-idempotency-key: 1234' \
+    --header 'x-jws-signature: ivenqiuanwbvuqewcjabvieknwrnuivaed' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "Data": {
+            "ConsentId": "58923",
+            "Initiation": {
+            "InstructionIdentification": "ACME412",
+            "EndToEndIdentification": "FRESCO.21302.GFX.20",
+            "InstructedAmount": {
+                "Amount": "165.88",
+                "Currency": "GBP"
             },
-            "Risk": {
-                "PaymentContextCode": "EcommerceMerchantInitiatedPayment",
-                "ContractPresentInidicator": false,
-                "PaymentPurposeCode": "EPAY",
-                "BeneficiaryPaymentDetailsPrepopulatedIndicator": false,
-                "BeneficiaryAccountType": "Business",
-                "MerchantCustomerIdentification": "053598653254",
-                "DeliveryAddress": {
-                "AddressLine": [
-                    "Flat 7",
-                    "Acacia Lodge"
-                ],
-                "StreetName": "Acacia Avenue",
-                "BuildingNumber": "27",
-                "PostCode": "GU31 2ZZ",
-                "TownName": "Sparsholt",
-                "CountrySubDivision": "Wessex",
-                "Country": "UK"
-                }
+            "CreditorAccount": {
+                "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+                "Identification": "08080021325698567890",
+                "Name": "ACME Inc",
+                "SecondaryIdentification": "0002"
+            },
+            "RemittanceInformation": {
+                "Reference": "FRESCO-101",
+                "Unstructured": "Internal ops code 5120101"
             }
-        }'
+            }
+        },
+        "Risk": {
+            "PaymentContextCode": "EcommerceMerchantInitiatedPayment",
+            "ContractPresentInidicator": false,
+            "PaymentPurposeCode": "EPAY",
+            "BeneficiaryAccountType": "Business",
+            "MerchantCustomerIdentification": "053598653254",
+            "DeliveryAddress": {
+            "AddressLine": [
+                "Flat 7",
+                "Acacia Lodge"
+            ],
+            "StreetName": "Acacia Avenue",
+            "BuildingNumber": "27",
+            "PostCode": "GU31 2ZZ",
+            "TownName": "Sparsholt",
+            "CountrySubDivision": "Wessex",
+            "Country": "UK"
+            }
+        }
+    }'
     ```
     Example to retrieve payment by payment ID:
 

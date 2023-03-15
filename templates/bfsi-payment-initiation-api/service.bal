@@ -23,7 +23,6 @@ interceptor:RequestErrorInterceptor requestErrorInterceptor = new;
 interceptor:ResponseErrorInterceptor responseErrorInterceptor = new;
 
 http:ListenerConfiguration config = {
-    host: "localhost",
     interceptors: [requestInterceptor, requestErrorInterceptor, responseErrorInterceptor]
 };
 listener http:Listener interceptorListener = new (9090, config);

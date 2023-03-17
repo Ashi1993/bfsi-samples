@@ -2,7 +2,7 @@ Use template (BFSI Account and Transaction API) to create a project exposing Ope
 
 ## Use case
 
-When the different Open Banking endpoints of the service is invoked, the service will respond with a corresponding JSON response.
+The `BFSI Account and Transaction API` template can be used to retrieve account information and transaction details for a specific bank user.
 
 ## Using the Template
 
@@ -14,13 +14,15 @@ When the different Open Banking endpoints of the service is invoked, the service
     bal new -t wso2bfsi/bfsi_account_and_transaction_api <PROJECT_NAME>
     ```
 
-2.  Run the project.
+2.  If further modifications are needed, open the `<PROJECT_NAME>` directory in your favorite IDE and customize the code.
+
+3.  Run the project.
 
     ```ballerina
     bal run
     ```
 
-3.  Invoke the API.
+4.  Invoke the API.
 
     Example to retrieve an account by ID:
 
@@ -36,7 +38,7 @@ When the different Open Banking endpoints of the service is invoked, the service
 
 ### Setup and run on Choreo
 
-1. Perform steps 1 & 2 as mentioned above.
+1. Perform steps 1 to 3 as mentioned above.
 
 2. Push the project to a new GitHub repository.
 
@@ -53,6 +55,8 @@ When the different Open Banking endpoints of the service is invoked, the service
 
 6. Invoke the API.
 
-   Sample URL to retrieve a transactions by ID:
+   Sample URL to retrieve a transaction by ID:
 
-   `https://<domain>/<component>/<version>/transactions/T001`
+   `https://b643d191-c562-4f98-9a19-0831f622b020-prod.e1-us-east-azure.choreoapis.dev/xiqs/bfsi-account-and-transaction-api/1.0.0/transactions/T001`
+
+   Format: `https://<domain>/<component>/<version>/transactions/T001`

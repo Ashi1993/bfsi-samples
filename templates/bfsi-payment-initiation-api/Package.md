@@ -1,7 +1,11 @@
 Use template (BFSI Payment Initiation API) to create a project exposing Open Banking Payment Initiation REST APIs
 
 ## Use case
-When the different Open Banking endpoints of the service is invoked, the service will respond with a corresponding JSON response.
+The API endpoints exposed from this API allow to:
+
+ - Submit the payment-order for processing.
+ - Optionally retrieve the status of a payment-order resource.
+ - Optionally retrieve the details of a payment-order resource.
 
 ## Using the Template
 

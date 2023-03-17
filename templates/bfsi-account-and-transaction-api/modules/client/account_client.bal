@@ -37,10 +37,8 @@ public isolated client class AccountClient {
     # + return - account list or error
     resource isolated function get accounts/[string accountId]()
             returns model:AccountsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Account? account = self.repository.getAllAccounts()[accountId];
         if account == () {
             log:printDebug(util:INVALID_ACCOUNT_ID, accountId = accountId);
@@ -69,10 +67,8 @@ public isolated client class AccountClient {
     # + return - account balances list or error
     resource isolated function get accounts/[string accountId]/balances()
             returns model:BalanceResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Balance[] balances = from model:Balance i in self.repository.getAllBalances()
             where i.AccountId == accountId
             select i;
@@ -99,10 +95,8 @@ public isolated client class AccountClient {
     # + return - account beneficiaries list or error
     resource isolated function get accounts/[string accountId]/beneficiaries()
             returns model:BeneficiariesResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Beneficiary[] beneficiaries = from model:Beneficiary i in self.repository.getAllBeneficiaries()
             where i.AccountId == accountId
             select i;
@@ -129,10 +123,8 @@ public isolated client class AccountClient {
     # + return - account direct debits list or error
     resource isolated function get accounts/[string accountId]/direct\-debits()
             returns model:DirectDebitsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:DirectDebit[] directDebits = from model:DirectDebit i in self.repository.getAllDirectDebits()
             where i.AccountId == accountId
             select i;
@@ -159,10 +151,8 @@ public isolated client class AccountClient {
     # + return - account offers list or error
     resource isolated function get accounts/[string accountId]/offers()
             returns model:OffersResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Offer[] offers = from model:Offer i in self.repository.getAllOffers()
             where i.AccountId == accountId
             select i;
@@ -188,10 +178,8 @@ public isolated client class AccountClient {
     # + return - account parties list or error
     resource isolated function get accounts/[string accountId]/parties()
             returns model:PartiesResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Party[] parties = from model:Party party in self.repository.getAllParties()
             where party.Relationships?.Account?.Id == accountId
             select party;
@@ -209,10 +197,7 @@ public isolated client class AccountClient {
     # + return - account parties list or error
     resource isolated function get accounts/[string accountId]/party()
             returns model:PartiesResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
 
         model:Party[] parties = from model:Party party in self.repository.getAllParties()
             where party.Relationships?.Account?.Id == accountId
@@ -244,10 +229,8 @@ public isolated client class AccountClient {
     # + return - account products list or error
     resource isolated function get accounts/[string accountId]/products()
             returns model:ProductsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Product[] product = from model:Product i in self.repository.getAllProducts()
             where i.AccountId == accountId
             select i;
@@ -273,10 +256,8 @@ public isolated client class AccountClient {
     # + return - account scheduled payments list or error
     resource isolated function get accounts/[string accountId]/scheduled\-payments()
             returns model:ScheduledPaymentsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:ScheduledPayment[] scheduledPayments = from model:ScheduledPayment
             i in self.repository.getAllScheduledPayments()
             where i.AccountId == accountId
@@ -303,10 +284,8 @@ public isolated client class AccountClient {
     # + return - account standing orders list or error
     resource isolated function get accounts/[string accountId]/standing\-orders()
             returns model:StandingOrdersResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:StandingOrder[] standingOrder = from model:StandingOrder i in self.repository.getAllStandingOrders()
             where i.AccountId == accountId
             select i;
@@ -332,10 +311,8 @@ public isolated client class AccountClient {
     # + return - account statements list or error
     resource isolated function get accounts/[string accountId]/statements()
             returns model:StatementsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Statement[] statement = from model:Statement i in self.repository.getAllStatements()
             where i.AccountId == accountId
             select i;
@@ -354,14 +331,9 @@ public isolated client class AccountClient {
     # + return - account statements list or error
     resource isolated function get accounts/[string accountId]/statements/[string statementId]()
             returns model:StatementsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
-        if util:isEmpty(statementId) {
-            log:printDebug(util:EMPTY_STATEMENT_ID);
-            return error(util:EMPTY_STATEMENT_ID, ErrorCode = util:CODE_EMPTY_STATEMENT_ID);
-        }
+        check self.isValidAccountId(accountId);
+        check self.isValidStatementId(statementId);
+
         model:Statement? statement = self.repository.getAllStatements()[accountId, statementId];
         if statement == () {
             log:printDebug(util:INVALID_STATEMENT_ID, statementId = statementId);
@@ -381,14 +353,9 @@ public isolated client class AccountClient {
     # + return - account statements list or error
     resource isolated function get accounts/[string accountId]/statements/[string statementId]/file()
             returns http:Response|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
-        if util:isEmpty(statementId) {
-            log:printDebug(util:EMPTY_STATEMENT_ID);
-            return error(util:EMPTY_STATEMENT_ID, ErrorCode = util:CODE_EMPTY_STATEMENT_ID);
-        }
+        check self.isValidAccountId(accountId);
+        check self.isValidStatementId(statementId);
+
         model:Statement? statement = self.repository.getAllStatements()[accountId, statementId];
         if statement == () {
             log:printDebug(util:INVALID_STATEMENT_ID, statementId = statementId);
@@ -429,10 +396,8 @@ public isolated client class AccountClient {
     # + return - account transactions list or error
     resource isolated function get accounts/[string accountId]/transactions()
             returns model:TransactionsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+
         model:Transaction[] transactions = from model:Transaction i in self.repository.getAllTransactions()
             where i.AccountId == accountId
             select i;
@@ -451,10 +416,9 @@ public isolated client class AccountClient {
     # + return - account transactions list or error
     resource isolated function get accounts/[string accountId]/statements/[string statementId]/transactions()
             returns model:TransactionsResponse|model:InvalidResourceIdError {
-        if util:isEmpty(accountId) {
-            log:printDebug(util:EMPTY_ACCOUNT_ID);
-            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
-        }
+        check self.isValidAccountId(accountId);
+        check self.isValidStatementId(statementId);
+
         model:Transaction[] accountTransactions = from model:Transaction i in self.repository.getAllTransactions()
             where i.AccountId == accountId
             select i;
@@ -476,7 +440,7 @@ public isolated client class AccountClient {
         model:Transaction[] transactions = [];
         foreach model:Transaction tran in accountTransactions {
             if !(tran.StatementReference is ()) {
-                string[] statementReference = tran.StatementReference?:[];
+                string[] statementReference = tran.StatementReference ?: [];
                 if statementReference.indexOf(statementId, 0) != () {
                     transactions.push(tran);
                 }
@@ -493,4 +457,26 @@ public isolated client class AccountClient {
     private isolated function getLinks(string path, string id = "") returns model:Links => {
         Self: string `https://api.alphabank.com/open-banking/v3.1/aisp${path}/${id}`
     };
+
+    # Validates the account ID.
+    #
+    # + accountId - Account ID to be validated
+    # + return - `InvalidResourceIdError` if the account ID is invalid
+    private isolated function isValidAccountId(string accountId) returns model:InvalidResourceIdError? {
+        if util:isEmpty(accountId) {
+            log:printDebug(util:EMPTY_ACCOUNT_ID);
+            return error(util:EMPTY_ACCOUNT_ID, ErrorCode = util:CODE_EMPTY_ACCOUNT_ID);
+        }
+    }
+
+    # Validates the statement ID.
+    #
+    # + statementId - Statement ID to be validated
+    # + return - `InvalidResourceIdError` if the statement ID is invalid
+    private isolated function isValidStatementId(string statementId) returns model:InvalidResourceIdError? {
+        if util:isEmpty(statementId) {
+            log:printDebug(util:EMPTY_STATEMENT_ID);
+            return error(util:EMPTY_STATEMENT_ID, ErrorCode = util:CODE_EMPTY_STATEMENT_ID);
+        }
+    }
 }

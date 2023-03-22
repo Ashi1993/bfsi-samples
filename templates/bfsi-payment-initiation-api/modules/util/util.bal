@@ -359,21 +359,23 @@ public isolated function extractFilePaymentInitiation(anydata payload) returns m
 # + authDateHeader - x-fapi-auth-date Hedaer
 # + return - Returns an error if the auth date header is future date
 public isolated function validateAuthDateHeader(string? authDateHeader) returns error? {
-    if authDateHeader !is () && authDateHeader != "" {
-        time:Utc currentTime = time:utcNow();
-        time:Utc timeInHeader;
-        do {
-            timeInHeader = check time:utcFromString(authDateHeader);
-        } on fail var e {
-            return error(e.message());
-        }
-        time:Seconds seconds = time:utcDiffSeconds(currentTime, timeInHeader);
+    if authDateHeader ==  () || authDateHeader.length() == 0 {
+        return;
+    }
 
-        if seconds > 0d {
-            return ();
-        } else {
-            return error("Invalid Date found in the header");
-        }
+    time:Utc currentTime = time:utcNow();
+    time:Utc timeInHeader;
+    do {
+        timeInHeader = check time:utcFromString(authDateHeader);
+    } on fail var e {
+        return error(e.message());
+    }
+    time:Seconds seconds = time:utcDiffSeconds(currentTime, timeInHeader);
+
+    if seconds > 0d {
+        return ();
+    } else {
+        return error("Invalid Date found in the header");
     }
 }
 
@@ -382,15 +384,17 @@ public isolated function validateAuthDateHeader(string? authDateHeader) returns 
 # + ipAddress - x-fapi-customer-ip-address Hedaer
 # + return - Return an error if the ip address is invalid
 public isolated function validateIpAddress(string? ipAddress) returns error? {
-    if ipAddress !is () && ipAddress != "" {
-        boolean isIpv4 = regex:matches(ipAddress, ipv4);
-        boolean isIpv6 = regex:matches(ipAddress, ipv6);
+    if ipAddress ==  () || ipAddress.length() == 0 {
+        return;
+    }
+    
+    boolean isIpv4 = regex:matches(ipAddress, ipv4);
+    boolean isIpv6 = regex:matches(ipAddress, ipv6);
 
-        if isIpv4 || isIpv6 {
-            return ();
-        } else {
-            return error("Found invalid ip address in headers");
-        }
+    if isIpv4 || isIpv6 {
+        return ();
+    } else {
+        return error("Found invalid ip address in headers");
     }
 }
 
@@ -399,9 +403,10 @@ public isolated function validateIpAddress(string? ipAddress) returns error? {
 # + uuidHeader - x-fapi-interaction-id Hedaer
 # + return - Return an error if the uuid is invalid
 public isolated function validateUUID(string? uuidHeader) returns error? {
-    if uuidHeader !is () && uuidHeader != "" {
-        return regex:matches(uuidHeader, uuid) ? () : error("Found invalid UUID in headers");
+    if uuidHeader ==  () || uuidHeader.length() == 0 {
+        return;
     }
+    return regex:matches(uuidHeader, uuid) ? () : error("Found invalid UUID in headers");
 }
 
 # Validates the payload

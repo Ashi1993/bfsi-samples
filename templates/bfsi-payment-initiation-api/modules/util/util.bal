@@ -15,9 +15,9 @@ import ballerina/regex;
 import ballerina/time;
 import bfsi_payment_initiation_api.model;
 
-const ipv4 = "(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
-const ipv6 = "((([0-9a-fA-F]){1,4})\\:){7}([0-9a-fA-F]){1,4}";
-const uuid = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
+const IPV4 = "(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
+const IPV6 = "((([0-9a-fA-F]){1,4})\\:){7}([0-9a-fA-F]){1,4}";
+const UUID = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
 
 # Get Domestic Payment Initiation payload.
 #
@@ -388,8 +388,8 @@ public isolated function validateIpAddress(string? ipAddress) returns error? {
         return;
     }
     
-    boolean isIpv4 = regex:matches(ipAddress, ipv4);
-    boolean isIpv6 = regex:matches(ipAddress, ipv6);
+    boolean isIpv4 = regex:matches(ipAddress, IPV4);
+    boolean isIpv6 = regex:matches(ipAddress, IPV6);
 
     if isIpv4 || isIpv6 {
         return ();
@@ -406,35 +406,7 @@ public isolated function validateUUID(string? uuidHeader) returns error? {
     if uuidHeader ==  () || uuidHeader.length() == 0 {
         return;
     }
-    return regex:matches(uuidHeader, uuid) ? () : error("Found invalid UUID in headers");
-}
-
-# Validates the payload
-#
-# + payload - Payload to be validated
-# + return - Returns error if validation fails
-public isolated function validatePayload(anydata payload) returns model:InvalidPayloadError? {
-    log:printInfo("Executing PaymentRequestBodyValidator");
-
-    if payload == "" {
-        return error("Payload is empty", ErrorCode = CODE_RESOURCE_INVALID_FORMAT);
-    }
-    if payload is json {
-        if payload.Data == "" || payload.Data == null {
-            return error("Request Payload is not in correct JSON format", ErrorCode = CODE_RESOURCE_INVALID_FORMAT);
-        }
-
-        if payload.Data is json {
-            if payload.Data.Initiation is json {
-                return;
-            } else {
-                return error("Request Payload is not in correct JSON format", ErrorCode = CODE_RESOURCE_INVALID_FORMAT);
-            }
-        } else {
-            return error("Request Payload is not in correct JSON format", ErrorCode = CODE_RESOURCE_INVALID_FORMAT);
-        }
-    }
-
+    return regex:matches(uuidHeader, UUID) ? () : error("Found invalid UUID in headers");
 }
 
 # Validates the Creditor Account
@@ -503,3 +475,10 @@ public type BadRequest record {|
         string Url?;
     } body;
 |};
+
+# Validate whether the value is empty
+# 
+# + value - Value to be validated
+# + return - Returns true if the value is empty
+isolated function isEmptyValue(anydata value) returns boolean => 
+        value == "" || value == null;

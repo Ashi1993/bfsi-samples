@@ -43,7 +43,7 @@ public isolated client class PaymentClient {
     # + return - Domestic payment or error
     isolated resource function get domestic\-payments/[string domesticPaymentId]()
                                                 returns model:DomesticPaymentResponse|error {
-        check self.isValidPaymentId(domesticPaymentId);
+        check self.validatePaymentId(domesticPaymentId);
         return {
             Data: {
                 DomesticPaymentId: domesticPaymentId,
@@ -86,7 +86,7 @@ public isolated client class PaymentClient {
     # + return - Domestic scheduled payment or error
     isolated resource function get domestic\-scheduled\-payments/[string domesticScheduledPaymentId]()
                                                     returns model:DomesticScheduledPaymentResponse|error {
-        check self.isValidPaymentId(domesticScheduledPaymentId);
+        check self.validatePaymentId(domesticScheduledPaymentId);
         return {
             Data: {
                 DomesticScheduledPaymentId: domesticScheduledPaymentId,
@@ -129,7 +129,7 @@ public isolated client class PaymentClient {
     # + return - Domestic standing order payment or error
     isolated resource function get domestic\-standing\-orders/[string domesticStandingOrderId]()
                                                     returns model:DomesticStandingOrderResponse|error {
-        check self.isValidPaymentId(domesticStandingOrderId);
+        check self.validatePaymentId(domesticStandingOrderId);
         return {
             Data: {
                 DomesticStandingOrderId: domesticStandingOrderId,
@@ -172,7 +172,7 @@ public isolated client class PaymentClient {
     # + return - File payment or error
     isolated resource function get file\-payments/[string filePaymentId]()
                                                     returns model:FilePaymentResponse|error {
-        check self.isValidPaymentId(filePaymentId);
+        check self.validatePaymentId(filePaymentId);
         return {
             Data: {
                 FilePaymentId: filePaymentId,
@@ -215,7 +215,7 @@ public isolated client class PaymentClient {
     # + return - International payment or error
     isolated resource function get international\-payments/[string internationalPaymentId]()
                                                     returns model:InternationalPaymentResponse|error {
-        check self.isValidPaymentId(internationalPaymentId);
+        check self.validatePaymentId(internationalPaymentId);
         return {
             Data: {
                 InternationalPaymentId: internationalPaymentId,
@@ -258,7 +258,7 @@ public isolated client class PaymentClient {
     # + return - International scheduled payment or error
     isolated resource function get international\-scheduled\-payments/[string internationalScheduledPaymentId]()
                                                         returns model:InternationalScheduledPaymentResponse|error {
-        check self.isValidPaymentId(internationalScheduledPaymentId);
+        check self.validatePaymentId(internationalScheduledPaymentId);
         return {
             Data: {
                 InternationalScheduledPaymentId: internationalScheduledPaymentId,
@@ -301,7 +301,7 @@ public isolated client class PaymentClient {
     # + return - International standing order payment or error
     isolated resource function get international\-standing\-orders/[string internationalStandingOrderId]()
                                                         returns model:InternationalStandingOrderResponse|error {
-        check self.isValidPaymentId(internationalStandingOrderId);
+        check self.validatePaymentId(internationalStandingOrderId);
         return {
             Data: {
                 InternationalStandingOrderId: internationalStandingOrderId,
@@ -323,7 +323,7 @@ public isolated client class PaymentClient {
     # + return - Domestic payment details or error
     isolated resource function get payments\-details/[string path]/[string paymentId]()
                                                         returns model:PaymentDetailsResponse|error {
-        check self.isValidPaymentId(paymentId);
+        check self.validatePaymentId(paymentId);
         return {
             Data: self.getPaymentDetailsData(paymentId),
             Links: self.getLinks(path, paymentId),
@@ -396,7 +396,7 @@ public isolated client class PaymentClient {
     #
     # + paymentId - Payment Id
     # + return - Error if the payment Id is empty
-    private isolated function isValidPaymentId(string paymentId) returns error? {
+    private isolated function validatePaymentId(string paymentId) returns error? {
         if paymentId.trim() == "" {
             log:printDebug(util:EMPTY_PAYMENT_ID);
             return error(util:EMPTY_PAYMENT_ID, ErrorCode = util:CODE_FIELD_MISSING);

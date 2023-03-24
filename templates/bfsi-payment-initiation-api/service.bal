@@ -339,12 +339,9 @@ service / on interceptorListener {
     # + payload - the payload object
     # + path - the path
     # + return - boolean
-    private isolated function validatePayload(json payload, string path) returns model:InvalidPayloadError? {
+    private isolated function validatePayload(anydata payload, string path) returns model:InvalidPayloadError? {
 
-        log:printInfo("Validate the payload");
-        check util:validatePayload(payload.toJson());
-
-        model:CreditorAccount|error creditorAccount = util:extractCreditorAccount(payload, path);
+        model:CreditorAccount|error creditorAccount = util:extractCreditorAccount(payload.toJson(), path);
         if !path.includes(util:FILE_PAYMENT) {
             if creditorAccount is error {
                 return error("Creditor Account is missing", ErrorCode = util:CODE_FIELD_MISSING);
@@ -352,7 +349,7 @@ service / on interceptorListener {
             check util:validateCreditorAccount(creditorAccount);
         }
 
-        model:DebtorAccount|error? debtorAccount = util:extractDebtorAccount(payload, path);
+        model:DebtorAccount|error? debtorAccount = util:extractDebtorAccount(payload.toJson(), path);
         if debtorAccount is error {
             return error("Debtor Account is missing", ErrorCode = util:CODE_FIELD_MISSING);
         }

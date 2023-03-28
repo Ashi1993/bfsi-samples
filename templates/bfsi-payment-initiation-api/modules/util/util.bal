@@ -301,8 +301,8 @@ public isolated function extractDebtorAccount(json payload, string path) returns
 # + payload - the payload
 # + return - the Domestic Payment Initiation
 public isolated function extractDomesticPaymentInitiation(json payload)
-    returns model:DomesticPaymentInitiation|error => extractInitiation(payload, 
-                        model:DomesticPaymentInitiation).ensureType();
+    returns model:DomesticPaymentInitiation|error => 
+                        (check payload.Data.Initiation).ensureType();
 
 
 # Exract Domestic Scheduled Payment Initiation from the payload.
@@ -310,8 +310,8 @@ public isolated function extractDomesticPaymentInitiation(json payload)
 # + payload - the payload
 # + return - the Domestic Scheduled Payment Initiation
 public isolated function extractDomesticScheduledPaymentInitiation(json payload)
-    returns model:DomesticScheduledPaymentInitiation|error => extractInitiation(payload, 
-                        model:DomesticScheduledPaymentInitiation).ensureType();
+    returns model:DomesticScheduledPaymentInitiation|error => 
+                        (check payload.Data.Initiation).ensureType();
 
 
 # Exract Domestic Standing Order Payment Initiation from the payload.
@@ -319,8 +319,8 @@ public isolated function extractDomesticScheduledPaymentInitiation(json payload)
 # + payload - the payload
 # + return - the Domestic Standing Order Payment Initiation
 public isolated function extractDomesticStandingOrderInitiation(json payload)
-    returns model:DomesticStandingOrderInitiation|error => extractInitiation(payload, 
-                        model:DomesticStandingOrderInitiation).ensureType();
+    returns model:DomesticStandingOrderInitiation|error => 
+                        (check payload.Data.Initiation).ensureType();
 
 
 # Exract International Payment Initiation from the payload.
@@ -328,25 +328,24 @@ public isolated function extractDomesticStandingOrderInitiation(json payload)
 # + payload - the payload
 # + return - the International Payment Initiation
 public isolated function extractInternationalPaymentInitiation(json payload)
-    returns model:InternationalPaymentInitiation|error => extractInitiation(payload, 
-                        model:InternationalPaymentInitiation).ensureType();
+    returns model:InternationalPaymentInitiation|error => 
+                        (check payload.Data.Initiation).ensureType();
 
 # Exract International Scheduled Payment Initiation from the payload.
 #
 # + payload - the payload
 # + return - the International Scheduled Payment Initiation
 public isolated function extractInternationalScheduledPaymentInitiation(json payload)
-    returns model:InternationalScheduledPaymentInitiation|error => extractInitiation(payload, 
-                        model:InternationalScheduledPaymentInitiation).ensureType();
+    returns model:InternationalScheduledPaymentInitiation|error => 
+                        (check payload.Data.Initiation).ensureType();
 
 # Exract International Standing Order Payment Initiation from the payload.
 #
 # + payload - the payload
 # + return - the International Standing Order Payment Initiation
 public isolated function extractInternationalStandingOrderInitiation(json payload)
-    returns model:InternationalStandingOrderInitiation|error => extractInitiation(payload, 
-                        model:InternationalStandingOrderInitiation).ensureType();
-
+    returns model:InternationalStandingOrderInitiation|error => 
+                        (check payload.Data.Initiation).ensureType();
 
 # Exract File Payment Initiation from the payload.
 #
@@ -487,17 +486,3 @@ public type BadRequest record {|
 # + return - Returns true if the value is empty
 isolated function isEmptyValue(anydata value) returns boolean => 
         value == "" || value == null;
-
-// A `Initiation` type value can be one of the below types.
-type Initiation model:DomesticPaymentInitiation|model:DomesticScheduledPaymentInitiation|
-model:DomesticStandingOrderInitiation|model:FilePaymentInitiation|model:InternationalPaymentInitiation|
-model:InternationalScheduledPaymentInitiation|model:InternationalStandingOrderInitiation;
-
-# Extract Initiation payload from the payload.
-#
-# + payload - Payload  
-# + td - Initiation Types
-# + return - Initiation payload
-public isolated function extractInitiation(json payload, typedesc<Initiation> td)  
-                                                        returns Initiation|error =>
-     (check payload.Data.Initiation).cloneWithType(td);

@@ -45,7 +45,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a domestic payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:DOMESTIC_PAYMENT);
+        check self.validatePayload(payload, util:DOMESTIC_PAYMENT);
         return self.paymentClient->/domestic\-payments.post(payload);
     }
 
@@ -90,7 +90,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a domestic scheduled payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:DOMESTIC_SCHEDULED_PAYMENT);
+        check self.validatePayload(payload, util:DOMESTIC_SCHEDULED_PAYMENT);
         return self.paymentClient->/domestic\-scheduled\-payments.post(payload);
     }
 
@@ -134,7 +134,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a domestic standing order payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:DOMESTIC_STANDING_ORDER_PAYMENT);
+        check self.validatePayload(payload, util:DOMESTIC_STANDING_ORDER_PAYMENT);
         return self.paymentClient->/domestic\-standing\-orders.post(payload);
     }
 
@@ -178,7 +178,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a file payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:FILE_PAYMENT);
+        check self.validatePayload(payload, util:FILE_PAYMENT);
         return self.paymentClient->/file\-payments.post(payload);
     }
 
@@ -222,7 +222,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a international payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:INTERNATIONAL_PAYMENT);
+        check self.validatePayload(payload, util:INTERNATIONAL_PAYMENT);
         return self.paymentClient->/international\-payments.post(payload);
     }
 
@@ -266,7 +266,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a International scheduled payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:INTERNATIONAL_SCHEDULED_PAYMENT);
+        check self.validatePayload(payload, util:INTERNATIONAL_SCHEDULED_PAYMENT);
         return self.paymentClient->/international\-scheduled\-payments.post(payload);
     }
 
@@ -311,7 +311,7 @@ service / on interceptorListener {
 
         log:printDebug("Initiating a  International Standing Order payment for idempotent request", 
                                         idempotencyKey = x\-idempotency\-key);
-        check self.validatePayload(payload.toJson(), util:INTERNATIONAL_STANDING_ORDER_PAYMENT);
+        check self.validatePayload(payload, util:INTERNATIONAL_STANDING_ORDER_PAYMENT);
         return self.paymentClient->/international\-standing\-orders.post(payload);
     }
 

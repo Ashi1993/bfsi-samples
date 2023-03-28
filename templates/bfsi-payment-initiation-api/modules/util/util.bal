@@ -302,7 +302,7 @@ public isolated function extractDebtorAccount(json payload, string path) returns
 # + return - the Domestic Payment Initiation
 public isolated function extractDomesticPaymentInitiation(json payload)
     returns model:DomesticPaymentInitiation|error => extractInitiation(payload, 
-    model:DomesticPaymentInitiation).ensureType();
+                        model:DomesticPaymentInitiation).ensureType();
 
 
 # Exract Domestic Scheduled Payment Initiation from the payload.
@@ -311,7 +311,7 @@ public isolated function extractDomesticPaymentInitiation(json payload)
 # + return - the Domestic Scheduled Payment Initiation
 public isolated function extractDomesticScheduledPaymentInitiation(json payload)
     returns model:DomesticScheduledPaymentInitiation|error => extractInitiation(payload, 
-    model:DomesticScheduledPaymentInitiation).ensureType();
+                        model:DomesticScheduledPaymentInitiation).ensureType();
 
 
 # Exract Domestic Standing Order Payment Initiation from the payload.
@@ -320,7 +320,7 @@ public isolated function extractDomesticScheduledPaymentInitiation(json payload)
 # + return - the Domestic Standing Order Payment Initiation
 public isolated function extractDomesticStandingOrderInitiation(json payload)
     returns model:DomesticStandingOrderInitiation|error => extractInitiation(payload, 
-    model:DomesticStandingOrderInitiation).ensureType();
+                        model:DomesticStandingOrderInitiation).ensureType();
 
 
 # Exract International Payment Initiation from the payload.
@@ -329,7 +329,7 @@ public isolated function extractDomesticStandingOrderInitiation(json payload)
 # + return - the International Payment Initiation
 public isolated function extractInternationalPaymentInitiation(json payload)
     returns model:InternationalPaymentInitiation|error => extractInitiation(payload, 
-    model:InternationalPaymentInitiation).ensureType();
+                        model:InternationalPaymentInitiation).ensureType();
 
 # Exract International Scheduled Payment Initiation from the payload.
 #
@@ -337,7 +337,7 @@ public isolated function extractInternationalPaymentInitiation(json payload)
 # + return - the International Scheduled Payment Initiation
 public isolated function extractInternationalScheduledPaymentInitiation(json payload)
     returns model:InternationalScheduledPaymentInitiation|error => extractInitiation(payload, 
-    model:InternationalScheduledPaymentInitiation).ensureType();
+                        model:InternationalScheduledPaymentInitiation).ensureType();
 
 # Exract International Standing Order Payment Initiation from the payload.
 #
@@ -345,14 +345,15 @@ public isolated function extractInternationalScheduledPaymentInitiation(json pay
 # + return - the International Standing Order Payment Initiation
 public isolated function extractInternationalStandingOrderInitiation(json payload)
     returns model:InternationalStandingOrderInitiation|error => extractInitiation(payload, 
-    model:InternationalStandingOrderInitiation).ensureType();
+                        model:InternationalStandingOrderInitiation).ensureType();
 
 
 # Exract File Payment Initiation from the payload.
 #
 # + payload - the payload
 # + return - the File Payment Initiation
-public isolated function extractFilePaymentInitiation(anydata payload) returns model:FilePaymentInitiation|error {
+public isolated function extractFilePaymentInitiation(anydata payload) 
+                                returns model:FilePaymentInitiation|error {
     model:FilePaymentRequest request = check payload.ensureType();
     model:FilePaymentData data = check request.Data.ensureType();
     return data.Initiation.ensureType();

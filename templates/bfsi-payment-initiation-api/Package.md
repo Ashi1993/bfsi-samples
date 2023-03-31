@@ -14,9 +14,9 @@ The `BFSI Payment Initiation API` template can be used to initiate and retrieve 
 1.  Create Ballerina project from this template.
 
     ```ballerina
-    bal new -t wso2bfsi/bfsi_payment_initiation_api <PROJECT_NAME>
+    bal new -t wso2bfsi/bfsi_payment_initiation_api bfsi_payment_initiation_api
     ```
-2.  If further modifications are needed, open the `<PROJECT_NAME>` directory in your favorite IDE and customize the code.
+2.  If further modifications are needed, open the `bfsi_payment_initiation_api` directory in your favorite IDE and customize the code.
 
 3. Run the project.
 

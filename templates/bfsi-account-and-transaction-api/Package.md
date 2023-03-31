@@ -11,10 +11,10 @@ The `BFSI Account and Transaction API` template can be used to retrieve account 
 1.  Create Ballerina project from this template.
 
     ```ballerina
-    bal new -t wso2bfsi/bfsi_account_and_transaction_api <PROJECT_NAME>
+    bal new -t wso2bfsi/bfsi_account_and_transaction_api bfsi_account_and_transaction_api
     ```
 
-2.  If further modifications are needed, open the `<PROJECT_NAME>` directory in your favorite IDE and customize the code.
+2.  If further modifications are needed, open the `bfsi_account_and_transaction_api` directory in your favorite IDE and customize the code.
 
 3.  Run the project.
 

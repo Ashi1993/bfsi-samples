@@ -18,12 +18,17 @@
 
 package com.wso2.openbanking.fdx.gateway.util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.UUID;
 
  /**
   *  FDX Gateway Utils.
   */
 public class FDXGatewayUtils {
+     private static final Log log = LogFactory.getLog(FDXGatewayUtils.class);
+
      /**
       * Checks if the given string is a valid UUID.
       *
@@ -35,6 +40,7 @@ public class FDXGatewayUtils {
             UUID.fromString(uuidString);
             return true;
         } catch (IllegalArgumentException e) {
+            log.error("Invalid interaction ID format. Must be a UUID.", e);
             return false;
         }
     }

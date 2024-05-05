@@ -24,23 +24,20 @@ import com.wso2.openbanking.accelerator.gateway.executor.model.OBAPIResponseCont
 import com.wso2.openbanking.accelerator.gateway.executor.model.OpenBankingExecutorError;
 import com.wso2.openbanking.fdx.gateway.util.FDXGatewayConstants;
 import com.wso2.openbanking.fdx.gateway.util.FDXGatewayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Executor for adding X-FAPI-INTERACTION-ID to DCR response headers.
  */
 public class FDXDCRExecutor extends DCRExecutor {
-    private static final Log log = LogFactory.getLog(FDXDCRExecutor.class);
     protected String interactionId;
 
     @Override
     public void preProcessRequest(OBAPIRequestContext obapiRequestContext) {
+
         if (obapiRequestContext.getMsgInfo().getHeaders()
                 .containsKey(FDXGatewayConstants.INTERACTION_ID_HEADER)) {
             String xFapiInteractionId = obapiRequestContext.getMsgInfo().getHeaders()
@@ -48,7 +45,6 @@ public class FDXDCRExecutor extends DCRExecutor {
             if (FDXGatewayUtils.isValidUUID(xFapiInteractionId)) {
                 interactionId = xFapiInteractionId;
             } else {
-                log.error("Invalid interaction ID format. Must be a UUID.");
                 handleBadRequestError(obapiRequestContext, "Invalid interaction ID provided.");
                 return;
             }

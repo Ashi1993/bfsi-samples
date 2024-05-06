@@ -37,6 +37,7 @@ public class FDXGatewayUtils {
       * @return true if the string is a valid UUID, false otherwise
       */
     public static boolean isValidUUID(String uuidString) {
+
         try {
             UUID.fromString(uuidString);
             return true;

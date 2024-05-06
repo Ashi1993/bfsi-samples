@@ -40,6 +40,7 @@ public class FDXValidatorUtils {
      * @param registrationRequest The registration request object.
      */
     public static void addAllowedGrantTypes(RegistrationRequest registrationRequest) {
+
         List<String> requestedGrantTypes = registrationRequest.getGrantTypes();
         List<String> allowedGrantTypes = AllowedGrantTypesEnum.getAllowedGrantTypes();
 
@@ -67,6 +68,7 @@ public class FDXValidatorUtils {
      * @param registrationRequest The registration request object.
      */
     public static void addAllowedTokenEndpointAuthMethod(RegistrationRequest registrationRequest) {
+
         String requestedAuthMethod = registrationRequest.getTokenEndPointAuthentication();
         List<String> allowedAuthMethods = AllowedTokenEndPointAuthMethodsEnum.getAllowedAuthMethods();
 

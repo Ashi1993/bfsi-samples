@@ -49,6 +49,7 @@ public enum FDXDurationTypesEnum {
      * @return A list of string representations of all supported duration types.
      */
     public static List<String> getAllDurationTypes() {
+
         return Collections.unmodifiableList(Arrays.stream(FDXDurationTypesEnum.values())
                 .map(FDXDurationTypesEnum::getValue)
                 .collect(Collectors.toList()));

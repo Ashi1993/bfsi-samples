@@ -51,6 +51,7 @@ public enum AllowedGrantTypesEnum {
      * @return A list of string representations of all supported grant types.
      */
     public static List<String> getAllowedGrantTypes() {
+
         return Collections.unmodifiableList(Arrays.stream(AllowedGrantTypesEnum.values())
                 .map(AllowedGrantTypesEnum::getValue)
                 .collect(Collectors.toList()));

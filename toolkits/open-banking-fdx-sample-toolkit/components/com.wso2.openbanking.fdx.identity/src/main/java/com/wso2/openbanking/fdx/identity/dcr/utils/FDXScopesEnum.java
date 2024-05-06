@@ -50,6 +50,7 @@ public enum FDXScopesEnum {
      * @return A list of string representations of all supported scopes.
      */
     public static List<String> getAllFDXScopes() {
+
         return Collections.unmodifiableList(Arrays.stream(FDXScopesEnum.values())
                 .map(Enum::name)
                 .collect(Collectors.toList()));

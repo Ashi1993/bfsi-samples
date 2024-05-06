@@ -51,16 +51,13 @@ public class OpenBankingFDXConfigParser {
 
     // To enable attempted thread-safety using double-check locking
     private static final Object lock = new Object();
-
     private static final Log log = LogFactory.getLog(OpenBankingFDXConfigParser.class);
 
     private static volatile OpenBankingFDXConfigParser parser;
-
+    private static final Map<String, Object> configuration = new HashMap<>();
     private SecretResolver secretResolver;
-
     private  OMElement rootElement;
 
-    private static final Map<String, Object> configuration = new HashMap<>();
 
 
     /**

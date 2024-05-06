@@ -41,6 +41,7 @@ public enum AllowedTokenEndPointAuthMethodsEnum {
     }
 
     public static List<String> getAllowedAuthMethods() {
+
         List<String> allowedTokenEndPointAuthMethods = Arrays.stream(AllowedTokenEndPointAuthMethodsEnum.values())
                 .map(AllowedTokenEndPointAuthMethodsEnum::getValue)
                 .collect(Collectors.toList());

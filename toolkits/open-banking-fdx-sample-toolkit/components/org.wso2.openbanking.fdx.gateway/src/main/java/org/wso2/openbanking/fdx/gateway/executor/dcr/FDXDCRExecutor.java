@@ -61,19 +61,6 @@ public class FDXDCRExecutor extends DCRExecutor {
     }
 
     @Override
-    public void postProcessRequest(OBAPIRequestContext obapiRequestContext) {
-
-        super.postProcessRequest(obapiRequestContext);
-    }
-
-    @Override
-    public void preProcessResponse(OBAPIResponseContext obapiResponseContext) {
-
-        super.preProcessResponse(obapiResponseContext);
-    }
-
-
-    @Override
     public void postProcessResponse(OBAPIResponseContext obapiResponseContext) {
 
         super.postProcessResponse(obapiResponseContext);
@@ -82,6 +69,14 @@ public class FDXDCRExecutor extends DCRExecutor {
         obapiResponseContext.setAddedHeaders(responseHeaders);
     }
 
+    /**
+     * Handles the scenario where a bad request error occurs during the DCR request.
+     * Creates an OpenBankingExecutorError with the specified error message and adds it to the
+     * list of errors in the provided OBAPIRequestContext.
+     *
+     * @param obapiRequestContext  Context of the Open Banking API request.
+     * @param message              Error message describing the cause of the bad request.
+     */
     private void handleBadRequestError(OBAPIRequestContext obapiRequestContext, String message) {
 
         OpenBankingExecutorError error = new OpenBankingExecutorError(OpenBankingErrorCodes.BAD_REQUEST_CODE,
@@ -90,7 +85,6 @@ public class FDXDCRExecutor extends DCRExecutor {
         executorErrors.add(error);
         obapiRequestContext.setError(true);
         obapiRequestContext.setErrors(executorErrors);
-
     }
 }
 

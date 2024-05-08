@@ -65,8 +65,7 @@
         <dependency>
             <groupId>org.wso2.openbanking</groupId>
             <artifactId>org.wso2.openbanking.fdx.common</artifactId>
-            <version>1.0.0</version>
-            <scope>provided</scope>
+            <version>${openbanking.fdx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -134,14 +133,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils-core</artifactId>
-            <version>1.8.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.9</version>
-            <scope>test</scope>
+            <version>${commons-beanutils.version}</version>
         </dependency>
     </dependencies>
 

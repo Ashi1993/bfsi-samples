@@ -112,7 +112,7 @@ public class FDXRegistrationValidatorImpl extends RegistrationValidator {
             if (entry.getValue() instanceof ArrayList) {
                 ArrayList<Object> list = ((ArrayList<Object>) entry.getValue());
                 //Convert JSON strings within the ArrayList to JSON objects
-                FDXRegistrationUtils.getJsonObjectsFromJsonStrings(list);
+                FDXRegistrationUtils.convertJsonStringsToJsonObjects(list);
             }
         }
 

@@ -544,7 +544,7 @@ public class FDXDCRValidationTest {
         spMetaData.add(RegistrationTestConstants.registryReference);
         JsonObject registryReferenceJson = new JsonParser()
                                 .parse(RegistrationTestConstants.registryReference).getAsJsonObject();
-        FDXRegistrationUtils.getJsonObjectsFromJsonStrings(spMetaData);
+        FDXRegistrationUtils.convertJsonStringsToJsonObjects(spMetaData);
 
         Assert.assertEquals(registryReferenceJson, spMetaData.get(0));
     }

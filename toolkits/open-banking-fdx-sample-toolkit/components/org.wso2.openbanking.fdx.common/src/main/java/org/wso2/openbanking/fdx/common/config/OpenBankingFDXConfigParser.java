@@ -32,7 +32,6 @@ import org.wso2.openbanking.fdx.common.utils.CommonConstants;
 import org.wso2.securevault.SecretResolver;
 import org.wso2.securevault.SecretResolverFactory;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -59,8 +58,6 @@ public class OpenBankingFDXConfigParser {
     private SecretResolver secretResolver;
     private  OMElement rootElement;
 
-
-
     /**
      * Private Constructor of config parser.
      */
@@ -85,8 +82,6 @@ public class OpenBankingFDXConfigParser {
         }
         return parser;
     }
-
-
 
     /**
      * Method to read the configuration (in a recursive manner) as a model and put them in the configuration map.
@@ -119,7 +114,6 @@ public class OpenBankingFDXConfigParser {
 
         return configuration.get(config);
     }
-
 
     /**
      * Method to read text configs from xml when root element is given.

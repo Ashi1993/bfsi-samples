@@ -22,6 +22,7 @@ import com.google.gson.JsonParser;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Util class which includes helper methods required for FDX DCR.
@@ -35,15 +36,14 @@ public class FDXRegistrationUtils {
      *
      * @param spMetaData The list of metadata objects which may contain JSON strings.
      */
-    public static void getJsonObjectsFromJsonStrings(List<Object> spMetaData) {
-        for (Object element : spMetaData) {
-            if (element instanceof String) {
-                if (((String) element).contains("{")) {
-                    spMetaData.set(spMetaData.indexOf(element),
-                            new JsonParser().parse(element.toString()).getAsJsonObject());
-                }
-            }
-        }
+    public static void convertJsonStringsToJsonObjects(List<Object> spMetaData) {
+
+        spMetaData.replaceAll(metadata -> Optional.of(metadata)
+                .filter(String.class :: isInstance)
+                .map(String.class::cast)
+                .filter(element -> element.contains("{"))
+                .map(element -> (Object) new JsonParser().parse(element))
+                .orElse(metadata));
     }
 
     /**

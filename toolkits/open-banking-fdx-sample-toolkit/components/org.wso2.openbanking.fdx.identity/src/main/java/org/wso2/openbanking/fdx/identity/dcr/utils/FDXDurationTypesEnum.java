@@ -41,7 +41,6 @@ public enum FDXDurationTypesEnum {
         return durationType;
     }
 
-
     /**
      * Retrieves a list of all duration types.
      * Each duration type is represented  by its corresponding string value.

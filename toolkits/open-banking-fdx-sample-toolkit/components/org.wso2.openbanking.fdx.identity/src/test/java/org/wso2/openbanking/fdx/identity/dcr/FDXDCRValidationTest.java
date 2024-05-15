@@ -19,28 +19,23 @@
 package org.wso2.openbanking.fdx.identity.dcr;
 
 import com.google.gson.Gson;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.wso2.openbanking.accelerator.identity.dcr.exception.DCRValidationException;
 import com.wso2.openbanking.accelerator.identity.dcr.model.RegistrationRequest;
 import com.wso2.openbanking.accelerator.identity.dcr.utils.ValidatorUtils;
 import com.wso2.openbanking.accelerator.identity.dcr.validation.RegistrationValidator;
-
 import com.wso2.openbanking.accelerator.identity.util.IdentityCommonUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.testng.Assert;
 import org.testng.IObjectFactory;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
-
 import org.wso2.openbanking.fdx.common.config.OpenBankingFDXConfigParser;
 import org.wso2.openbanking.fdx.identity.dcr.constants.FDXValidationConstants;
 import org.wso2.openbanking.fdx.identity.dcr.utils.FDXRegistrationUtils;

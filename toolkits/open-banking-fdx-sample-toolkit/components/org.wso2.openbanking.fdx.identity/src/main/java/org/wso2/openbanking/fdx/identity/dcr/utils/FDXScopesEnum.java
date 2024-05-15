@@ -42,7 +42,6 @@ public enum FDXScopesEnum {
     REWARDS,
     TAX;
 
-
     /**
      * Retrieves a list of all FDX supported scopes.
      * Each scope is represented  by its corresponding name.

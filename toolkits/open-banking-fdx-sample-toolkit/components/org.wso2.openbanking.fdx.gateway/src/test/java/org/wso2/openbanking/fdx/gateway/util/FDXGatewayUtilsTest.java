@@ -22,7 +22,6 @@ import com.wso2.openbanking.accelerator.gateway.executor.model.OBAPIRequestConte
 import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import org.wso2.openbanking.fdx.gateway.testutils.GatewayTestDataProvider;
 
 /**
@@ -35,7 +34,6 @@ public class FDXGatewayUtilsTest {
 
         Assert.assertEquals(FDXGatewayUtils.isValidUUID(uuid), expectedResult);
     }
-
 
     @Test
     public void handleInvalidHeaderFieldsError() {

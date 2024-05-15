@@ -25,6 +25,7 @@ import org.wso2.openbanking.fdx.identity.dcr.utils.FDXDurationTypesEnum;
 import org.wso2.openbanking.fdx.identity.dcr.validation.annotation.ValidateDurationPeriod;
 
 import java.util.List;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -34,7 +35,8 @@ import javax.validation.ConstraintValidatorContext;
 public class DurationPeriodValidator implements ConstraintValidator<ValidateDurationPeriod, FDXRegistrationRequest> {
     private static final Log log = LogFactory.getLog(DurationPeriodValidator.class);
     @Override
-    public boolean isValid(FDXRegistrationRequest fdxRegistrationRequest, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(FDXRegistrationRequest fdxRegistrationRequest, ConstraintValidatorContext
+            constraintValidatorContext) {
 
         Integer durationPeriod = fdxRegistrationRequest.getDurationPeriod();
         List<String> durationTypes = fdxRegistrationRequest.getDurationType();

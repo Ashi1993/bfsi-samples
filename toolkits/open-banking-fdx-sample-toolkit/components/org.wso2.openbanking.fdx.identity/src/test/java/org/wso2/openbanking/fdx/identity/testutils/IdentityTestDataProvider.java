@@ -72,7 +72,6 @@ public class IdentityTestDataProvider {
                 { Arrays.asList("authorization_code", "refresh_token"), defaultGrantTypes },
                 {Collections.singletonList("authorization_code"), authCodeGrantType},
                 {Collections.singletonList("refresh_token"), refreshTokenGrantType}
-
         };
     }
 
@@ -93,6 +92,7 @@ public class IdentityTestDataProvider {
 
     @DataProvider(name = "jsonStrings")
     public Object[][] jsonData() {
+
         return new Object[][] {
                 {"{\"key\": \"value\"}", true},
                 {"Invalid JSON string", false},
@@ -104,6 +104,7 @@ public class IdentityTestDataProvider {
 
     @DataProvider(name = "conversionData")
     public Object[][] conversionData() {
+
         return new Object[][] {
 
                 {"key1", 10.5, 10},

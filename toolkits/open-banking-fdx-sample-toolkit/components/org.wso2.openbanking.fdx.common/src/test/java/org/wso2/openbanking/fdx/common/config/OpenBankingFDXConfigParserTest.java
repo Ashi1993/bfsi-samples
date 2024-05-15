@@ -19,7 +19,6 @@
 package org.wso2.openbanking.fdx.common.config;
 
 import com.wso2.openbanking.accelerator.common.exception.OpenBankingRuntimeException;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

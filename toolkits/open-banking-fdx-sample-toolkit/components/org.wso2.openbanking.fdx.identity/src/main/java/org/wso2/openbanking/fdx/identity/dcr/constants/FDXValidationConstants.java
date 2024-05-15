@@ -31,7 +31,6 @@ public class FDXValidationConstants {
     public static final String DURATION_PERIOD = "duration_period";
     public static final String LOOKBACK_PERIOD = "lookback_period";
 
-
     // dcr config constants
     public static final String DCR_MAXIMUM_DURATION_PERIOD = "DCR.MaximumDurationPeriod";
     public static final String DCR_MAXIMUM_LOOKBACK_PERIOD = "DCR.MaximumLookbackPeriod";

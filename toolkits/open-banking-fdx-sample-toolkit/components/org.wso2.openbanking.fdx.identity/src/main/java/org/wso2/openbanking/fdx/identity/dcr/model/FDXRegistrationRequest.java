@@ -72,8 +72,6 @@ public class FDXRegistrationRequest extends RegistrationRequest {
     @Valid
     private List<RegistryReference> registryReferences;
 
-
-
     public String getDescription() {
         return description;
     }
@@ -112,7 +110,6 @@ public class FDXRegistrationRequest extends RegistrationRequest {
         return durationType;
     }
 
-
     public void setDurationType(List<String> durationType) {
         this.durationType = durationType;
     }
@@ -136,7 +133,6 @@ public class FDXRegistrationRequest extends RegistrationRequest {
     public void setLookbackPeriod(Integer lookbackPeriod) {
         this.lookbackPeriod = lookbackPeriod;
     }
-
 
     public List<RegistryReference> getRegistryReferences() {
         return registryReferences;

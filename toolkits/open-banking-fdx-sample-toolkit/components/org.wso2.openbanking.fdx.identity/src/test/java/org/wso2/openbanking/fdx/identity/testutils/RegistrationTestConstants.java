@@ -68,7 +68,6 @@ public class RegistrationTestConstants {
             "  }]\n" +
             "}";
 
-
     public static String registryReference = "{ \n" +
             "    \"registered_entity_name\": \"Data recipient company legal name\", \n" +
             "    \"registered_entity_id\": \"4HCHXIURY78NNH6JH\", \n" +

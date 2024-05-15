@@ -19,26 +19,21 @@
 package org.wso2.openbanking.fdx.identity.dcr.util;
 
 import com.google.gson.Gson;
-
 import com.wso2.openbanking.accelerator.common.constant.OpenBankingConstants;
 import com.wso2.openbanking.accelerator.identity.dcr.exception.DCRValidationException;
 import com.wso2.openbanking.accelerator.identity.dcr.model.RegistrationRequest;
 import com.wso2.openbanking.accelerator.identity.dcr.utils.ValidatorUtils;
 import com.wso2.openbanking.accelerator.identity.dcr.validation.DCRCommonConstants;
 import com.wso2.openbanking.accelerator.identity.internal.IdentityExtensionsDataHolder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.testng.Assert;
 import org.testng.IObjectFactory;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
-
 import org.wso2.openbanking.fdx.common.config.OpenBankingFDXConfigParser;
 import org.wso2.openbanking.fdx.identity.dcr.model.FDXRegistrationRequest;
 import org.wso2.openbanking.fdx.identity.dcr.model.RegistryReference;
@@ -229,8 +224,6 @@ public class FDXValidatorUtilsTest {
         }
     }
 
-
-
     @Test()
     public void testInvalidScope()  {
 
@@ -287,7 +280,6 @@ public class FDXValidatorUtilsTest {
         }
     }
 
-
     @Test
     public void testInvalidDurationPeriod() {
 
@@ -343,7 +335,6 @@ public class FDXValidatorUtilsTest {
         }
     }
 
-
     @Test
     public void testInvalidDurationPeriodForTimeBoundDurationType() {
 
@@ -398,7 +389,6 @@ public class FDXValidatorUtilsTest {
         } finally {
             fdxConfigMap.remove("DCR.MaximumLookbackPeriod");
         }
-
     }
 
     @Test(dataProvider = "grantTypes", dataProviderClass = IdentityTestDataProvider.class)
@@ -456,7 +446,6 @@ public class FDXValidatorUtilsTest {
         //check if the registration request contains expected token endpoint auth method
         Assert.assertEquals(registrationRequest.getTokenEndPointAuthentication(), expectedAuthMethod);
     }
-
 
     private static RegistrationRequest getRegistrationRequestObject(String request) {
 

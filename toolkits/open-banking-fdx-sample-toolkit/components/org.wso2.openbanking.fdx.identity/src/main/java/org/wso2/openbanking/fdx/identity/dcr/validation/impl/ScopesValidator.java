@@ -25,6 +25,7 @@ import org.wso2.openbanking.fdx.identity.dcr.utils.FDXScopesEnum;
 import org.wso2.openbanking.fdx.identity.dcr.validation.annotation.ValidateScopes;
 
 import java.util.List;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

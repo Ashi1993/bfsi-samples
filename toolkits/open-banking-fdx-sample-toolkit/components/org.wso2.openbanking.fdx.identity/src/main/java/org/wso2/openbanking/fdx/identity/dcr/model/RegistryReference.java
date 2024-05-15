@@ -22,9 +22,7 @@ import com.google.gson.annotations.SerializedName;
 import com.wso2.openbanking.accelerator.identity.dcr.validation.DCRCommonConstants;
 import com.wso2.openbanking.accelerator.identity.dcr.validation.validationgroups.MandatoryChecks;
 
-import java.util.Objects;
 import javax.validation.constraints.NotBlank;
-
 
 /**
  * Model class for FDX registry reference attribute.
@@ -40,7 +38,6 @@ public class RegistryReference {
     @SerializedName("registry")
     private String registry;
 
-
     @NotBlank(message = "Registered Entity Name can not be null or empty in Registry References:" +
             DCRCommonConstants.INVALID_META_DATA,
             groups = MandatoryChecks.class)
@@ -51,7 +48,6 @@ public class RegistryReference {
     public void setRegisteredEntityName(String registeredEntityName) {
         this.registeredEntityName = registeredEntityName;
     }
-
 
     @NotBlank(message = "Registered Entity Id can not be null or empty in Registry References:" +
             DCRCommonConstants.INVALID_META_DATA,
@@ -64,7 +60,6 @@ public class RegistryReference {
         this.registeredEntityId = registeredEntityId;
     }
 
-
     @NotBlank(message = "Registry can not be null or empty in Registry References:" +
             DCRCommonConstants.INVALID_META_DATA,
             groups = MandatoryChecks.class)
@@ -74,23 +69,6 @@ public class RegistryReference {
 
     public void setRegistry(String registry) {
         this.registry = registry;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        RegistryReference registryReference = (RegistryReference) obj;
-        //Check if the two registry references have the same values for registeredEntityName,
-        // registeredEntityId, and registry
-        return Objects.equals(registeredEntityName, registryReference.registeredEntityName) &&
-                Objects.equals(registeredEntityId, registryReference.registeredEntityId) &&
-                Objects.equals(registry, registryReference.registry);
     }
 }
 

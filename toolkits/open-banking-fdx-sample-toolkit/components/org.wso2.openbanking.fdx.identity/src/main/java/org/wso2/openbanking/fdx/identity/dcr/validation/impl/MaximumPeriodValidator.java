@@ -59,7 +59,6 @@ public class MaximumPeriodValidator implements ConstraintValidator<ValidateMaxim
                         constraintValidatorContext);
     }
 
-
     private boolean validatePeriod(Integer requestedPeriod, String maximumPeriodStr, String attributeName,
                                    ConstraintValidatorContext context) {
 
@@ -79,7 +78,6 @@ public class MaximumPeriodValidator implements ConstraintValidator<ValidateMaxim
            log.error("Error while resolving configs", e);
            return false;
        }
-
        return true;
     }
 }

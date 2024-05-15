@@ -55,7 +55,6 @@ public class FDXRegistrationResponse extends RegistrationResponse {
     @SerializedName("registry_references")
     private List<RegistryReference> registryReferences;
 
-
     public String getClientName() {
         return clientName;
     }

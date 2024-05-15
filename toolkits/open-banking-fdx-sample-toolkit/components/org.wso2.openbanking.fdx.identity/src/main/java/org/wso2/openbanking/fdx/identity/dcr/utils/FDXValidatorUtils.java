@@ -19,7 +19,6 @@
 package org.wso2.openbanking.fdx.identity.dcr.utils;
 
 import com.wso2.openbanking.accelerator.identity.dcr.model.RegistrationRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.wso2.openbanking.fdx.common.config.OpenBankingFDXConfigParser;
 import org.wso2.openbanking.fdx.identity.dcr.constants.FDXValidationConstants;
@@ -58,9 +57,7 @@ public class FDXValidatorUtils {
 
         registrationRequest.setGrantTypes(grantTypesToAdd);
         registrationRequest.getRequestParameters().put(FDXValidationConstants.GRANT_TYPES, grantTypesToAdd);
-
     }
-
 
     /**
      * Adds an allowed token endpoint authentication method based on the requested authentication method.
@@ -87,7 +84,6 @@ public class FDXValidatorUtils {
             registrationRequest.setTokenEndPointAuthentication(authMethodToAdd);
             registrationRequest.getRequestParameters()
                     .put(FDXValidationConstants.TOKEN_ENDPOINT_AUTH_METHOD, authMethodToAdd);
-
         }
     }
 }

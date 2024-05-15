@@ -23,7 +23,6 @@ import com.google.gson.JsonParser;
 
 import java.util.Map;
 
-
 /**
  * Util class which includes helper methods required for FDX DCR.
  */
@@ -53,7 +52,6 @@ public class FDXRegistrationUtils {
         return null;
     }
 
-
     /**
      * Converts Double value to integer for the specified key in the given map.
      *
@@ -67,8 +65,5 @@ public class FDXRegistrationUtils {
             map.put(key, doubleValue.intValue());
         }
     }
-
-
-
 }
 

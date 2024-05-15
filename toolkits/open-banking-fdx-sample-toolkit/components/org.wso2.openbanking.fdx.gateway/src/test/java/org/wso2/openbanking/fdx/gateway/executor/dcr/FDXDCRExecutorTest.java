@@ -24,7 +24,6 @@ import com.wso2.openbanking.accelerator.gateway.executor.model.OBAPIRequestConte
 import com.wso2.openbanking.accelerator.gateway.executor.model.OBAPIResponseContext;
 import com.wso2.openbanking.accelerator.gateway.internal.GatewayDataHolder;
 import com.wso2.openbanking.accelerator.gateway.util.GatewayConstants;
-
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -42,6 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.ws.rs.HttpMethod;
 
 import static org.powermock.api.mockito.PowerMockito.mockStatic;

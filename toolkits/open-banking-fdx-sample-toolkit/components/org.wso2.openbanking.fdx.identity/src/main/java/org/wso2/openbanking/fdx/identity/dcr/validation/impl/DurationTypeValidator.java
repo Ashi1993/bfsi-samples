@@ -24,6 +24,7 @@ import org.wso2.openbanking.fdx.identity.dcr.utils.FDXDurationTypesEnum;
 import org.wso2.openbanking.fdx.identity.dcr.validation.annotation.ValidateDurationType;
 
 import java.util.List;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

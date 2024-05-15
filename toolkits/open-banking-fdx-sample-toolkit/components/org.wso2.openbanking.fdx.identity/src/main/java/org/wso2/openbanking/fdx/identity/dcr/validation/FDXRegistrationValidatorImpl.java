@@ -23,12 +23,10 @@ import com.google.gson.JsonElement;
 import com.wso2.openbanking.accelerator.identity.dcr.exception.DCRValidationException;
 import com.wso2.openbanking.accelerator.identity.dcr.model.RegistrationRequest;
 import com.wso2.openbanking.accelerator.identity.dcr.utils.ValidatorUtils;
+import com.wso2.openbanking.accelerator.identity.dcr.validation.DCRCommonConstants;
 import com.wso2.openbanking.accelerator.identity.dcr.validation.RegistrationValidator;
 import com.wso2.openbanking.accelerator.identity.util.IdentityCommonConstants;
 import com.wso2.openbanking.accelerator.identity.util.IdentityCommonUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.wso2.openbanking.fdx.identity.dcr.constants.FDXValidationConstants;
 import org.wso2.openbanking.fdx.identity.dcr.model.FDXRegistrationRequest;
 import org.wso2.openbanking.fdx.identity.dcr.model.FDXRegistrationResponse;
@@ -47,7 +45,6 @@ import static org.wso2.openbanking.fdx.identity.dcr.utils.FDXRegistrationUtils.i
  */
 public class FDXRegistrationValidatorImpl extends RegistrationValidator {
 
-    private static final Log log = LogFactory.getLog(FDXRegistrationValidatorImpl.class);
     private static final Gson gson = new Gson();
 
     @Override
@@ -114,6 +111,12 @@ public class FDXRegistrationValidatorImpl extends RegistrationValidator {
         return gson.toJson(fdxRegistrationResponse);
     }
 
+    /**
+     * validate the request parameters when creating or updating a registration.
+     *
+     * @param registrationRequest request
+     * @throws DCRValidationException if any validation failure occurs
+     */
     private void validateRequest(RegistrationRequest registrationRequest) throws DCRValidationException {
 
         // convert requestParameters in the registrationRequest to a fdxRegistrationRequest
@@ -121,12 +124,17 @@ public class FDXRegistrationValidatorImpl extends RegistrationValidator {
         JsonElement jsonElement = gson.toJsonTree(requestParameters);
         FDXRegistrationRequest fdxRegistrationRequest = gson.fromJson(jsonElement, FDXRegistrationRequest.class);
 
-        //do validations related to registration request
+        // do validations related to registration request
         ValidatorUtils.getValidationViolations(fdxRegistrationRequest);
 
         // add grant types and an authentication method to the registration request
         FDXValidatorUtils.addAllowedGrantTypes(registrationRequest);
         FDXValidatorUtils.addAllowedTokenEndpointAuthMethod(registrationRequest);
+
+        // Set client name as the software ID in the registration request
+        registrationRequest.setSoftwareId(fdxRegistrationRequest.getClientName());
+        registrationRequest.getRequestParameters().put(DCRCommonConstants.SOFTWARE_ID,
+                fdxRegistrationRequest.getClientName());
 
         //convert duration_period and lookback_period values to integers
         FDXRegistrationUtils.convertDoubleValueToInt(registrationRequest.getRequestParameters(),
@@ -134,6 +142,5 @@ public class FDXRegistrationValidatorImpl extends RegistrationValidator {
         FDXRegistrationUtils.convertDoubleValueToInt(registrationRequest.getRequestParameters(),
                 FDXValidationConstants.LOOKBACK_PERIOD);
     }
-
-
 }
+

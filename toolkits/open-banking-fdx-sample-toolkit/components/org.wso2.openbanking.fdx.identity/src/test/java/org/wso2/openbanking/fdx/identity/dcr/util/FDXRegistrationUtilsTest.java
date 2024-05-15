@@ -19,10 +19,8 @@
 package org.wso2.openbanking.fdx.identity.dcr.util;
 
 import com.google.gson.JsonObject;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import org.wso2.openbanking.fdx.identity.dcr.utils.FDXRegistrationUtils;
 import org.wso2.openbanking.fdx.identity.testutils.IdentityTestDataProvider;
 

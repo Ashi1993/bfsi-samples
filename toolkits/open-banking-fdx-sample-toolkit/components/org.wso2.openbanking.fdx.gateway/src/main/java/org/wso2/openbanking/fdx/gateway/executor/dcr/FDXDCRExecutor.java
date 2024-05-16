@@ -26,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wso2.openbanking.fdx.gateway.util.FDXGatewayConstants;
 import org.wso2.openbanking.fdx.gateway.util.FDXGatewayUtils;
 
+import javax.ws.rs.HttpMethod;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,12 +54,16 @@ public class FDXDCRExecutor extends DCRExecutor {
         }
         obapiRequestContext.addContextProperty(FDXGatewayConstants.INTERACTION_ID_HEADER, xFapiInteractionId);
 
-        // set client name as the software id in DCR request payload
-        Map<String, Object>  requestParameters  = gson.fromJson(obapiRequestContext
-                .getRequestPayload(), Map.class);
-        requestParameters.put(FDXGatewayConstants.SOFTWARE_ID, requestParameters.get(FDXGatewayConstants.CLIENT_NAME));
-        String requestPayload = gson.toJson(requestParameters);
-        obapiRequestContext.setModifiedPayload(requestPayload);
+        if (HttpMethod.POST.equalsIgnoreCase(obapiRequestContext.getMsgInfo().getHttpMethod()) ||
+                HttpMethod.PUT.equalsIgnoreCase(obapiRequestContext.getMsgInfo().getHttpMethod())) {
+
+            // set client name as the software id in DCR request payload
+            Map<String, Object>  requestParameters  = gson.fromJson(obapiRequestContext
+                    .getRequestPayload(), Map.class);
+            requestParameters.put(FDXGatewayConstants.SOFTWARE_ID, requestParameters.get(FDXGatewayConstants.CLIENT_NAME));
+            String requestPayload = gson.toJson(requestParameters);
+            obapiRequestContext.setModifiedPayload(requestPayload);
+        }
 
         super.preProcessRequest(obapiRequestContext);
     }
@@ -74,12 +79,16 @@ public class FDXDCRExecutor extends DCRExecutor {
                 obapiResponseContext.getContextProperty(FDXGatewayConstants.INTERACTION_ID_HEADER));
         obapiResponseContext.setAddedHeaders(responseHeaders);
 
-        // remove software id from dcr response payload
-        Map<String, Object>  responseParameters  = gson.fromJson(obapiResponseContext
-                .getResponsePayload(), Map.class);
-        responseParameters.remove(FDXGatewayConstants.SOFTWARE_ID);
-        String responsePayload = gson.toJson(responseParameters);
-        obapiResponseContext.setModifiedPayload(responsePayload);
+        if (HttpMethod.POST.equalsIgnoreCase(obapiResponseContext.getMsgInfo().getHttpMethod()) ||
+                HttpMethod.PUT.equalsIgnoreCase(obapiResponseContext.getMsgInfo().getHttpMethod())) {
+
+            // remove software id from dcr response payload
+            Map<String, Object> responseParameters = gson.fromJson(obapiResponseContext
+                    .getResponsePayload(), Map.class);
+            responseParameters.remove(FDXGatewayConstants.SOFTWARE_ID);
+            String responsePayload = gson.toJson(responseParameters);
+            obapiResponseContext.setModifiedPayload(responsePayload);
+        }
     }
 }
 

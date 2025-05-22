@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- ~ Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ ~ Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
  ~
  ~ WSO2 LLC. licenses this file to you under the Apache License,
  ~ Version 2.0 (the "License"); you may not use this file except
@@ -29,17 +29,17 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>ob-compliance-toolkit-fdx-main-components</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>fs-compliance-toolkit-fdx</artifactId>
     <version>1.0.0</version>
+    <packaging>pom</packaging>
 
-    <name>WSO2 Open Banking Sample Toolkit</name>
-    <description>WSO2 Open Banking Sample Toolkit</description>
+    <name>WSO2 Financial Services FDX Sample Toolkit</name>
+    <description>WSO2 Financial Services FDX Sample Toolkit</description>
 
     <modules>
-        <module>org.wso2.openbanking.fdx.common</module>
-        <module>org.wso2.openbanking.fdx.gateway</module>
-        <module>org.wso2.openbanking.fdx.identity</module>
+        <module>org.wso2.financial.services.fdx.extensions</module>
+        <module>org.wso2.financial.services.fdx.consent</module>
+        <module>org.wso2.financial.services.fdx.identity</module>
     </modules>
 
 </project>

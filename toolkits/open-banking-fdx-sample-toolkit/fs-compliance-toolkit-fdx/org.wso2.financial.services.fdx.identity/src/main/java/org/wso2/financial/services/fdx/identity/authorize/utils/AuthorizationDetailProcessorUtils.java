@@ -1,0 +1,66 @@
+/**
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * <p>
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+package org.wso2.financial.services.fdx.identity.authorize.utils;
+
+import org.wso2.carbon.identity.application.common.IdentityApplicationManagementException;
+import org.wso2.carbon.identity.application.common.model.AuthorizedScopes;
+import org.wso2.carbon.identity.application.common.model.ServiceProvider;
+import org.wso2.carbon.identity.oauth2.IdentityOAuth2Exception;
+import org.wso2.carbon.identity.oauth2.util.OAuth2Util;
+
+import java.util.List;
+
+/**
+ * Utility class for processing authorization details.
+ * <p>
+ * This class provides utility methods for handling authorization details in the context of OAuth2
+ * and Rich Authorization Requests (RAR). It includes methods for retrieving application resource IDs
+ * and other related functionalities.
+ * </p>
+ */
+public class AuthorizationDetailProcessorUtils {
+
+    /**
+     * Retrieves the application resource ID associated with the given client ID and tenant domain.
+     *
+     * @param clientId      The client ID of the application.
+     * @param tenantDomain  The tenant domain of the application.
+     * @return The application resource ID.
+     * @throws IdentityOAuth2Exception If an error occurs while retrieving the application resource ID.
+     */
+    public static String getApplicationResourceIdByClientId(String clientId, String tenantDomain)
+            throws IdentityOAuth2Exception {
+        ServiceProvider serviceProvider = OAuth2Util.getServiceProvider(clientId, tenantDomain);
+        return serviceProvider.getApplicationResourceId();
+    }
+
+    /**
+     * Retrieves the authorized scopes associated with the given application ID and tenant domain.
+     *
+     * @param appId        The application ID.
+     * @param tenantDomain  The tenant domain of the application.
+     * @return A list of authorized scopes.
+     * @throws IdentityApplicationManagementException If an error occurs while retrieving the authorized scopes.
+     */
+    public static List<AuthorizedScopes> getAuthorizedScopesByAppId(String appId, String tenantDomain)
+            throws IdentityApplicationManagementException {
+        IdentityDataHolder instance = IdentityDataHolder.getInstance();
+        return instance.getAuthorizedAPIManagementService().getAuthorizedScopes(appId, tenantDomain);
+    }
+}

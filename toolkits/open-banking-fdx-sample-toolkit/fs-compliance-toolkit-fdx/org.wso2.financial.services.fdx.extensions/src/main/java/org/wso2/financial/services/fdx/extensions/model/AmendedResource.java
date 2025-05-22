@@ -1,0 +1,148 @@
+/**
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * <p>
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+package org.wso2.financial.services.fdx.extensions.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * Defines the context data related to the AmendedResource.
+ */
+@JsonTypeName("AmendedResource")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+        date = "2025-05-07T09:57:13.986407+05:30[Asia/Colombo]", comments = "Generator version: 7.12.0")
+public class AmendedResource implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String id;
+    private String permission;
+    private String status;
+
+    public AmendedResource() {
+    }
+
+    /**
+     * Set the unique identifier for the amended resource.
+     **/
+    public AmendedResource id(String id) {
+        this.id = id;
+        return this;
+    }
+
+
+    @ApiModelProperty(value = "")
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Set the permission associated with the amended resource.
+     **/
+    public AmendedResource permission(String permission) {
+        this.permission = permission;
+        return this;
+    }
+
+
+    @ApiModelProperty(value = "")
+    @JsonProperty("permission")
+    public String getPermission() {
+        return permission;
+    }
+
+    @JsonProperty("permission")
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    /**
+     * Set the status of the amended resource.
+     **/
+    public AmendedResource status(String status) {
+        this.status = status;
+        return this;
+    }
+
+
+    @ApiModelProperty(value = "")
+    @JsonProperty("status")
+    public String getStatus() {
+        return status;
+    }
+
+    @JsonProperty("status")
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AmendedResource amendedResource = (AmendedResource) o;
+        return Objects.equals(this.id, amendedResource.id) &&
+                Objects.equals(this.permission, amendedResource.permission) &&
+                Objects.equals(this.status, amendedResource.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, permission, status);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AmendedResource {\n");
+
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+
+}
+

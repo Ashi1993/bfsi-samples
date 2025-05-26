@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './SummaryComponent.scss';
 import './commonStyles.scss';
-import axios from 'axios';
+import apiService from '../../../services/apiService';
 
 interface SummaryComponentProps {
   title: string;
@@ -55,16 +55,11 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
       try {
         setLoading(true);
         
-        const response = await axios.get<ErrorResponse>('/api/swift-dashboard/error-statistics', {
-          params: {
-            timeFilter,
-            direction
-          }
-        });
+        const response = await apiService.getErrorStatistics(timeFilter, direction);
 
-        console.log('API response:', response.data);
+        console.log('API response:', response);
         
-        const { fieldErrors, notSupportedErrors, invalidErrors, otherErrors, totalErrors } = response.data;
+        const { fieldErrors, notSupportedErrors, invalidErrors, otherErrors, totalErrors } = response;
         
         // Transform API data to the format needed for display
         const formattedData: ErrorData[] = [

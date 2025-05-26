@@ -193,6 +193,41 @@ getRecentMessages: async (
   },
 
   /**
+ * Get error statistics for messages
+ * @param timeFilter - Time period filter (daily, weekly, monthly)
+ * @param direction - Optional direction filter (inward, outward, all)
+ * @returns Error statistics response
+ */
+getErrorStatistics: async (
+    timeFilter: string,
+    direction: string
+  ): Promise<any> => {
+    try {
+      console.log(`Fetching error statistics: timeFilter=${timeFilter}, direction=${direction || 'all'}`);
+      
+      const response = await apiClient.get('/error-statistics', {
+        params: {
+          timeFilter,
+          direction
+        }
+      });
+      
+      console.log("Error statistics response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching error statistics:', error);
+      // Return a default empty structure instead of throwing
+      return {
+        timeFilter,
+        direction: direction || 'all',
+        errors: [],
+        totalCount: 0,
+        errorRate: 0
+      };
+    }
+  },
+
+  /**
    * Get top message types distribution
    * @param timeFilter - Time period filter (daily, weekly, monthly)
    * @param direction - Optional direction filter (inward, outward)

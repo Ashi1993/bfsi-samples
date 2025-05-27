@@ -2,8 +2,6 @@ import { OpenSearchClient } from '.../../../src/core/server';
 import { env } from 'process';
 import { PluginContext, MessageDocument } from '../types';
 
-
-
 class OpenSearchService {
   private context: PluginContext;
   private index: string | undefined;

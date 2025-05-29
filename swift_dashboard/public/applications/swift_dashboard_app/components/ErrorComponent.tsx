@@ -162,9 +162,12 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
 
   if (error) {
     return (
-      <div className="chart-component summary-component">
-        <div className="chart-header">
+        <div className="chart-component summary-component">
+        <div className="chart-header failure">
           <h3>{title}</h3>
+          <div className="chart-info-icon failure" data-tooltip="Shows the breakdown of failures based on your selected time period and direction filters. Click on an error type to view all messages with that error.">
+            <span className="info-icon">i</span>
+          </div>
         </div>
         <div className="error-message">
           <p>{error}</p>

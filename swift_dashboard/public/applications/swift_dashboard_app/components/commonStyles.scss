@@ -84,7 +84,7 @@ html, body {
   }
   
   /* Toggle footer adjustment */
-  .toggle-footer-pie, .toggle-footer-bar {
+  .toggle-footer-pie, .toggle-footer-bar, .toggle-overview {
     display: flex;
     justify-content: center;
     gap: 0.9375rem; /* 15px */
@@ -92,7 +92,7 @@ html, body {
     min-height: 2.5rem; /* 40px */
   }
 
-  .toggle-footer-pie {
+  .toggle-footer-pie, .toggle-overview {
     justify-content: left;
     margin-left: 0.6rem;
   }
@@ -130,8 +130,12 @@ html, body {
     padding-top: 1.2rem; 
   }
   
-  .toggle-footer-pie {
+  .toggle-footer-pie, .toggle-overview {
     padding-top: 0.625rem; /* 10px */
+  }
+
+  .toggle-overview {
+    margin-bottom: 0.625rem; /* 10px */
   }
   
   .toggle-button.active {
@@ -147,7 +151,7 @@ html, body {
   }
 
   .chart-container.type-distribution {
-    min-height: 400%;
+    min-height: 460%;
   }
   
   /* Make sure charts maintain aspect ratio */

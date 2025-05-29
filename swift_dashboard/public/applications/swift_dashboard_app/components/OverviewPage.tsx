@@ -47,7 +47,7 @@ const OverviewPage: React.FC = () => {
 
   return (
     <div className="overview-page">
-    <div className="toggle-footer-pie">
+    <div className="toggle-overview">
     <ToggleBar
             options={['Monthly', 'Weekly', 'Daily']}
             activeOption={timeFilter}

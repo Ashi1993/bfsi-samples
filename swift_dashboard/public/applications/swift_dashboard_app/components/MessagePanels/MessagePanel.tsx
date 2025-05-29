@@ -1,19 +1,3 @@
-// Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
-//
-// WSO2 LLC. licenses this file to you under the Apache License,
-// Version 2.0 (the "License"); you may not use this file except
-// in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations
-// under the License.
-
 import React, { useState, useEffect } from 'react';
 import './MessagePanel.scss';
 
@@ -26,46 +10,52 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ message, title }) => {
   const [isXml, setIsXml] = useState<boolean>(false);
   const [formattedMessage, setFormattedMessage] = useState<string>(message);
 
+  // Clean up the message by removing HTML comment wrappers
+  const cleanMessage = (rawMessage: string): string => {
+    let cleanedMessage = rawMessage;
+    
+    // Handle common HTML comment wrappers around XML
+    if (cleanedMessage.includes('<!--?xml')) {
+      cleanedMessage = cleanedMessage.replace('<!--?xml', '<?xml');
+    }
+    if (cleanedMessage.includes('--><')) {
+      cleanedMessage = cleanedMessage.replace('--><', '><');
+    }
+    
+    return cleanedMessage;
+  };
+
+  // Detect if the content is XML based on patterns
+  const detectXml = (content: string): boolean => {
+    return (
+      /^\s*<[\s\S]*>/.test(content) || 
+      content.includes('<?xml') ||
+      content.includes('<Envelope') ||
+      content.includes('<Document') ||
+      content.startsWith('<')
+    );
+  };
+
   useEffect(() => {
-    // First, clean up the message and detect if it's XML
-    const cleanAndDetectXml = () => {
-      let cleanMessage = message;
-      
-      // Handle common HTML comment wrappers around XML
-      if (message.includes('<!--?xml')) {
-        cleanMessage = message.replace('<!--?xml', '<?xml');
-      }
-      if (cleanMessage.includes('--><')) {
-        cleanMessage = cleanMessage.replace('--><', '><');
-      }
-      
-      // Check for XML patterns
-      const hasXmlIndicators = 
-        /^\s*<[\s\S]*>/.test(cleanMessage) || 
-        cleanMessage.includes('<?xml') ||
-        cleanMessage.includes('<Envelope') ||
-        cleanMessage.includes('<Document') ||
-        cleanMessage.startsWith('<');
-        
-      setIsXml(hasXmlIndicators);
-      return { cleanMessage, isXml: hasXmlIndicators };
-    };
+    // First clean the message
+    const cleaned = cleanMessage(message);
     
-    const { cleanMessage, isXml } = cleanAndDetectXml();
+    // Then detect if it's XML
+    const xmlDetected = detectXml(cleaned);
+    setIsXml(xmlDetected);
     
-    if (isXml) {
+    if (xmlDetected) {
       try {
-        // For XML content, use a different formatting approach
-        const formattedXml = prettyPrintXml(cleanMessage);
+        // For XML content, use formatting
+        const formattedXml = prettyPrintXml(cleaned);
         setFormattedMessage(formattedXml);
       } catch (error) {
-        // Fall back to the original message
-        setFormattedMessage(cleanMessage);
-        throw error;
+        // Fall back to the cleaned message
+        setFormattedMessage(cleaned);
       }
     } else {
-      // For non-XML, just use the clean message
-      setFormattedMessage(cleanMessage);
+      // For non-XML, just use the cleaned message
+      setFormattedMessage(cleaned);
     }
   }, [message]);
   
@@ -174,8 +164,8 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ message, title }) => {
       
       indent = pad;
       
-      // Add indentation
-      output += "  ".repeat(indent) + line + "\n";
+      // Add indentation (protect against negative indentation)
+      output += "  ".repeat(indent > 0 ? indent : 0) + line + "\n";
       
       // Check if this line is an opening tag and not self-closing
       if (line.match(/<[^/].*[^/]>$/) && !line.match(/<.*\/.*>/)) {
@@ -186,31 +176,14 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ message, title }) => {
     return output;
   };
 
-  // Copy XML to clipboard
+  // Copy content to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(formattedMessage);
   };
 
-  // Render content with or without XML formatting
-  const renderContent = () => {
-    if (!isXml) {
-      return (
-        <div className='messageContainer'>
-          <div className='messageToolbar'>
-            <button 
-              onClick={copyToClipboard}
-              className='messageButton'
-            >
-              Copy Message
-            </button>
-          </div>
-          <pre className='messageContent'>{formattedMessage}</pre>
-        </div>
-      );
-    }
-
-    // Apply syntax highlighting for XML
-    let htmlContent = formattedMessage
+  // Apply XML syntax highlighting
+  const applyXmlSyntaxHighlighting = (xmlString: string): string => {
+    let htmlContent = xmlString
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -232,6 +205,30 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ message, title }) => {
         return `${p1}<span class="xml-attr">${p2}</span>=<span class="xml-value">${p3}${p4}${p5}</span>`;
       }
     );
+    
+    return htmlContent;
+  };
+
+  // Render content with or without XML formatting
+  const renderContent = () => {
+    if (!isXml) {
+      return (
+        <div className='messageContainer'>
+          <div className='messageToolbar'>
+            <button 
+              onClick={copyToClipboard}
+              className='messageButton'
+            >
+              Copy Message
+            </button>
+          </div>
+          <pre className='messageContent'>{formattedMessage}</pre>
+        </div>
+      );
+    }
+
+    // Apply syntax highlighting for XML
+    const htmlContent = applyXmlSyntaxHighlighting(formattedMessage);
 
     return (
       <div className='xmlContainer'>

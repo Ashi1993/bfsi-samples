@@ -108,3 +108,13 @@
   .error-message-chart button:hover {
     background: #3f4041;
   }
+
+  .no-data-message-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #718096;
+    font-style: italic;
+    font-size: 0.9rem;
+  }

@@ -57,7 +57,7 @@ const MessageTypeDistribution: React.FC<MessageTypeDistributionProps> = ({ title
   const [responseData, setResponseData] = useState<ApiResponse | null>(null);
 
   // Function to map our UI filter to API parameter
-  const getApiTimefilter = (periodType: string): 'daily' | 'weekly' | 'monthly' => {
+  const getApiTimefilter = (periodType: string): string => {
     switch (periodType.toLowerCase()) {
       case 'daily': return 'daily';
       case 'weekly': return 'weekly';
@@ -66,7 +66,7 @@ const MessageTypeDistribution: React.FC<MessageTypeDistributionProps> = ({ title
   };
 
   // Function to map our UI direction to API parameter
-  const getApiDirection = (directionType: string): 'inward' | 'outward' | undefined => {
+  const getApiDirection = (directionType: string): string | undefined => {
     if (directionType.toLowerCase() === 'inward') return 'inward';
     if (directionType.toLowerCase() === 'outward') return 'outward';
     return undefined; // For 'All'

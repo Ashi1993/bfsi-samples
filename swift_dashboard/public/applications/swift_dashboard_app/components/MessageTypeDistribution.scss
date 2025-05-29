@@ -52,6 +52,7 @@
   .error-message-distribution {
     color: #e74c3c;
     text-align: center;
+    margin-bottom: 1rem;
   }
   
   .error-message-distribution button {
@@ -61,7 +62,6 @@
     padding: 0.3125rem 0.9375rem;
     border-radius: 0.25rem;
     cursor: pointer;
-    margin-top: 0.625rem;
   }
   
   .error-message-distribution button:hover {

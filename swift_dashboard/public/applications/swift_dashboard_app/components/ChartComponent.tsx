@@ -58,7 +58,7 @@ const ChartComponent = ({ type, period, direction }: ChartComponentProps): React
   /**
    * Converts UI filter to API format
    */
-  const getApiTimeframe = (filter: string): 'daily' | 'weekly' | 'monthly' => {
+  const getApiTimeframe = (filter: string): string => {
     switch (filter.toLowerCase()) {
       case 'daily': return 'daily';
       case 'weekly': return 'weekly';
@@ -69,7 +69,7 @@ const ChartComponent = ({ type, period, direction }: ChartComponentProps): React
   /**
    * Converts direction filter to API format
    */
-  const getApiDirection = (filter: string): 'inward' | 'outward' | undefined => {
+  const getApiDirection = (filter: string): string | undefined => {
     if (filter.toLowerCase() === 'inward') return 'inward';
     if (filter.toLowerCase() === 'outward') return 'outward';
     return undefined; // For 'All'
@@ -184,6 +184,22 @@ const ChartComponent = ({ type, period, direction }: ChartComponentProps): React
       labels: data.timeLabels,
       datasets: datasets
     };
+  };
+
+  const hasNoData = () => {
+    if (!chartData || chartData.length === 0) return true;
+    
+    // If we have chart data but all values are zero
+    const totalInward = timeSpecificData?.inwardCount || 0;
+    const totalOutward = timeSpecificData?.outwardCount || 0;
+
+    if (direction === 'All') {
+        return totalInward === 0 && totalOutward === 0;
+    } else if (direction === 'Inward') {
+        return totalInward === 0;
+    } else {
+        return totalOutward === 0;
+    }
   };
 
   /**
@@ -470,6 +486,22 @@ const ChartComponent = ({ type, period, direction }: ChartComponentProps): React
         <div className='error-message-chart'>
           <div>{error}</div>
           <button onClick={() => window.location.reload()}>Retry</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (hasNoData()) {
+    return (
+      <div className="chart-component">
+        <div className="chart-header">
+          <h3>Messages By Completion</h3>
+          <div className="chart-info-icon pie" data-tooltip="Shows the distribution of messages by status (Success/Failure) based on your selected time period and direction filters">
+            <span className="info-icon">i</span>
+          </div>
+        </div>
+        <div className='no-data-message-chart'>
+          <span>No data available for the selected filters</span>
         </div>
       </div>
     );

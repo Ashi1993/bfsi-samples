@@ -85,6 +85,20 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ title, direction, perio
   if (error) {
     return (
       <div className="summary-component">
+        <div className="chart-header">
+          <h3>{title}</h3>
+          <div className='viewAllButtonContainer'>
+            <button 
+              className='viewAllButton' 
+              onClick={handleViewAllMessages}
+            >
+              All Messages
+            </button>
+          </div>
+          <div className="chart-info-icon activity" data-tooltip="Shows the most recent messages based on your selected time period and direction filters. Click on a message ID to view its details.">
+              <span className="info-icon">i</span>
+          </div>
+        </div>
         <div className='error-message-activity'>
               <span>{error}</span>
               <button onClick={() => {

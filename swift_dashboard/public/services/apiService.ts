@@ -121,8 +121,8 @@ getAllMessages: async (
    * Fetch chart data with optional filters
    */
   getChartData: async (
-    timeframe: 'daily' | 'weekly' | 'monthly',
-    direction?: 'inward' | 'outward'
+    timeframe: string,
+    direction?: string
   ): Promise<MessageChartData[]> => {
     try {
       const response = await apiClient.get('/chart', {
@@ -141,8 +141,8 @@ getAllMessages: async (
    * Fetch time-specific message data
    */
   getTimeSpecificData: async (
-    timeframe: 'daily' | 'weekly' | 'monthly',
-    direction?: 'inward' | 'outward'
+    timeframe: string,
+    direction?: string
   ): Promise<{
     messages: MessageData[];
     period: string;
@@ -230,8 +230,8 @@ getErrorStatistics: async (
    * @returns Response with message type distribution data
    */
   getTopMessageTypes: async (
-    timeFilter: 'daily' | 'weekly' | 'monthly',
-    direction?: 'inward' | 'outward',
+    timeFilter: string,
+    direction?: string,
     limit: number = 7,
     includeStats: boolean = true
   ): Promise<MessageTypeResponse> => {

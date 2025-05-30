@@ -44,7 +44,7 @@
   "opensearchDashboards": {
     "version": "2.19.0",
     "templateVersion": "1.0.0",
-    "node-version": "18.18.2",
+    "node-version": "20.12.2",
     "npm-version": "9.8.1"
   }
 }

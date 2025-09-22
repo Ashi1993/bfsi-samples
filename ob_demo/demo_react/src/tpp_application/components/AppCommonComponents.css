@@ -10,3 +10,30 @@
     background: none;
     border: none;
 }
+
+.quick-action-button-outer{
+    width: 7rem;
+    height: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quick-action-button-outer > button{
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+    border: none;
+    background: var(--color-font-color1);
+    box-shadow: 4.5px 4.5px 5.625px -2.25px var(--color-orange);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-orange);
+    cursor: pointer;
+}

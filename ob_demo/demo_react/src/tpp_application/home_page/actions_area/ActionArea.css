@@ -1,0 +1,52 @@
+.actions-outer{
+    width: 100%;
+    height: 14rem;
+    background: url("/images/background.jpg") lightgray -18.644px -372.574px / 145.345% 527.151% no-repeat;
+    padding: 2rem 8rem;
+    display: flex;
+}
+
+.profile-section{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.profile-image{
+    width: 8rem;
+    height: 8rem;
+    background: url("/images/profile_pic.png") no-repeat center;
+    border-radius: 50%;
+    background-size: cover;
+    /*background-position: center;*/
+}
+
+.greeting-and-name{
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--color-font-color1);
+    gap: 0;
+}
+
+.greeting-and-name > p {
+    font-size: 2rem;
+}
+
+.greeting-and-name .greeting-second-para{
+    font-weight: bold;
+}
+
+.quick-action-area{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    gap: 3rem;
+    align-items: end;
+    justify-content: center;
+}

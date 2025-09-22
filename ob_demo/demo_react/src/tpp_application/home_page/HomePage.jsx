@@ -1,9 +1,10 @@
 import "./HomePage.css"
+import ActionArea from "./actions_area/ActionArea.jsx";
 
 const HomePage = () => {
     return (
         <>
-            <h1>Home</h1>
+            <ActionArea/>
         </>
     )
 }

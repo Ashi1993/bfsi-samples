@@ -14,3 +14,16 @@ export const HeaderIconButton = () => {
         </>
     );
 }
+
+export const QuickActionButton = ({icon, name, onClick}) => {
+    return (
+        <>
+            <div className="quick-action-button-outer">
+                <button onClick={onClick}>
+                    {icon}
+                    <p>{name}</p>
+                </button>
+            </div>
+        </>
+    );
+}

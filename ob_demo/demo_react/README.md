@@ -1,12 +1,36 @@
-# React + Vite
+# TPP Demo Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a static demo web application that demonstrates the basics of the WSO2 Open Banking platform. This app allows users to experience how a real Third-Party Provider (TPP), which is connected to the WSO2 Open Banking platform, would function.
 
-Currently, two official plugins are available:
+## Components
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application contains two major components:
 
-## Expanding the ESLint configuration
+- TPP Application: This is the front-end application that simulates a third-party finance aggregator. It's the part the user interacts with to initiate a banking process.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Banking Pages: These are mock banking pages that represent the bank's interface. This is where the user would be redirected to authenticate and authorize transactions or data sharing with the TPP.
+
+## Configuration
+
+All configurations for this demo application are stored in the config.json file. You can modify this file to adjust settings related to the WSO2 Open Banking platform, such as endpoints and client credentials, to match your specific setup.
+
+## Getting Started
+Follow these steps to set up and run the application locally.
+
+### Required Tool Versions
+Node.js: The recommended build tool is npm, which is bundled with Node.js. It's best to use the latest LTS (Long-Term Support) version of Node.js for stability.
+
+**Vite**: This project is built using Vite, a fast front-end build tool.
+
+### Steps to Start the App
+***Install Dependencies***: Navigate to the project's root directory in your terminal and install all required dependencies.
+```npm install ```
+
+
+***Start the Development Server***: Once the dependencies are installed, you can start the development server.
+
+```npm run dev```
+
+The Vite development server will start, and the application will be accessible at a local address, usually http://localhost:5173. The terminal will provide the exact URL.
+
+Open in Browser: Open your web browser and navigate to the URL provided in the terminal to view and interact with the TPP demo application.

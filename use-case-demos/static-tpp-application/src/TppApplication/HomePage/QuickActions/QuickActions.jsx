@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import "./HomeHeaderContent.css"
-import {CommonButton} from "../../Components/AppCommonComponents.jsx";
+import "./QuickActions.css"
+import {Button} from "../../Components/Button.jsx";
 import PayBillsIcon from "/public/resources/assets/images/icons/pay_icon.svg?react"
 import TransferFundsIcon from "/public/resources/assets/images/icons/transfer_icon.svg?react"
 import ScheduleIcon from "/public/resources/assets/images/icons/schedule_icon.svg?react"
@@ -41,7 +41,7 @@ const quickActions = [
  * @param {Object} props - The component props.
  * @param {Object} props.userInfo - The user information object, including their name and image URL.
  */
-const HomeHeaderContent = ({userInfo}) => {
+const QuickActions = ({userInfo}) => {
 
     console.log(userInfo);
 
@@ -72,8 +72,8 @@ const HomeHeaderContent = ({userInfo}) => {
                 <div className="product-quick-actions-container">
 
                     {quickActions.map((action, index) => (
-                        <CommonButton key={index} icon={< action.icon/>} onClick={action.onClick}
-                                      isQuickActionButton={true}>{action.name}</CommonButton>
+                        <Button key={index} icon={< action.icon/>} onClick={action.onClick}
+                                isQuickActionButton={true}>{action.name}</Button>
                     ))}
 
                 </div>
@@ -82,5 +82,5 @@ const HomeHeaderContent = ({userInfo}) => {
     )
 }
 
-export default HomeHeaderContent;
+export default QuickActions;
 

@@ -16,22 +16,22 @@
  * under the License.
  */
 
-import HomeHeaderContent from "./HomeHeader/HomeHeaderContent.jsx";
+import QuickActions from "./QuickActions/QuickActions.jsx";
 import useAuthContext from "../../hooks/useAuthContext.js";
 
 /**
  * The main component for the product's home page.
  * It fetches user information using the `useAuthContext` custom hook and
- * passes this data to the `HomeHeaderContent` component to display user-specific content.
+ * passes this data to the `QuickActions` component to display user-specific content.
  */
-const ProductHomePage = () => {
+const Home = () => {
     const userInfo = useAuthContext();
     return (
         <>
-            <HomeHeaderContent userInfo={userInfo}/>
+            <QuickActions userInfo={userInfo}/>
         </>
     )
 }
 
-export default ProductHomePage;
+export default Home;
 

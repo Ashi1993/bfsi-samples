@@ -17,7 +17,7 @@
  */
 
 import "./AccountsCentral.css"
-import {CommonButton} from "../TppApplication/Components/AppCommonComponents.jsx";
+import {Button} from "../TppApplication/Components/Button.jsx";
 import Logout from "/public/resources/assets/images/icons/logout_icon.svg?react"
 
 /**
@@ -35,7 +35,7 @@ const AccountsCentral = ({children}) => {
         <>
             <div className="product-header-outer">
                 <p>Accounts Central</p>
-                <CommonButton icon={<Logout/>} onClick={() => {
+                <Button icon={<Logout/>} onClick={() => {
                 }} isQuickActionButton={false}/>
             </div>
 

@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import "./AppCommonComponents.css"
+import "./Button.css"
 
 /**
  * A versatile, reusable button component that can function as either a
@@ -30,7 +30,7 @@ import "./AppCommonComponents.css"
  * @param {React.ReactNode} [props.children] - The text or content to display next to the icon (makes it a Quick Action Button).
  * @param {function} props.onClick - The function to call when the button is clicked.
  */
-export const CommonButton = ({icon, children, onClick, isQuickActionButton}) => {
+export const Button = ({icon, children, onClick, isQuickActionButton}) => {
 
     const quickActionClasses = 'quick-action-button-outer';
     const iconButtonClasses = 'product-header-user-icon-button-outer product-header-user-icon-button-content';

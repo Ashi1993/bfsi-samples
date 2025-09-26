@@ -19,14 +19,14 @@
 import {Route, Routes} from "react-router-dom";
 import {ConfigProvider} from "./context/ConfigContext.jsx";
 import OxygenThemeProvider from "./OxygenThemeProvider.jsx";
-import ProductHomePage from "./TppApplication/HomePage/ProductHomePage.jsx";
+import Home from "./TppApplication/HomePage/Home.jsx";
 import AccountsCentral from "./lauyouts/AccountsCentral.jsx";
 
 /**
  * The main application component that sets up the core routing and
  * provides necessary contexts for the 'Accounts Central' product section.
  * It defines a base layout with a header and a content area, and uses
- * nested routes to render specific product pages like 'ProductHomePage'.
+ * nested routes to render specific product pages like 'Home'.
  */
 function App() {
 
@@ -38,7 +38,7 @@ function App() {
                         <OxygenThemeProvider>
                             <AccountsCentral>
                                 <Routes>
-                                    <Route path="/home" element={<ProductHomePage/>}/>
+                                    <Route path="/home" element={<Home/>}/>
                                 </Routes>
                             </AccountsCentral>
                         </OxygenThemeProvider>

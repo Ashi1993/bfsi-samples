@@ -49,7 +49,7 @@ export const ConfigProvider = ({children}) => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>; // Or return null, or a spinner component.
+        return <div>Loading...</div>;
     }
     return (<ConfigContext.Provider value={{configs, loading}}>{children}</ConfigContext.Provider>);
 }

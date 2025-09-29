@@ -36,18 +36,23 @@ const useAuthContext = () => {
         if (fetchedRef.current) {
             return;
         }
-            const fetchData = async () => {
+        const fetchData = async () => {
 
+            try {
                 const response = await fetch("/configurations/config.json");
                 const data = await response.json();
                 setUser(data.user);
-                fetchedRef.current = true;
+            } catch (e) {
+                console.error(e.message);
             }
-            fetchData()
+            fetchedRef.current = true;
+        }
+        fetchData()
 
     }, [])
 
-    return user
+    return user? user : {"name": "John Smith",
+        "image": "/resources/assets/images/profile/dp_image.webp"};
 };
 
 export default useAuthContext;

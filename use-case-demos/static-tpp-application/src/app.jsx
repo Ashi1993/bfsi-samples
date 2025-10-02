@@ -20,7 +20,7 @@ import {Route, Routes} from "react-router-dom";
 import ConfigContext, {ConfigProvider} from "./providers/config-context.jsx";
 import AppThemeProvider from "./providers/app-theme-provider.jsx";
 import Home from "./pages/home-page/home.jsx";
-import AccountsCentral from "./layouts/accounts-central.jsx";
+import ApplicationLayout from "./layouts/application-layout.jsx";
 import {useContext} from "react";
 
 /**

@@ -59,12 +59,14 @@ const HeroSection = ({userInfo}) => {
 
     const currentHour = new Date().getHours();
     let greeting;
-    if (currentHour >= 0 && currentHour < 12) {
-        greeting = "Good Morning!";
+    if (currentHour >= 5 && currentHour < 12) {
+        greeting = ", Good Morning!";
+    }else if (currentHour >= 0 && currentHour < 5) {
+        greeting = "";
     } else if (currentHour >= 12 && currentHour < 18) {
-        greeting = "Good Afternoon!";
+        greeting = ", Good Afternoon!";
     } else {
-        greeting = "Good Evening!";
+        greeting = ", Good Evening!";
     }
 
     return (<>
@@ -73,7 +75,7 @@ const HeroSection = ({userInfo}) => {
                     <div className="user-image-container" style={{backgroundImage: `url(${userInfo.image})`}}></div>
                     <div className="product-user-name-greeting-container">
                         <p>Hello,</p>
-                        <p className="product-user-name-greeting-information-para">{userInfo.name}, {greeting}</p>
+                        <p className="product-user-name-greeting-information-para">{userInfo.name}{greeting}</p>
                     </div>
                 </div>
                 <div className="product-quick-actions-container">

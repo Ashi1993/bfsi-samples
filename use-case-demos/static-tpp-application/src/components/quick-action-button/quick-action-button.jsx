@@ -16,34 +16,36 @@
  * under the License.
  */
 
-import "./quick-action-button.css"
-import {Box,IconButton} from "@oxygen-ui/react";
+import {IconButton} from "@oxygen-ui/react";
+import {ActionButtonContentOuter} from "../styled-components/styled-containers.jsx";
 
 /**
- * A highly reusable and responsive button component specifically designed for a quick action list.
+ * A reusable, styled button component optimized for display within quick action lists.
  *
- * It utilizes the **Oxygen UI Grid** system to manage a compact, clickable layout.
- * The component expects the **`children`** prop to be an array containing exactly two elements:
+ * It uses the **Oxygen UI `IconButton`** component for its base structure and wraps the content
+ * with the **`ActionButtonContentOuter`** styled component to define the custom layout.
+ * The component expects the **`children`** prop to be an array containing exactly two elements,
+ * which are destructured into:
  * 1. The **icon** element (`iconElement`).
  * 2. The **text label** element (`nameText`).
  *
- * This structure allows for precise, responsive alignment of the icon (top) and label (bottom).
+ * Note: The `onClick` prop has been removed from the component signature, as the functionality
+ * is now inherited by the underlying `IconButton` (assuming the `IconButton` handles the click).
  *
  * @param {object} props - The component props.
  * @param {Array<React.ReactNode>} props.children - An array where the first element is the icon component and the second is the name text/label.
- * @param {function} props.onClick - The function to be executed when the button's surrounding `div` is clicked.
+ * @returns {JSX.Element} The rendered quick action button.
  */
 export const QuickActionButton = ({children}) => {
 
-     const [iconElement, nameText] = children;
+    const [iconElement, nameText] = children;
 
     return (
         <IconButton >
-            <Box display="flex" flexDirection="column" width={{md:'2rem',sm:'2rem',xs:'2rem'}} sx={{fontSize: {md:'1rem',sm:'0.8rem',xs:'0.8rem'}, gap:'0.5rem', background:'white', padding:{md:'1rem 3rem',sm:'1rem 3rem',xs:'0.8rem 2rem'}, justifyContent:'center', alignItems: 'center', color:'red', borderRadius:'5%', boxShadow:'4.5px 4.5px 5.625px -2.25px var(--color-primary)'}}>
+            <ActionButtonContentOuter>
                 {iconElement}
                 {nameText}
-            </Box>
+            </ActionButtonContentOuter>
         </IconButton>
     );
 };
-

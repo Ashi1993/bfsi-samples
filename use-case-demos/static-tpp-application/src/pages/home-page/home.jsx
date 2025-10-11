@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import HeroSection from "./hero-section.jsx";
+import HeroSection from "./hero-section/hero-section.jsx";
 import useAuthContext from "../../hooks/use-auth-context.js";
-import ApplicationLayout from "../../layouts/application-layout.jsx";
+import ApplicationLayout from "../../layouts/application-layout/application-layout.jsx";
 
 /**
  * The main component for the product's home page.
@@ -39,4 +39,3 @@ const Home = () => {
 }
 
 export default Home;
-

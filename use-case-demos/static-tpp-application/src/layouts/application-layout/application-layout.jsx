@@ -18,8 +18,8 @@
 
 import "./application-layout.css"
 import {useContext} from "react";
-import ConfigContext from "../providers/config-context.jsx";
-import Header from "../components/header/header.jsx";
+import ConfigContext from "../../providers/config-context.jsx";
+import Header from "../../components/header/header.jsx";
 
 /**
  * A standard application layout component that establishes a persistent header

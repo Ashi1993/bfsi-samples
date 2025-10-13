@@ -31,8 +31,8 @@ import {Box, Grid} from "@oxygen-ui/react";
  * @param {object} props - Styled component props automatically injected by Emotion/Styled-components.
  * @param {object} props.theme - The active Oxygen UI theme object.
  */
-export const HeroOuterContainer = styled(Grid)(({ theme }) => ({
-    background: 'url(/resources/assets/images/background/bg_image.webp) lightgray -18.644px -372.574px / 145.345% 527.151% no-repeat',
+export const HeroOuterContainer = styled(Grid)(({ theme, background }) => ({
+    background: 'url(${background}) lightgray -18.644px -372.574px / 145.345% 527.151% no-repeat',
     padding: theme.spacing(3),
     display: 'flex',
     justifyContent: 'center',

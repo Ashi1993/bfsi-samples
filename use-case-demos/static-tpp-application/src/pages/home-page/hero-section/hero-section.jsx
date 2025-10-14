@@ -86,13 +86,13 @@ const HeroSection = ({userInfo}) => {
         <>
             <Grid container className="outer-container" style={{background: `url(${userInfo.background}) lightgray -18.644px -372.574px / 145.345% 527.151% no-repeat`}}>
 
-                <Grid item className='user-info' style={{containerHeight}}>
+                <Grid item className='user-info' style={{height:containerHeight}}>
                     <Box className='user-profile'  sx={{display: displayStyle}}>
                         <img src={userInfo.image} alt="" className='profile-image' />
                     </Box>
                     <Box className='user-details'>
                         <p>Hello,</p>
-                        <p>{userInfo.name}, {greetingSelection()}</p>
+                        <p>{userInfo.name} {greetingSelection()}</p>
                     </Box>
                 </Grid>
 

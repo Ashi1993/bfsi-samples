@@ -18,11 +18,11 @@
 
 .outer-container{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   grid-auto-flow: row;
 
   .user-info{
-    padding-top: 1rem;
+
     display: flex;
     align-items: center;
     padding-left: 2%;

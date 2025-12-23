@@ -16,25 +16,6 @@
  * under the License.
  */
 
-import {useEffect, useState} from "react";
-import {api} from "../utility/api.ts";
-import type {Account, AppInfo, Bank, Config, StandingOrders, TransactionData, User} from "./config-interfaces.ts";
-
-const initialConfig: Config = {
-    user: { name: '', image: '', background: '' },
-    name: { route: '', applicationName: '' ,route_bank_one:''},
-    banks: [],
-    accounts: [],
-    payees: [],
-    transactions: [],
-    standingOrders: [],
-}
-
-interface BankWithTotal{
-    bank: Bank,
-    total: number,
-}
-
 export interface ChartData{
     label: string;
     labels: string[];
@@ -51,99 +32,266 @@ export interface BanksWithAccounts{
     total: number;
 }
 
-interface UseConfigContextReturn {
-    appInfo: AppInfo;
-    userInfo: User;
-    bankTotals: BankWithTotal[] | undefined;
-    chartInfo: ChartData;
-    total: number;
-    banksWithAccounts: BanksWithAccounts[];
-    transactions: TransactionData[];
-    standingOrderList: StandingOrders[];
+export interface OverlayDataProp{
+    flag: boolean;
+    overlayData:OverlayData;
 }
 
+export interface OverlayData{
+    title: string;
+    context: string;
+    mainButtonText: string;
+    secondaryButtonText: string;
+    onMainButtonClick: () => void;
+}
+
+import {useEffect, useMemo, useState} from "react";
+import type {Account, AppInfo, Bank, Config, User} from "./config-interfaces.ts";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useConfig} from "./use-config.ts";
+import {queryClient} from "../utility/query-client.ts";
 
 /**
- * A custom React Hook that acts as the application's central data store.
- * It fetches the main configuration from 'config.json' on mount, then processes
- * and aggregates the raw financial data (accounts, banks, transactions) into
- * various derived state variables (e.g., total balances, chart data).
- * It returns all application information and processed financial totals for global use.
+ * @function useConfigContext
+ * @description The central state management hook that fetches application configuration,
+ * aggregates raw data into calculated properties (e.g., totals, chart data),
+ * and critically, handles global state updates following bank redirection flows (payments, account linking).
  */
-const useConfigContext = ():UseConfigContextReturn  => {
+const CONFIG_QUER_KEY = ["appConfig"];
 
-    const [config,setConfig] = useState<Config>(initialConfig)
-    const [totalsOfBanks, setTotalsOfBanks] = useState<BankWithTotal[]>()
-    const [chartDatas, setChartDatas] = useState<ChartData>({
-        label: '',
-        labels:[],
-        data: [],
-        backgroundColor: [],
-        borderColor: [],
-        borderWidth: 0,
-        cutout: '0%'
-    })
-    const [totalBalances, setTotalBalances] = useState<number>(0)
-    const [banksWithAllAccounts, setBanksWithAllAccounts] = useState<BanksWithAccounts[]>([])
-    const [transactionDatas, setTransactionDatas] = useState<TransactionData[]>([])
-    const [standingOrdersList, setStandingOrdersList] = useState<StandingOrders[]>([])
+const useConfigContext = () => {
+    const { data: configData } = useConfig() ;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const redirectState = location.state?.operationState;
+    const [overlayInformation, setOverlayInformation] = useState<OverlayDataProp>({flag:false,overlayData:{context:"",secondaryButtonText:"",mainButtonText:"",title:"",onMainButtonClick:()=>{}}});
+    const handleOverlayClose = () => {
+        setOverlayInformation({flag:false,overlayData:{context:"",secondaryButtonText:"",mainButtonText:"",title:"",onMainButtonClick:()=>{}}})
+    }
+    const updateSessionStorage = (updatedConfig: Config) => {
+        try {
+            queryClient.setQueryData(CONFIG_QUER_KEY, updatedConfig);
+        } catch (e) {
+            console.error("Failed to update session storage");
+        }
+    }
+
+    const totals = useMemo(() => {
+        if (!configData) return [];
+        return configData.banks.map((bank) => {
+            const total = bank.accounts
+                .reduce((sum, acc) => sum + acc.balance, 0);
+            return { bank, total };
+        });
+    }, [configData]);
+
+    const chartInfo = useMemo(() => {
+        if (!configData) return { label: '', labels: [], data: [], backgroundColor: [], borderColor: [], borderWidth: 0, cutout: '0%' };
+        return {
+            label: '',
+            labels: totals.map((t) => t.bank.name),
+            data: totals.map((t) => t.total),
+            backgroundColor: totals.map((t) => t.bank.color),
+            borderColor: totals.map((t) => t.bank.border),
+            borderWidth: 2,
+            cutout: '35%'
+        }
+    }, [configData, totals]);
+
+    const totalBalances = useMemo(() => {
+        return totals.reduce((s, b) => s + b.total, 0);
+    }, [totals]);
+
+    const banksWithAllAccounts = useMemo(() => {
+        if (!configData) return [];
+        return configData.banks.map((bank) => {
+            const accounts = bank.accounts;
+            const total = accounts.reduce((s, a) => s + a.balance, 0);
+            return { bank, accounts, total };
+        });
+    }, [configData]);
 
     useEffect(() => {
-        const fetchData = async ()=>{
+        if (!configData || (!location.state && !redirectState)) {
+            return;
+        }
 
-            try{
-                const response = await api.get<Config>('config.json');
-                setConfig(response);
+        if (redirectState?.type === "payment") {
 
-                const totalsOfBanks = response.banks.map((bank) => {
-                    const totals = response.accounts.filter((account)=> account.bank===bank.name).reduce((sum,account)=>sum + account.balance,0);
+            try {
+                const newTransactionData = redirectState.data;
+                const fullAccountNumber = newTransactionData.account;
+                const firstHyphenIndex = fullAccountNumber.indexOf('-');
+                const formattedAccountNumber = fullAccountNumber.substring(firstHyphenIndex + 1);
+                newTransactionData.account = formattedAccountNumber;
+
+                const transactionAmount = parseFloat(newTransactionData.amount);
+                const sourceBankName = newTransactionData.bank;
+
+                const newConfig = queryClient.setQueryData(CONFIG_QUER_KEY, (oldConfig: Config | undefined) => {
+                    const baseConfig = oldConfig || configData;
+                    const updatedBanks = baseConfig.banks.map(bank => {
+                        if (bank.name === sourceBankName) {
+                            const updatedAccounts = bank.accounts.map((account: Account) => {
+                                if (account.id === formattedAccountNumber || account.id === fullAccountNumber) {
+                                    const newBalance = (account.balance ?? 0) - transactionAmount;
+                                    if (newBalance < 0) {
+                                        throw new Error(`Insufficient funds: cannot process payment of ${transactionAmount} from account with balance ${account.balance}`);
+                                    }
+                                    const currentTransactions = account.transactions || [];
+                                    return {
+                                        ...account,
+                                        balance: newBalance,
+                                        transactions: [newTransactionData, ...currentTransactions]
+                                    };
+                                }
+                                return account;
+                            });
+                            return {
+                                ...bank,
+                                accounts: updatedAccounts
+                            };
+                        }
+                        return bank;
+                    });
                     return {
-                        bank: bank,
-                        total: totals
+                        ...baseConfig!,
+                        banks: updatedBanks,
+                    };
+                });
+
+                queryClient.invalidateQueries({ queryKey: CONFIG_QUER_KEY });
+                updateSessionStorage(newConfig as Config);
+
+                const paymentOverlayText = `Your payment of ${newTransactionData.amount} ${newTransactionData.currency} has been successfully processed.`;
+                setOverlayInformation({
+                    flag: true,
+                    overlayData: {
+                        context: paymentOverlayText,
+                        secondaryButtonText: "",
+                        title: "Payment Success",
+                        onMainButtonClick: handleOverlayClose,
+                        mainButtonText: "OK"
                     }
                 });
-                setTotalsOfBanks(totalsOfBanks)
 
-                const data : ChartData ={
-                    label:'',
-                    labels:totalsOfBanks.map(bankdata=> bankdata.bank.name),
-                    data: totalsOfBanks.map(bankData=>bankData.total),
-                    backgroundColor: totalsOfBanks.map(bankData=>bankData.bank.color),
-                    borderColor: totalsOfBanks.map(bankData=>bankData.bank.border),
-                    borderWidth: 2,
-                    cutout: '35%'
-                }
-                setChartDatas(data)
-
-                const totalBalance = totalsOfBanks.reduce((sum,bank) => sum + bank.total, 0)
-                setTotalBalances(totalBalance)
-
-                const banksWithAccounts = response.banks.map((bank)=>{
-                    const accounts = response.accounts.filter((account)=> account.bank===bank.name);
-                    const total = response.accounts.filter((account)=> account.bank===bank.name).reduce((sum,account)=>sum + account.balance,0);
-
-                    return{
-                        bank: bank,
-                        accounts: accounts,
-                        total: total
-                    }
-                })
-
-                setBanksWithAllAccounts(banksWithAccounts)
-
-                const transcations = response.transactions;
-                setTransactionDatas(transcations);
-
-                const standingOrders= response.standingOrders;
-                setStandingOrdersList(standingOrders)
-            }catch (e) {
-                console.log(e)
+                navigate(location.pathname, { replace: true, state: {} });
+            }catch (error){
+                console.error(error);
             }
-        }
-        fetchData();
-    },[])
-    return { appInfo: config.name as AppInfo, userInfo: config.user as User, bankTotals: totalsOfBanks, chartInfo: chartDatas, total: totalBalances, banksWithAccounts: banksWithAllAccounts, transactions: transactionDatas, standingOrderList: standingOrdersList  }
-}
 
-// @ts-ignore
+
+        }else if(redirectState?.type === "single"){
+
+            try{
+                const newAccountData = redirectState.data;
+                const bankName = newAccountData.bankInfo;
+                const newAccountId = newAccountData.accountDetails[0];
+                const newConfigWithAccount = queryClient.setQueryData(CONFIG_QUER_KEY, (oldConfig:Config | undefined)=> {
+                    const baseConfig = oldConfig || configData;
+                    const accountToBeAdded = {
+                        id: newAccountId,
+                        bank: bankName,
+                        name: "savings account",
+                        balance: 500
+                    };
+                    const updatedBanks = baseConfig.banks.map(bank => {
+                        if (bank.name === bankName) {
+                            return {
+                                ...bank,
+                                accounts: [...(bank.accounts || []), accountToBeAdded]
+                            };
+                        }
+                        return bank;
+                    });
+                    return {
+                        ...baseConfig!,
+                        banks: updatedBanks,
+                    };
+                }) as Config;
+                queryClient.invalidateQueries({ queryKey: CONFIG_QUER_KEY });
+                updateSessionStorage(newConfigWithAccount);
+                const newAccounts = newConfigWithAccount.banks.find(bank => bank.name===newAccountData.bankInfo)?.accounts || [];
+                const singleAccountOverlay = `The new account ${newAccounts[newAccounts.length-1]?.id} was added successfully. You can now access it and start making transactions.`;
+                setOverlayInformation({flag:true,overlayData:{context:singleAccountOverlay,secondaryButtonText:"",mainButtonText:"Ok",title:"Account added Successfully",onMainButtonClick:handleOverlayClose}});
+                navigate(location.pathname, { replace: true, state: {} });
+            }catch (error){
+                console.error(error);
+            }
+
+
+        }else if(redirectState?.type === "multiple"){
+
+            try{
+                const newAccounts = redirectState.data;
+                let generatedAccounts:Account[] = [];
+                const newConfigWithAccount = queryClient.setQueryData(CONFIG_QUER_KEY, (oldConfig:Config | undefined)=> {
+                    const baseConfig = oldConfig || configData;
+                    const structuredPermissionsData = newAccounts.accountDetails[0];
+                    const bankName = newAccounts.bankInfo;
+                    const accNumbers = structuredPermissionsData.flatMap((permissionEntry: {
+                        permission: "",
+                        accounts: string[]
+                    }) => {
+                        return permissionEntry.accounts || [];
+                    });
+                    const generatedNewAccounts: Account[] = accNumbers.map((entry:string) => {
+                        return {
+                            id: entry,
+                            bank: bankName,
+                            name: "savings (M)",
+                            balance: 500,
+                        };
+                    });
+                    generatedAccounts = generatedNewAccounts; //scope issue
+                    const updatedBanks = baseConfig.banks.map(bank => {
+                        if (bank.name === bankName) {
+                            return {
+                                ...bank,
+                                accounts: [...(bank.accounts || []), ...generatedNewAccounts]
+                            };
+                        }
+                        return bank;
+                    });
+                    return {
+                        ...baseConfig!,
+                        banks: updatedBanks
+                    }
+                });
+                const config = newConfigWithAccount as Config;
+                queryClient.invalidateQueries({ queryKey: CONFIG_QUER_KEY });
+                updateSessionStorage(config);
+                const multipleAccountOverlayContext = `The new account ${generatedAccounts?.map((account)=>account.id).join(", ") } were added successfully. You can now access it and start making transactions.`;
+                setOverlayInformation({flag:true,overlayData:{context:multipleAccountOverlayContext,secondaryButtonText:"",mainButtonText:"Ok",title:"Multiple Accounts add Successfully",onMainButtonClick:handleOverlayClose}});
+                navigate(location.pathname, { replace: true, state: {} });
+            }catch (error){
+                console.error(error);
+            }
+
+        }
+    },[redirectState])
+
+    return {
+        appInfo: configData?.name as AppInfo ,
+        userInfo: configData?.user as User,
+        bankTotals: totals,
+        chartInfo: chartInfo,
+        total: totalBalances,
+        banksWithAccounts: banksWithAllAccounts,
+        transactions: configData?.banks.flatMap(bank =>
+            bank.accounts.flatMap(account => account.transactions || [])
+        ) ?? [],
+        standingOrderList: configData?.banks.flatMap(bank=>bank.standingOrders||[]) ?? [],
+        payeesData: configData?.payees ?? [],
+        useCases: configData?.types ?? [],
+        banksList: configData?.banks ?? [],
+        overlayInformation: overlayInformation,
+        transactionTableHeaderData:configData?.transactionTableHeaderData,
+        standingOrdersTableHeaderData:configData?.standingOrdersTableHeaderData,
+        colors: configData?.colors,
+        accountsNumbersToAdd: configData?.accountNumbersToAdd,
+        banksInfomation: configData?.banks ?? []
+    };
+};
+
 export default useConfigContext;

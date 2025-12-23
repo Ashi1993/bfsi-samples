@@ -22,6 +22,11 @@ import type {FC} from "react";
 import {ArrowRightFromBracketIcon} from  '@oxygen-ui/react-icons'
 import '../components.scss'
 
+export interface HeaderContext {
+    routerName: {
+        applicationName: string;
+    };
+}
 
 export interface HeaderProps {
     name: string;
@@ -35,9 +40,7 @@ export interface HeaderProps {
 const Header: FC<HeaderProps> = ({ name }) => {
     return(
         <div className="header-outer">
-
             <p>{name}</p>
-
             <IconButton style={{ color: 'white' }}>
                 <ArrowRightFromBracketIcon size={24} />
             </IconButton>

@@ -16,7 +16,14 @@
  * under the License.
  */
 
-const baseUrl = '/configurations';
+/**
+ * @namespace api
+ * @description A reusable service client for fetching JSON data from the configured
+ * base URL (`/configurations`). It wraps the native `fetch` API, handles basic
+ * HTTP error checking, and uses TypeScript generics for type-safe data retrieval.
+ */
+// export const baseUrl = 'base url for config json file location';
+export const baseUrl = '/configurations';
 
 /**
  * Asynchronously fetches JSON data from a specific API endpoint.

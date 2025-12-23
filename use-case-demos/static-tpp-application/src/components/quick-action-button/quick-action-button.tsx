@@ -17,6 +17,7 @@
  */
 
 import { IconButton } from "@oxygen-ui/react";
+import * as React from "react";
 import '../components.scss'
 
 interface ActionButtonProps {
@@ -26,19 +27,20 @@ interface ActionButtonProps {
 }
 
 /**
- * A highly reusable and styled action button component designed for quick navigation or tasks.
- * It renders an `IconButton` displaying an optional `icon` and a text `name`.
- *
- * When clicked, it triggers the provided `onClick` handler, passing the button's `name`
- * (converted to lowercase) as the navigation path argument. It renders nothing if no `onClick` handler is provided.
+ * @function QuickActionButton
+ * @description A reusable, styled component representing a quick action button
+ * with an optional icon and name. It triggers an `onClick` handler, passing
+ * the button's lowercase, concatenated name (e.g., "Pay Bills" becomes "paybills")
+ * as the target path for navigation, and is disabled based on the button name.
  */
 const QuickActionButton = ({icon,name, onClick} : ActionButtonProps)=>{
 
     if (!onClick) return null;
+    const isDisabled = name === "Pay Bills"? false : true;
 
     return (
         <>
-            <IconButton className={'action-button'} onClick={()=> onClick(`${name?.toLowerCase()}`)}>
+            <IconButton className={'action-button'} disabled={isDisabled} onClick={()=> onClick(`${name?.toLowerCase().replace(' ','')}`)}>
                 {icon}
                 <p>{name}</p>
             </IconButton>

@@ -25,6 +25,12 @@ import { useNavigate} from "react-router-dom";
 import type {AppInfo, User} from "../../../hooks/config-interfaces.ts";
 import QuickActionButton from "../../../components/quick-action-button/quick-action-button.tsx";
 
+/**
+ * A responsive dashboard header component that displays a personalized, time-of-day-sensitive
+ * greeting and user avatar. It renders a row of quick-access action buttons (Payments, Transfer, etc.)
+ * which navigate the user based on the configured app route. The layout adapts for mobile screens.
+ */
+
 interface ActionButton {
     icon: React.ReactNode;
     name: string;
@@ -36,34 +42,31 @@ interface HeroSectionProps {
 }
 
 /**
- * A responsive dashboard header component that displays a personalized, time-of-day-sensitive
- * greeting and user avatar. It renders a row of quick-access action buttons (Payments, Transfer, etc.)
- * which navigate the user based on the configured app route. The layout adapts for mobile screens.
+ * @function HeroSection
+ * @description The top dashboard component that displays a personalized, time-sensitive greeting
+ * and a row of quick-access action buttons (e.g., Pay Bills, Transfer).
+ * The layout and component rendering are dynamically adjusted based on screen size (responsiveness).
  */
 const HeroSection = ({userInfo, appInfo}:HeroSectionProps) => {
     const isLargeScreen = useMediaQuery(useTheme().breakpoints.down('md'));
-
     const navigate = useNavigate();
-
     const responsiveDirections = isLargeScreen ? 'column' : 'row';
     const responsiveMinHeight = isLargeScreen ? '16vh' : '8vh';
     const responsiveDisplay = isLargeScreen ? 'none' : 'flex';
     const responsivePadding = isLargeScreen ? '1rem' : '2rem';
-
     const actionButtons: ActionButton[] = [
-        {icon: <BoltIcon size={'medium'}/>, name: "Payments"},
+        {icon: <BoltIcon size={'medium'}/>, name: "Pay Bills"},
         {icon: <ArrowLeftArrowRightIcon size={'medium'}/>, name: "Transfer"},
         {icon: <ClockAsteriskIcon size={'medium'}/>, name: "Schedule"},
         {icon: <UserGroupIcon size={'medium'}/>, name: "Payees"},
     ];
 
     const onClickHandlerActionButtons = (pathTo:string)=>{
-        navigate("/"+appInfo.route+"/"+pathTo);
+        const absolutePath = "/"+appInfo.route+"/"+pathTo;
+        navigate(absolutePath);
     }
-
-    const generateGreetingMsg = () => {
+    const greetingSelection = () => {
         const currentHour = new Date().getHours();
-
         if (currentHour >= 5 && currentHour < 12) {
             return ", Good Morning!";
         } else if (currentHour >= 0 && currentHour < 5) {
@@ -82,7 +85,7 @@ const HeroSection = ({userInfo, appInfo}:HeroSectionProps) => {
                     <Box className='avatar-container' sx={{display: responsiveDisplay}}>
                         <img src={userInfo.image} alt='avatar' className='avatar' />
                     </Box>
-                    <p>Hello,<br/><span>{userInfo.name}{generateGreetingMsg()}</span></p>
+                    <p>Hello,<br/><span>{userInfo.name}{greetingSelection()}</span></p>
                 </Grid>
                 <Grid className='hero-inner-secton actions' sx={{minHeight: responsiveMinHeight}}>
                     {actionButtons.map((button, index) => {

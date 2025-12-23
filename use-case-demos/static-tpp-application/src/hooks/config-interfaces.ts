@@ -16,16 +16,22 @@
  * under the License.
  */
 
+
 export interface User {
     name: string;
     image: string;
     background: string;
 }
 
+export interface DynamicBanks {
+    name: string;
+    route: string;
+    startingAccountNumbers: string;
+}
+
 export interface AppInfo {
     route: string;
     applicationName: string;
-    route_bank_one: string;
 }
 
 export interface Bank {
@@ -34,6 +40,12 @@ export interface Bank {
     currency: string;
     color: string;
     border: string;
+    startingAccountNumbers: string;
+    accounts:Account[];
+    route: string;
+    bankThemeId: number;
+    standingOrders:StandingOrders[];
+
 }
 
 export interface Account {
@@ -41,9 +53,10 @@ export interface Account {
     bank: string;
     name: string;
     balance: number;
+    transactions:TransactionData[];
 }
 
-interface Payee {
+export interface Payee {
     name: string;
     bank: string;
     accountNumber: string;
@@ -54,27 +67,57 @@ export interface TransactionData{
     "date": string,
     "reference": string,
     "bank": string,
-    "Account": string,
-    "Amount": string,
-    "Currency": string
+    "account": string,
+    "amount": string,
+    "currency": string,
+    "creditDebitStatus": string
 }
 
 export interface StandingOrders{
-    "ID": string,
-    "Reference": string,
-    "Bank": string,
-    "NextDate": string,
-    "Status": string,
-    "Amount": string,
-    "Currency": string,
+    "id": string,
+    "reference": string,
+    "bank": string,
+    "nextDate": string,
+    "status": string,
+    "amount": string,
+    "currency": string,
+}
+
+export interface Step {
+    id: string;
+    name: string;
+    component: string;
+}
+
+export interface UseCase {
+    id: string;
+    title: string;
+    steps: Step[];
+}
+
+export interface Type {
+    id: string;
+    title: string;
+    useCases: UseCase[];
+}
+
+export interface TableConfigs{
+    [key: string]: string;
+
+}
+
+export interface CustomColors{
+    [key: string]: string;
 }
 
 export interface Config {
     user: User;
     name: AppInfo;
     banks: Bank[];
-    accounts: Account[];
     payees: Payee[];
-    transactions: TransactionData[];
-    standingOrders: StandingOrders[];
+    types: Type[];
+    transactionTableHeaderData: TableConfigs[];
+    standingOrdersTableHeaderData: TableConfigs[];
+    colors: CustomColors[];
+    accountNumbersToAdd: string[];
 }

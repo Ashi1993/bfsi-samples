@@ -16,38 +16,18 @@
  * under the License.
  */
 
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.scss';
+import Root from './root.tsx';
 
-import {createRoot} from 'react-dom/client'
-import './index.scss'
-import {App} from './app.tsx'
-import React from 'react';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { HashRouter } from 'react-router-dom';
-import { queryClient } from './utility/query-client.ts';
-
-
-
-/**
- * @classdesc Renders the main React application into the DOM's 'root' element.
- * It sets up the application with client-side routing,
- * React Query for data fetching, and development-time checks.
- */
-
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 if (!rootElement) {
-  throw new Error("Root element with id 'root' not found");
+    throw new Error("Root element with id 'root' not found");
 }
-const root = createRoot(rootElement);
 
-root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-        <HashRouter>
-            <App />
-        </HashRouter>
-    </QueryClientProvider>
-  </React.StrictMode>
+createRoot(rootElement).render(
+    <StrictMode>
+        <Root />
+    </StrictMode>
 );
-
-
-

@@ -37,8 +37,6 @@
     <description>WSO2 Financial Services FDX Sample Toolkit</description>
 
     <modules>
-        <module>org.wso2.financial.services.fdx.extensions</module>
-        <module>org.wso2.financial.services.fdx.consent</module>
         <module>org.wso2.financial.services.fdx.identity</module>
     </modules>
 

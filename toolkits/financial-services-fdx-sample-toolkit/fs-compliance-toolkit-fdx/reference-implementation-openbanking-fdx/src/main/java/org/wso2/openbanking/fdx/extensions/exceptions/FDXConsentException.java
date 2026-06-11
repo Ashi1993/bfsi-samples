@@ -19,7 +19,7 @@ import org.wso2.openbanking.fdx.extensions.model.FailedResponseInConsentAuthoriz
 public class FDXConsentException extends Exception {
 
     /**
-     * Enum representing the error codes for UK consent exceptions.
+     * Enum representing the error codes for FDX consent exceptions.
      */
     public enum ErrorCode {
         BAD_REQUEST(400),

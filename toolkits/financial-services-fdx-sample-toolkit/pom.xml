@@ -37,7 +37,6 @@
     <modules>
         <module>fs-compliance-toolkit-fdx/reference-implementation-openbanking-fdx</module>
         <module>fs-compliance-toolkit-fdx/org.wso2.financial.services.fdx.identity</module>
-        <module>fs-compliance-toolkit-fdx/demo-backend</module>
     </modules>
 
     <profiles>

@@ -29,7 +29,7 @@ import org.wso2.openbanking.fdx.extensions.utils.FDXConsentRetrievalUtils;
 import javax.ws.rs.core.Response;
 
 /**
- * This class handles the UK specific authorization flow for consent management.
+ * This class handles the FDX specific authorization flow for consent management.
  */
 public class PopulateConsentAuthorizeScreenApiImpl {
 
@@ -80,7 +80,7 @@ public class PopulateConsentAuthorizeScreenApiImpl {
     }
 
     /**
-     * Basic consent retrieval step by UK specs.
+     * Basic consent retrieval step by FDX specs.
      *
      * @param requestBody
      */
@@ -104,7 +104,7 @@ public class PopulateConsentAuthorizeScreenApiImpl {
     }
 
     /**
-     * UK Account List Retrieval step.
+     * FDX Account List Retrieval step.
      */
     private static SuccessResponsePopulateConsentAuthorizeScreenDataConsumerData accountListRetrieval() {
 

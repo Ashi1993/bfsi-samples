@@ -25,7 +25,7 @@ import org.wso2.openbanking.fdx.extensions.utils.FDXConsentPersistUtils;
 import javax.ws.rs.core.Response;
 
 /**
- * This class handles the UK specific authorization flow for consent management.
+ * This class handles the FDX specific authorization flow for consent management.
  */
 public class PersistAuthorizedConsentApiImpl {
 

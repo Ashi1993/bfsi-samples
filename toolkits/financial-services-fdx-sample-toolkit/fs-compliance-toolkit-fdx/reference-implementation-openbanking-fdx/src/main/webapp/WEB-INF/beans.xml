@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ ~ Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+~
+~ his software is the property of WSO2 LLC. and its suppliers, if any.
+~ Dissemination of any information or reproduction of any material contained
+~ herein in any form is strictly forbidden, unless permitted by WSO2 expressly.
+~ You may not alter or remove any copyright or other notice from copies of this content.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+    <jaxrs:server id="consent" address="/">
+        <jaxrs:serviceBeans>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PersistAuthorizedConsentApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PreProcessConsentCreationApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.EnrichConsentCreationResponseApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PreProcessConsentRetrievalApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PreProcessConsentRevokeApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PopulateConsentAuthorizeScreenApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.ValidateConsentAccessApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.IssueRefreshTokenApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.ValidateAuthorizationRequestApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PreProcessClientCreationApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PreProcessClientUpdateApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.ValidateEventCreationApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.ValidateEventPollingApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.EnrichEventPollingResponseApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.ValidateEventSubscriptionApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.EnrichEventSubscriptionResponseApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.MapAcceleratorErrorResponseApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.EnrichConsentFileResponseApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.PreProcessConsentFileUploadApi"/>
+            <bean class="org.wso2.openbanking.fdx.extensions.api.ValidateConsentFileRetrievalApi"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+</beans>

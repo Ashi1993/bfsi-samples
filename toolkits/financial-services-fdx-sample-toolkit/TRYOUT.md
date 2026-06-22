@@ -8,6 +8,13 @@ authorization using the FDX API. The steps below cover:
 5. Redirecting the user to the authorization endpoint to complete consent authorization
 6. Exchanging the authorization code for an access token and calling a sample FDX API endpoint with the obtained token
 
+## Pre Steps
+
+Before starting the tryout, ensure you have the following prerequisites in place:
+
+1. Follow the instructions in [Configure IS 7.x as Key Manager](https://ob.docs.wso2.com/en/latest/get-started/configure-is-as-key-manager/) to set up your Identity Server instance for the tryout.
+2. Deploy the FDX APIs inside toolkits/financial-services-fdx-sample-toolkit/fdx-apis directory by referencing the [Deploy Open Banking APIs](https://ob.docs.wso2.com/en/latest/get-started/deploy-apis/) documentation.
+3. Configure API Resources, Users and Roles in the Identity Server as per the [Configure Users and Roles](https://ob.docs.wso2.com/en/latest/get-started/configure-users-and-roles/) documentation.
 
 ## Register DCR Application
 
@@ -30,7 +37,7 @@ permitted to request.
 Sample Request
 
 ```
-curl --location 'https://localhost:8243/fdxrecipientapi/6.5.0/register' \
+curl --location 'https://localhost:8243/fdxv6.5.0recipientapi/6.5.0/register' \
 --header 'accept: application/json' \
 --header 'x-fapi-interaction-id: c770aef3-6784-41f7-8e0e-ff5f97bddb3a' \
 --header 'FDX-API-Actor-Type: BATCH' \
@@ -278,7 +285,7 @@ curl --location 'https://<IS_HOSTNAME>:<IS_PORT>/api/server/v1/api-resources/' \
 }'
 ```
 
-Sample Repsonse
+Sample Response
 ```
 {
     "id": "0e927a81-6e33-4584-a755-cfc78b644514",
@@ -414,6 +421,10 @@ Sample Repsonse
     "properties": []
 }
 ```
+
+After registering the authorization details type, you need to assign the new resource to the users to allow them to 
+request the scopes define in the new api resource. You can do this by creating a new role, assigning the api resource to 
+the role and then assigning the role to the users.
 
 ## Retrieve application ID using the Client ID
 

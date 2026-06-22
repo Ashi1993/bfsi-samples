@@ -105,8 +105,10 @@ Extension point contracts are defined in `fs-compliance-toolkit-fdx/reference-im
 
 ## Installation and Setup
 
-1. Goto fs-compliance-toolkit-fdx/reference-implementation-openbanking-fdx/target/ folder and host the `api#reference-implementation#ob#fdx.war`
-2. in a preferred location and get the base URL.
+1. Configure Accelerator servers (IS and APIM) as per the instructions in the [WSO2 documentation](https://ob.docs.wso2.com/en/latest/get-started/quick-start-guide/).
+
+2. Goto fs-compliance-toolkit-fdx/reference-implementation-openbanking-fdx/target/ folder and host the `api#reference-implementation#ob#fdx.war`
+3in a preferred location and get the base URL.
 
 NOTE:
 - If you are hosting this in WSO2 Identity Server copy the `api#reference-implementation#ob#fdx.war` to the

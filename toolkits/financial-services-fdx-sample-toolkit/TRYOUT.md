@@ -835,3 +835,91 @@ request as `fdxConsentId`.
 as per the consented permissions.
 
 - You can use the user access token and the `fdxConsentId` to make API calls to the resource server to retrieve and revoke the consent.
+
+## Retrieve Consent
+
+You can retrieve the consent details using the `fdxConsentId` obtained from the token response as below:
+
+```
+curl --location 'https://localhost:8243/fdxv6.0.0consentapi/6.0.0/consents/<fdxConsentId>' \
+--header 'Authorization: Bearer <USER_ACCESS_TOKEN>' \
+```
+
+Sample Response
+
+```json
+{
+    "updatedTime": "2026-06-24T06:53:11Z",
+    "lookbackPeriod": 90,
+    "createdTime": "2026-06-24T06:53:11Z",
+    "resources": [
+        {
+            "dataClusters": [
+                "ACCOUNT_BASIC",
+                "ACCOUNT_DETAILED",
+                "TRANSACTIONS",
+                "CUSTOMER_PERSONAL",
+                "CUSTOMER_CONTACT"
+            ],
+            "resourceId": "9deab8ca-9e2b-430f-8e08-d46ee6debc0b",
+            "resourceType": "ACCOUNT"
+        }
+    ],
+    "links": [
+        {
+            "action": "GET",
+            "href": "/consents/c8ba8734-72f9-4c73-802e-689b1331b5fa"
+        }
+    ],
+    "id": "c8ba8734-72f9-4c73-802e-689b1331b5fa",
+    "durationType": "PERSISTENT",
+    "status": "ACTIVE"
+}
+```
+
+## Accounts Retrieval
+
+Once the user approves the account consent, the TPP is eligible to access the account details of the user. The TPP can now 
+invoke the GET /accounts endpoint using the user access token received in the previous step.
+
+Sample Request
+```
+curl --location 'https://localhost:8243/fdxv6.0.0coreapi/6.0.0/accounts' \
+--header 'accept: application/json' \
+--header 'x-fapi-interaction-id: c770aef3-6784-41f7-8e0e-ff5f97bddb3a' \
+--header 'FDX-API-Actor-Type: BATCH' \
+--header 'Authorization: Bearer <USER_ACCESS_TOKEN>' \
+```
+
+Sample Response
+```json
+{
+    "page": {
+        "nextOffset": "2",
+        "totalElements": 3
+    },
+    "links": {
+        "next": {
+            "href": "/accounts?offSet=2&limit=10"
+        }
+    },
+    "accounts": [
+        {
+            "accountCategory": "DEPOSIT_ACCOUNT",
+            "accountId": "30080012343456",
+            "accountType": "CHECKING",
+            "accountNumberDisplay": "XXXX4443",
+            "nickname": "My Checking Acc XXXX4443",
+            "status": "OPEN",
+            "balanceType": "ASSET",
+            "currency": {
+                "currencyCode": "USD"
+            },
+            "balanceAsOf": "2017-11-05T13:15:30.751Z",
+            "currentBalance": 332.22,
+            "openingDayBalance": 100.0,
+            "availableBalance": 332.22
+        }
+    ]
+}
+```

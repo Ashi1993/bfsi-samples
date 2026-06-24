@@ -93,77 +93,135 @@ public class AccountService {
                                   @HeaderParam("Account-Request-Information") String accountRequestInfo)
             throws ParseException {
 
-        JSONObject accountRequestInformation = getRequest(accountRequestInfo);
-        JSONArray permissions = getPermissions(accountRequestInformation);
-        // API v4 updated parameters.
-        String accountType = "AccountType";
-        String accountSubType = "AccountSubType";
-        String accountSubTypeValue = "CurrentAccount";
-        String sortCodeAccountNumber = "SortCodeAccountNumber";
-
-        if (permissions.contains(OBExternalPermissions1Code.ReadAccountsDetail.name())) {
-            String response = "{\n" +
-                "  \"Data\": {\n" +
-                "    \"Account\": [\n" +
+        String response = "{\n" +
+                "  \"accountCategory\": \"DEPOSIT_ACCOUNT\",\n" +
+                "  \"accountId\": \"" + accountId + "\",\n" +
+                "  \"accountType\": \"CHECKING\",\n" +
+                "  \"accountNumber\": \"" + accountId + "\",\n" +
+                "  \"accountNumberDisplay\": \"XXXX4443\",\n" +
+                "  \"productName\": \"Premier Checking\",\n" +
+                "  \"nickname\": \"My Checking Acc XXXX4443\",\n" +
+                "  \"status\": \"OPEN\",\n" +
+                "  \"description\": \"Personal Checking Account\",\n" +
+                "  \"accountOpenDate\": \"2015-06-01\",\n" +
+                "  \"balanceType\": \"ASSET\",\n" +
+                "  \"routingTransitNumber\": \"021000021\",\n" +
+                "  \"lineOfBusiness\": \"CONSUMER\",\n" +
+                "  \"currency\": {\n" +
+                "    \"currencyCode\": \"USD\"\n" +
+                "  },\n" +
+                "  \"interestRate\": 0.01,\n" +
+                "  \"interestRateType\": \"FIXED\",\n" +
+                "  \"interestRateAsOf\": \"2024-01-01T00:00:00.000Z\",\n" +
+                "  \"transferIn\": true,\n" +
+                "  \"transferOut\": true,\n" +
+                "  \"billPayStatus\": \"ALLOWED\",\n" +
+                "  \"micrNumber\": \"30080012343456\",\n" +
+                "  \"lastActivityDate\": \"2017-11-05\",\n" +
+                "  \"domicile\": {\n" +
+                "    \"country\": \"US\",\n" +
+                "    \"region\": \"NY\"\n" +
+                "  },\n" +
+                "  \"contact\": {\n" +
+                "    \"holders\": [\n" +
                 "      {\n" +
-                "        \"AccountId\": \"" + accountId + "\",\n" +
-                "        \"Status\": \"Enabled\",\n" +
-                "        \"StatusUpdateDateTime\": \"2020-04-16T06:06:06+00:00\",\n" +
-                "        \"Currency\": \"GBP\",\n" +
-                "        \"" + accountType + "\": \"Personal\",\n" +
-                "        \"" + accountSubType + "\": \"" + accountSubTypeValue + "\",\n" +
-                "        \"Nickname\": \"Bills\",\n" +
-                "        \"OpeningDate\": \"2020-01-16T06:06:06+00:00\",\n" +
-                "        \"MaturityDate\": \"2025-04-16T06:06:06+00:00\",\n" +
-                "        \"Account\": [{\n" +
-                "          \"SchemeName\": \"" + sortCodeAccountNumber + "\",\n" +
-                "          \"Identification\": \"" + accountId + "\",\n" +
-                "          \"Name\": \"Mr Kevin\",\n" +
-                "          \"SecondaryIdentification\": \"00021\"\n" +
-                "        }]\n" +
+                "        \"relationship\": \"PRIMARY\",\n" +
+                "        \"name\": {\n" +
+                "          \"first\": \"John\",\n" +
+                "          \"middle\": \"A\",\n" +
+                "          \"last\": \"Doe\",\n" +
+                "          \"suffix\": \"Jr\",\n" +
+                "          \"prefix\": \"Mr\"\n" +
+                "        },\n" +
+                "        \"dateOfBirth\": \"1980-05-15\",\n" +
+                "        \"emails\": [\n" +
+                "          \"john.doe@example.com\"\n" +
+                "        ],\n" +
+                "        \"addresses\": [\n" +
+                "          {\n" +
+                "            \"type\": \"HOME\",\n" +
+                "            \"line1\": \"123 Main Street\",\n" +
+                "            \"line2\": \"Apt 4B\",\n" +
+                "            \"city\": \"New York\",\n" +
+                "            \"region\": \"NY\",\n" +
+                "            \"postalCode\": \"10001\",\n" +
+                "            \"country\": \"US\"\n" +
+                "          }\n" +
+                "        ],\n" +
+                "        \"telephones\": [\n" +
+                "          {\n" +
+                "            \"type\": \"CELL\",\n" +
+                "            \"country\": \"1\",\n" +
+                "            \"number\": \"2125550199\"\n" +
+                "          }\n" +
+                "        ]\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"emails\": [\n" +
+                "      \"john.doe@example.com\"\n" +
+                "    ],\n" +
+                "    \"addresses\": [\n" +
+                "      {\n" +
+                "        \"type\": \"HOME\",\n" +
+                "        \"line1\": \"123 Main Street\",\n" +
+                "        \"line2\": \"Apt 4B\",\n" +
+                "        \"city\": \"New York\",\n" +
+                "        \"region\": \"NY\",\n" +
+                "        \"postalCode\": \"10001\",\n" +
+                "        \"country\": \"US\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"telephones\": [\n" +
+                "      {\n" +
+                "        \"type\": \"CELL\",\n" +
+                "        \"country\": \"1\",\n" +
+                "        \"number\": \"2125550199\"\n" +
                 "      }\n" +
                 "    ]\n" +
                 "  },\n" +
-                "  \"Links\": {\n" +
-                "    \"Self\": \"https://api.alphabank.com/open-banking/v3.0/accounts/" + accountId +
-                "\"\n" +
-                "  },\n" +
-                "  \"Meta\": {\n" +
-                "    \"TotalPages\": 1\n" +
-                "  }\n" +
-                "}";
-            return Response.status(200).entity(response)
-                    .header("x-fapi-interaction-id", xFapiInteractionId).build();
-        } else if (permissions.contains(OBExternalPermissions1Code.ReadAccountsBasic.name())) {
-            String response = "{\n" +
-                "  \"Data\": {\n" +
-                "    \"Account\": [\n" +
-                "      {\n" +
-                "        \"AccountId\": \"" + accountId + "\",\n" +
-                "        \"Status\": \"Enabled\",\n" +
-                "        \"StatusUpdateDateTime\": \"2020-04-16T06:06:06+00:00\",\n" +
-                "        \"Currency\": \"GBP\",\n" +
-                "        \"" + accountType + "\": \"Personal\",\n" +
-                "        \"" + accountSubType + "\": \"" + accountSubTypeValue + "\",\n" +
-                "        \"Nickname\": \"Bills\",\n" +
-                "        \"OpeningDate\": \"2020-01-16T06:06:06+00:00\",\n" +
-                "        \"MaturityDate\": \"2025-04-16T06:06:06+00:00\"\n" +
+                "  \"balanceAsOf\": \"2017-11-05T13:15:30.751Z\",\n" +
+                "  \"currentBalance\": 332.22,\n" +
+                "  \"openingDayBalance\": 100.0,\n" +
+                "  \"availableBalance\": 320.00,\n" +
+                "  \"annualPercentageYield\": 0.01,\n" +
+                "  \"interestYtd\": 1.25,\n" +
+                "  \"transactions\": [\n" +
+                "    {\n" +
+                "      \"accountId\": \"" + accountId + "\",\n" +
+                "      \"transactionId\": \"TXN100001\",\n" +
+                "      \"referenceTransactionId\": \"REF100001\",\n" +
+                "      \"postedTimestamp\": \"2017-11-05T13:15:30.751Z\",\n" +
+                "      \"transactionTimestamp\": \"2017-11-05T12:00:00.000Z\",\n" +
+                "      \"description\": \"Direct Deposit - XYZ Corp Payroll\",\n" +
+                "      \"debitCreditMemo\": \"CREDIT\",\n" +
+                "      \"amount\": 1200.42,\n" +
+                "      \"status\": \"POSTED\",\n" +
+                "      \"transactionType\": \"DIRECTDEPOSIT\",\n" +
+                "      \"payee\": \"XYZ Corp\",\n" +
+                "      \"currency\": {\n" +
+                "        \"currencyCode\": \"USD\"\n" +
                 "      }\n" +
-                "    ]\n" +
-                "  },\n" +
-                "  \"Links\": {\n" +
-                "    \"Self\": \"https://api.alphabank.com/open-banking/v3.0/accounts/" + accountId +
-                "\"\n" +
-                "  },\n" +
-                "  \"Meta\": {\n" +
-                "    \"TotalPages\": 1\n" +
-                "  }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"accountId\": \"" + accountId +"\",\n" +
+                "      \"transactionId\": \"TXN100002\",\n" +
+                "      \"referenceTransactionId\": \"REF100002\",\n" +
+                "      \"postedTimestamp\": \"2017-11-05T13:15:31.751Z\",\n" +
+                "      \"transactionTimestamp\": \"2017-11-05T11:30:00.000Z\",\n" +
+                "      \"description\": \"ATM Withdrawal - Broadway & 42nd\",\n" +
+                "      \"debitCreditMemo\": \"DEBIT\",\n" +
+                "      \"amount\": 200.00,\n" +
+                "      \"status\": \"POSTED\",\n" +
+                "      \"transactionType\": \"ATMWITHDRAWAL\",\n" +
+                "      \"payee\": \"Account Owner\",\n" +
+                "      \"currency\": {\n" +
+                "        \"currencyCode\": \"USD\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  ]\n" +
                 "}";
-            return Response.status(200).entity(response)
-                    .header("x-fapi-interaction-id", xFapiInteractionId).build();
-        }
-
-        return Response.status(403).build();
+        return Response.status(200).entity(response)
+                .header("x-fapi-interaction-id", xFapiInteractionId).build();
     }
 
     /**

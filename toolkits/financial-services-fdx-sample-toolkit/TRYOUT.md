@@ -36,7 +36,7 @@ permitted to request.
 
 Sample Request
 
-```
+```bash
 curl --location 'https://localhost:8243/fdxv6.5.0recipientapi/6.5.0/register' \
 --header 'accept: application/json' \
 --header 'x-fapi-interaction-id: c770aef3-6784-41f7-8e0e-ff5f97bddb3a' \
@@ -155,7 +155,7 @@ enforced during token issuance. Use the `POST /api/server/v1/api-resources` endp
 Save the returned `id` — you will need it to authorize the application in the next step.
 
 Sample Request
-```
+```bash
 curl --location 'https://<IS_HOSTNAME>:<IS_PORT>/api/server/v1/api-resources/' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic <BASIC_AUTH_CREDENTIALS>' \
@@ -477,7 +477,7 @@ with the SP `id` retrieved in the previous step.
 A `200 OK` response confirms the authorization detail type is now enabled for the application.
 
 Sample Request
-```
+```bash
 curl --location 'https://localhost:9446/api/server/v1/applications/a3709414-1922-49fa-af83-37e54e1c8226/authorized-apis' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic aXNfYWRtaW5Ad3NvMi5jb206d3NvMjEyMw==' \
@@ -595,7 +595,7 @@ the browser-based authorization redirect within this window.
 **Note:** Replace `{{request_object}}` and `{{client_assertion}}` with the actual signed JWTs generated using the Data 
 Recipient's private key. Sample values are provided below the curl command for reference.
 
-```
+```bash
 curl --location 'https://localhost:9446/oauth2/par' \
 --header 'Accept: */*' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -758,7 +758,7 @@ The authorization code from the below URL is in the code parameter (code=5df248f
 ## Generate user access token
 
 You can generate a user access token using the sample request given below:
-```
+```bash
 curl --location 'https://localhost:9446/oauth2/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --header 'X-External-Traffic: true' \
@@ -840,7 +840,7 @@ as per the consented permissions.
 
 You can retrieve the consent details using the `fdxConsentId` obtained from the token response as below:
 
-```
+```bash
 curl --location 'https://localhost:8243/fdxv6.0.0consentapi/6.0.0/consents/<fdxConsentId>' \
 --header 'Authorization: Bearer <USER_ACCESS_TOKEN>' \
 ```
@@ -883,7 +883,7 @@ Once the user approves the account consent, the TPP is eligible to access the ac
 invoke the GET /accounts endpoint using the user access token received in the previous step.
 
 Sample Request
-```
+```bash
 curl --location 'https://localhost:8243/fdxv6.0.0coreapi/6.0.0/accounts' \
 --header 'accept: application/json' \
 --header 'x-fapi-interaction-id: c770aef3-6784-41f7-8e0e-ff5f97bddb3a' \

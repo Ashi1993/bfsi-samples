@@ -40,6 +40,10 @@ public class AccountService {
             throws ParseException {
 
         JSONObject accountRequestInformation = getRequest(accountRequestInfo);
+        if (accountRequestInformation == null) {
+            return Response.status(400).entity("{\"error\": \"Invalid Account-Request-Information header\"}")
+                    .header("x-fapi-interaction-id", xFapiInteractionId).build();
+        }
         List<String> accountRequestIds = getAccountIds(accountRequestInformation);
 
         StringBuilder builder = new StringBuilder();
@@ -92,6 +96,12 @@ public class AccountService {
                                   @HeaderParam("x-fapi-interaction-id") String xFapiInteractionId,
                                   @HeaderParam("Account-Request-Information") String accountRequestInfo)
             throws ParseException {
+
+        JSONObject accountRequestInformation = getRequest(accountRequestInfo);
+        if (accountRequestInformation == null) {
+            return Response.status(400).entity("{\"error\": \"Invalid Account-Request-Information header\"}")
+                    .header("x-fapi-interaction-id", xFapiInteractionId).build();
+        }
 
         String response = "{\n" +
                 "  \"accountCategory\": \"DEPOSIT_ACCOUNT\",\n" +

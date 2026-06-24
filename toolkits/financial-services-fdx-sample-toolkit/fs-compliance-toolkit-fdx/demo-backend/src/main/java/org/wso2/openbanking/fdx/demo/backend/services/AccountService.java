@@ -224,65 +224,6 @@ public class AccountService {
                 .header("x-fapi-interaction-id", xFapiInteractionId).build();
     }
 
-    /**
-     * OBExternalPermissions1Code enum.
-     */
-    public enum OBExternalPermissions1Code {
-        ReadAccountsBasic("Allow access to read basic account information."),
-        //"Permission to read basic account information."),
-        ReadAccountsDetail("Allow access to additional elements in the account payload"),
-        //("Access to additional elements in the account payload."),
-        ReadBalances("Allow access to read all balance information."),
-        //("Permission to read all balance information."),
-        ReadBeneficiariesBasic("Allow access to read basic beneficiary details"),
-        //("Permission to read basic beneficiary details."),
-        ReadBeneficiariesDetail("Allow access to additional elements in the beneficiaries payload"),
-        //("Access to additional elements in the beneficiaries payload."),
-        ReadDirectDebits("Allow access to read all direct debit information"),
-        //("Permission to read all direct debit information."),
-        ReadStandingOrdersBasic("Allow access to read basic standing order information."),
-        //("Permission to read standing order information."),
-        ReadStandingOrdersDetail("Allow access to read detailed standing order information."),
-        //("Access to additional elements in the standing-orders payload."),
-        ReadTransactionsBasic("Allow access to read basic transactions information."),
-        //("Permission to read basic transaction information."),
-        ReadTransactionsDetail("Allow access to read detailed transactions information."),
-        //("Access to additional elements in the transactions payload."),
-        ReadTransactionsCredits("Allow access to read credit transactions information."),
-        //("Access to only credit transactions."),
-        ReadTransactionsDebits("Allow access to read debit transactions information."),
-        //("Access to only debit transactions.")
-        ReadProducts("Allow access to read product information."),
-        //"Permission to read all product information."
-
-        ReadStatementsBasic("Allow access to read basic statement details."),
-
-        ReadStatementsDetail("Allow access to read detailed statement details."),
-
-        ReadOffers("Allow access to read all offer information."),
-
-        ReadParty("Allow access to read party information on the account owner."),
-
-        ReadPartyPSU("Allow access to read party information on the PSU logged in."),
-
-        ReadScheduledPaymentsBasic("Allow access to read basic scheduled payments details."),
-
-        ReadScheduledPaymentsDetail("Allow access to read detailed scheduled payments details."),
-
-        ReadPAN("Request to access PAN in the clear across the available endpoints.");
-
-        private String oBExternalPermissions1Code;
-
-        OBExternalPermissions1Code(String desc) {
-            this.oBExternalPermissions1Code = desc;
-        }
-
-        public String getoBExternalPermissions1Code() {
-            return this.oBExternalPermissions1Code;
-        }
-    }
-
-
     private static JSONObject getRequest(String json) throws ParseException {
         String[] splitString = json.split("\\.");
         String base64EncodedBody = splitString[1];
@@ -301,13 +242,6 @@ public class AccountService {
             accountIds.add((String) resource.get("account_id"));
         }
         return accountIds;
-    }
-
-    private static JSONArray getPermissions(JSONObject json) throws ParseException {
-        JSONObject receipt = (JSONObject) json.get("receipt");
-        JSONObject data = (JSONObject) receipt.get("Data");
-        return (JSONArray) data.get("Permissions");
-
     }
 
 }

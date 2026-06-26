@@ -22,7 +22,7 @@ Dynamic Client Registration (DCR) allows a Data Recipient application to registe
 Authorization Server without manual intervention. This is the first step in the FDX onboarding flow and must be 
 completed before any consent or data-sharing operations can take place.
 
-Before registering the application, you need to publish the [fdxapi.recipient-registration.yaml](fdx-apis/openapi-310/fdxapi.recipient-registration.yaml). 
+Before registering the application, you need to publish the [fdxapi.recipient-registration.yaml](fdx-apis/openapi-300/fdxapi.recipient-registration.yaml). 
 Refer [Tryout Dynamic Client Registration](https://ob.docs.wso2.com/en/latest/get-started/dynamic-client-registration/) 
 documentation for more details on how to publish the API.
 
